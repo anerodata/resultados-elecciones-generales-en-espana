@@ -1,0 +1,56 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0px;
+}
+
+div#main{
+  width: 100%;
+  max-width: 640px;
+  margin: auto;
+}
+
+footer{
+  overflow: auto;
+}
+
+footer p{
+  font-size: 12px;
+  opacity: 0.9;
+  width: 80%;
+  float: left;
+}
+
+footer img{
+  width: 110px;
+  opacity: 0.7;
+
+}
+
+footer a{
+  display: block;
+  float: right;
+  margin: 10px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  footer{
+    text-align: center;
+  }
+
+  footer p{
+    font-size: 10px;
+    width: 100%;
+  }
+
+  footer img{
+    width: 90px;
+  }
+
+  footer a{
+    float: none;
+    display: inline;
+  }
+}
