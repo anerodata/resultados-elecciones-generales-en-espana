@@ -54,3 +54,96 @@ footer a{
     display: inline;
   }
 }
+
+
+
+
+*{
+  font-family: 'Roboto', sans-serif;
+
+}
+body{
+  overflow-x: hidden;
+}
+table, td, th {  
+  border: 1px solid #ddd;
+  text-align: left;
+}
+div#main{
+  width: 100%;
+  max-width: 100%;
+}
+table {
+  border-collapse: collapse;
+
+  width: 100%;
+  margin-top: 25px 
+}	
+
+th, td {
+  padding: 15px;
+}
+
+td{
+  position: relative;
+  width: 173px;
+
+}
+
+td img{
+  width:20px;
+  display:block;
+
+  opacity:0.7;
+}
+
+td canvas{
+  position: absolute;
+  top: 4px;
+  left: 4px;
+}
+
+td:nth-child(1){
+  width: 127px;
+}
+
+td:nth-child(4){
+  width: 66px;
+}
+
+button{
+  display: block; 
+  margin: 10px auto; 
+  width: 100px; 
+  height: 25px; 
+  cursor: pointer;
+}
+
+
+
+div#tooltip{
+  position:absolute;
+  z-index:1;
+  background-color:white;
+  pointer-events:none;
+  border: 1px solid;
+  padding: 5px;
+}
+
+.displayNone{
+  display:none;
+}
+
+h1{
+  font-weight: normal;
+}
+
+select{
+  height: 25px;
+  display: block;
+  float: left;
+
+}
+header{
+  overflow: auto;
+}

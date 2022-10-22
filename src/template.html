@@ -7,6 +7,23 @@
 <body>
   <div class="container">
     <h3>My project</h3>
+    <div id="main">
+      <article id="content" class="displayHidden">
+        <header>
+          <h1>Sigue el recuento por provincias en directo</h1>
+          <P>Cada punto representa 1.000 electores y cada cuadrado grande, 100.000</P>
+          <p style="float: left; margin: 0 10px 0 0">Filtra por provincia:</p><select id="select"></select>
+        </header>
+        <div id="tooltip" class="displayNone">xxxxx</div>
+      </article>
+      <div><button id="more">Ver más</button></div>
+      <footer id="footer">
+        <p style="display: none;">Fuente:xxx xx</p>
+        <a href="https://www.elconfidencial.com/" title="El Confidencial" target="__blank">
+          <img src="src/img/logo.png">
+        </a>
+      </footer>
+    </div>
   </div>
 </body>
 </html>
