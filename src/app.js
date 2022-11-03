@@ -93,92 +93,7 @@ function app () {
   let start = 0
   let limit = 5
   let count
-
   let provTable = get_prov_table()
-
-  const party = [
-    {
-      Partido: 'PP',
-      Código: 38
-    },
-    {
-      Partido: 'PSOE',
-      Código: 40
-    },
-    {
-      Partido: 'VOX',
-      Código: 52
-    },
-    {
-      Partido: 'Cs',
-      Código: 10
-    },
-    {
-      Partido: 'Unidas Podemos',
-      Código: 37
-    },
-    {
-      Partido: 'Más País',
-      Código: 12578
-    },
-
-    {
-      Partido: 'En Común Podem',
-      Código: 14
-    },
-
-    {
-      Partido: 'ERC',
-      Código: 17
-    },
-
-    {
-      Partido: 'JxCat',
-      Código: 691
-    },
-
-    {
-      Partido: 'CUP',
-      Código: 508
-    },
-
-    {
-      Partido: 'PNV',
-      Código: 478
-    },
-
-    {
-      Partido: 'Bildu',
-      Código: 15
-    },
-
-    {
-      Partido: 'PRC',
-      Código: 115
-    },
-
-    {
-      Partido: 'CC',
-      Código: 4
-    },
-
-    {
-      Partido: 'BNG',
-      Código: 90
-    },
-
-    {
-      Partido: 'Teruel Existe',
-      Código: 12579
-    },
-
-    {
-      Partido: 'NA+',
-      Código: 692
-    }
-
-    // ERC, JUNTS, CUP  -  PNV, BILDU  -  PRC  -  CC  -  BNG  -  TERUEL EXISTE  -  NA+
-  ]
   // select
   const $select = document.getElementById('select')
   const $divTooltip = document.getElementById('tooltip')
@@ -189,7 +104,6 @@ function app () {
   let dataset
   let abst
   let abstPrevious
-
   // dataset
   const multiple = 1000
   const colorAbst = '#767373'
@@ -380,7 +294,7 @@ function app () {
       {
         nombre: 'Unidas Podemos',
         color: 'red',
-        votesNum: 51.827,
+        votesNum: 2000,
         votesPreviousNum: 31.346,
         par_meta_id: 37,
         dif: 20.480999999999998
@@ -501,19 +415,19 @@ function app () {
     const $tbody = document.createElement('tbody')
     $table.appendChild($tbody)
     for (let i = 0; i < dataset.length; i++) {
-      var $tRB = document.createElement('tr')
+      const $tRB = document.createElement('tr')
       $tbody.appendChild($tRB)
 
-      var $tD0 = document.createElement('td')
-      var $tD1 = document.createElement('td')
-      var $tD2 = document.createElement('td')
-      var $tD3 = document.createElement('td')
+      const $tD0 = document.createElement('td')
+      const $tD1 = document.createElement('td')
+      const $tD2 = document.createElement('td')
+      const $tD3 = document.createElement('td')
       $tRB.appendChild($tD0)
       $tRB.appendChild($tD1)
       $tRB.appendChild($tD2)
       $tRB.appendChild($tD3)
 
-      var name = document.createTextNode(dataset[i].nombre)
+      const name = document.createTextNode(dataset[i].nombre)
       $tD0.appendChild(name)
       $tD0.style = 'font-weight:bold; color:' + dataset[i].color
 
@@ -555,10 +469,10 @@ function app () {
     var $tRB = document.createElement('tr')
     $tbody.appendChild($tRB)
 
-    $tD0 = document.createElement('td')
-    $tD1 = document.createElement('td')
-    $tD2 = document.createElement('td')
-    $tD3 = document.createElement('td')
+    const $tD0 = document.createElement('td')
+    const $tD1 = document.createElement('td')
+    const $tD2 = document.createElement('td')
+    const $tD3 = document.createElement('td')
     $tRB.appendChild($tD0)
     $tRB.appendChild($tD1)
     $tRB.appendChild($tD2)
