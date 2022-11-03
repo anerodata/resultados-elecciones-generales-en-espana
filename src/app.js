@@ -236,11 +236,6 @@ function app () {
           prov[j].drawn = true
         }
       }
-      /* var $div = create_div_prov('01');
-    dataset = get_dataset(data, '01');
-    feed_table_mvl('01', 'Pepito');
-    set_height() */
-
       const $div = create_div_prov(provTable[i]['Código'])// REMOTO
       get_data($div.id.split('_')[1], provTable[i].Literal)// REMOTO
     }
@@ -256,6 +251,7 @@ function app () {
         $divTooltip.style.left = x + 5 + 'px'
         $divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
+        console.log(color)
         const votes = this.getAttribute('data-num')
         $divTooltip.style.color = color
         $divTooltip.style.fontWeight = 'bold'
@@ -380,661 +376,56 @@ function app () {
   }
 
   function get_data (codigo, nombre, mode) {
-    // var $div = create_div_prov(codigo);
-    const data = {
-      status: true,
-      message: null,
-      time: 1572897053,
-      format: 'json',
-      options: [],
-      callback: null,
-      trace: null,
-      data: {
-        places: {
-          28: {
-            pla_encode_name: 'pais-vascoaraba-alava',
-            pla_url: 'https://www.elconfidencial.dev/elecciones-generales/resultado-34/pais-vasco/araba-alava/',
-            pla_name: 'Araba/Álava',
-            pla_typ_id: 3,
-            pla_ele_id: 34,
-            pla_id: '28',
-            pla_parent_id: 'CA16',
-            total_members: 4,
-            participation: {
-              par_pla_id: 1,
-              par_abstention: 85248,
-              par_percent_abstention: 33.49,
-              par_blank_votes: 1078,
-              par_percent_blank_votes: 0.64,
-              par_null_votes: 1691,
-              par_percent_null_votes: 1,
-              par_total_votes: 169331,
-              par_percent_total_votes: 66.51,
-              par_percent_counted: 100
-            },
-            results: [
-              {
-                res_par_ele_id: 34,
-                res_par_id: 54,
-                res_pla_id: 1,
-                res_votes: 51827,
-                res_percent_votes: 30.92,
-                res_members: 1,
-                res_party: {
-                  par_id: 54,
-                  par_parent_id: 59,
-                  par_ele_id: 34,
-                  par_name: 'Unidos Podemos ',
-                  par_alias: 'Unidos Podemos ',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 59,
-                  par_superparty_name: 'Unidos Podemos',
-                  par_superparty_alias: 'Unidos Podemos',
-                  par_meta_id: 37,
-                  par_meta_name: 'Unidas Podemos',
-                  par_meta_alias: 'Unidas Podemos'
-                },
-                res_votes_previous: 31346,
-                res_percent_votes_previous: 17.73,
-                res_members_previous: 1
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 68,
-                res_pla_id: 1,
-                res_votes: 34276,
-                res_percent_votes: 20.45,
-                res_members: 1,
-                res_party: {
-                  par_id: 68,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Partido Popular',
-                  par_alias: 'PP',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 68,
-                  par_superparty_name: 'Partido Popular',
-                  par_superparty_alias: 'PP',
-                  par_meta_id: 38,
-                  par_meta_name: 'Partido Popular',
-                  par_meta_alias: 'PP'
-                },
-                res_votes_previous: 24304,
-                res_percent_votes_previous: 13.75,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 16,
-                res_pla_id: 1,
-                res_votes: 26703,
-                res_percent_votes: 15.93,
-                res_members: 1,
-                res_party: {
-                  par_id: 16,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Partido Nacionalista Vasco',
-                  par_alias: 'PNV',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 16,
-                  par_superparty_name: 'Partido Nacionalista Vasco',
-                  par_superparty_alias: 'PNV',
-                  par_meta_id: 11,
-                  par_meta_name: 'Partido Nacionalista Vasco',
-                  par_meta_alias: 'PNV'
-                },
-                res_votes_previous: 40199,
-                res_percent_votes_previous: 22.74,
-                res_members_previous: 1
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 76,
-                res_pla_id: 1,
-                res_votes: 26381,
-                res_percent_votes: 15.74,
-                res_members: 1,
-                res_party: {
-                  par_id: 76,
-                  par_parent_id: 77,
-                  par_ele_id: 34,
-                  par_name: 'Partido Socialista de Euskadi ',
-                  par_alias: 'PSE-PSOE',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 77,
-                  par_superparty_name: 'Partido Socialista Obrero Español',
-                  par_superparty_alias: 'PSOE',
-                  par_meta_id: 40,
-                  par_meta_name: 'Partido Socialista Obrero Español',
-                  par_meta_alias: 'PSOE'
-                },
-                res_votes_previous: 39595,
-                res_percent_votes_previous: 22.4,
-                res_members_previous: 1
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 23,
-                res_pla_id: 1,
-                res_votes: 15858,
-                res_percent_votes: 9.46,
-                res_members: 0,
-                res_party: {
-                  par_id: 23,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Euskal Herria Bildu',
-                  par_alias: 'EH Bildu',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 23,
-                  par_superparty_name: 'Euskal Herria Bildu',
-                  par_superparty_alias: 'EH Bildu',
-                  par_meta_id: 15,
-                  par_meta_name: 'Euskal Herria Bildu',
-                  par_meta_alias: 'EH Bildu'
-                },
-                res_votes_previous: 24687,
-                res_percent_votes_previous: 13.96,
-                res_members_previous: 1
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 13,
-                res_pla_id: 1,
-                res_votes: 8372,
-                res_percent_votes: 4.99,
-                res_members: 0,
-                res_party: {
-                  par_id: 13,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Ciudadanos ',
-                  par_alias: 'Cs',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 13,
-                  par_superparty_name: 'Ciudadanos ',
-                  par_superparty_alias: 'Cs',
-                  par_meta_id: 10,
-                  par_meta_name: 'Ciudadanos ',
-                  par_meta_alias: 'Cs'
-                },
-                res_votes_previous: 7039,
-                res_percent_votes_previous: 3.98,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 41,
-                res_pla_id: 1,
-                res_votes: 1657,
-                res_percent_votes: 0.99,
-                res_members: 0,
-                res_party: {
-                  par_id: 41,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_alias: 'PACMA',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 41,
-                  par_superparty_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_superparty_alias: 'PACMA',
-                  par_meta_id: 29,
-                  par_meta_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_meta_alias: 'PACMA'
-                },
-                res_votes_previous: 1863,
-                res_percent_votes_previous: 1.05,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 81,
-                res_pla_id: 1,
-                res_votes: 599,
-                res_percent_votes: 0.36,
-                res_members: 0,
-                res_party: {
-                  par_id: 81,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Recortes Cero - Grupo Verde',
-                  par_alias: 'Recortes Cero - Grupo Verde',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 81,
-                  par_superparty_name: 'Recortes Cero - Grupo Verde',
-                  par_superparty_alias: 'Recortes Cero - Grupo Verde',
-                  par_meta_id: 43,
-                  par_meta_name: 'Recortes Cero - Grupo Verde',
-                  par_meta_alias: 'Recortes Cero - Grupo Verde'
-                },
-                res_votes_previous: 533,
-                res_percent_votes_previous: 0.3,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 94,
-                res_pla_id: 1,
-                res_votes: 306,
-                res_percent_votes: 0.18,
-                res_members: 0,
-                res_party: {
-                  par_id: 94,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Vox',
-                  par_alias: 'Vox',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 94,
-                  par_superparty_name: 'Vox',
-                  par_superparty_alias: 'Vox',
-                  par_meta_id: 52,
-                  par_meta_name: 'Vox',
-                  par_meta_alias: 'Vox'
-                },
-                res_votes_previous: 5587,
-                res_percent_votes_previous: 3.16,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 93,
-                res_pla_id: 1,
-                res_votes: 298,
-                res_percent_votes: 0.18,
-                res_members: 0,
-                res_party: {
-                  par_id: 93,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Unión Progreso y Democracia',
-                  par_alias: 'UPYD',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 93,
-                  par_superparty_name: 'Unión Progreso y Democracia',
-                  par_superparty_alias: 'UPYD',
-                  par_meta_id: 51,
-                  par_meta_name: 'Unión Progreso y Democracia',
-                  par_meta_alias: 'UPYD'
-                },
-                res_votes_previous: 0,
-                res_percent_votes_previous: 0,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 49,
-                res_pla_id: 1,
-                res_votes: 211,
-                res_percent_votes: 0.13,
-                res_members: 0,
-                res_party: {
-                  par_id: 49,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Partido Comunista de los Pueblos de España',
-                  par_alias: 'PCPE',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 49,
-                  par_superparty_name: 'Partido Comunista de los Pueblos de España',
-                  par_superparty_alias: 'PCPE',
-                  par_meta_id: 31,
-                  par_meta_name: 'Partido Comunista de los Pueblos de España',
-                  par_meta_alias: 'PCPE'
-                },
-                res_votes_previous: 0,
-                res_percent_votes_previous: 0,
-                res_members_previous: 0
-              },
-              {
-                res_par_ele_id: 34,
-                res_par_id: 38,
-                res_pla_id: 1,
-                res_votes: 74,
-                res_percent_votes: 0.04,
-                res_members: 0,
-                res_party: {
-                  par_id: 38,
-                  par_parent_id: null,
-                  par_ele_id: 34,
-                  par_name: 'Libertad Navarra ',
-                  par_alias: 'LN',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 38,
-                  par_superparty_name: 'Libertad Navarra ',
-                  par_superparty_alias: 'LN',
-                  par_meta_id: 27,
-                  par_meta_name: 'Libertad Navarra ',
-                  par_meta_alias: 'LN'
-                },
-                res_votes_previous: 0,
-                res_percent_votes_previous: 0,
-                res_members_previous: 0
-              }
-            ]
-          }
-        },
-        placePrevious: {
-          28: {
-            pla_encode_name: 'pais-vascoaraba-alava',
-            pla_url: 'https://www.elconfidencial.dev/elecciones-generales/resultado-38/pais-vasco/araba-alava/',
-            pla_name: 'Araba/Álava',
-            pla_typ_id: 3,
-            pla_ele_id: 38,
-            pla_id: 28,
-            pla_parent_id: 'CA16',
-            total_members: 4,
-            participation: {
-              par_pla_id: 1,
-              par_abstention: 72295,
-              par_percent_abstention: 28.81,
-              par_blank_votes: 1064,
-              par_percent_blank_votes: 0.6,
-              par_null_votes: 1828,
-              par_percent_null_votes: 1.02,
-              par_total_votes: 178613,
-              par_percent_total_votes: 71.19,
-              par_percent_counted: 100
-            },
-            results: [
-              {
-                res_par_ele_id: 38,
-                res_par_id: 27,
-                res_pla_id: 1,
-                res_votes: 40199,
-                res_percent_votes: 22.74,
-                res_members: 1,
-                res_party: {
-                  par_id: 27,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Partido Nacionalista Vasco',
-                  par_alias: 'PNV',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 27,
-                  par_superparty_name: 'Partido Nacionalista Vasco',
-                  par_superparty_alias: 'PNV',
-                  par_meta_id: 11,
-                  par_meta_name: 'Partido Nacionalista Vasco',
-                  par_meta_alias: 'PNV'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 94,
-                res_pla_id: 1,
-                res_votes: 39595,
-                res_percent_votes: 22.4,
-                res_members: 1,
-                res_party: {
-                  par_id: 94,
-                  par_parent_id: 96,
-                  par_ele_id: 38,
-                  par_name: 'Partido Socialista de Euskadi ',
-                  par_alias: 'PSE-PSOE',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 96,
-                  par_superparty_name: 'Partido Socialista Obrero Español',
-                  par_superparty_alias: 'PSOE',
-                  par_meta_id: 40,
-                  par_meta_name: 'Partido Socialista Obrero Español',
-                  par_meta_alias: 'PSOE'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 80,
-                res_pla_id: 1,
-                res_votes: 31346,
-                res_percent_votes: 17.73,
-                res_members: 1,
-                res_party: {
-                  par_id: 80,
-                  par_parent_id: 77,
-                  par_ele_id: 38,
-                  par_name: 'Unidas Podemos',
-                  par_alias: 'Unidas Podemos',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 77,
-                  par_superparty_name: 'Unidas Podemos',
-                  par_superparty_alias: 'Unidas Podemos',
-                  par_meta_id: 37,
-                  par_meta_name: 'Unidas Podemos',
-                  par_meta_alias: 'Unidas Podemos'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 33,
-                res_pla_id: 1,
-                res_votes: 24687,
-                res_percent_votes: 13.96,
-                res_members: 1,
-                res_party: {
-                  par_id: 33,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Euskal Herria Bildu',
-                  par_alias: 'EH Bildu',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 33,
-                  par_superparty_name: 'Euskal Herria Bildu',
-                  par_superparty_alias: 'EH Bildu',
-                  par_meta_id: 15,
-                  par_meta_name: 'Euskal Herria Bildu',
-                  par_meta_alias: 'EH Bildu'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 83,
-                res_pla_id: 1,
-                res_votes: 24304,
-                res_percent_votes: 13.75,
-                res_members: 0,
-                res_party: {
-                  par_id: 83,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Partido Popular',
-                  par_alias: 'PP',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 83,
-                  par_superparty_name: 'Partido Popular',
-                  par_superparty_alias: 'PP',
-                  par_meta_id: 38,
-                  par_meta_name: 'Partido Popular',
-                  par_meta_alias: 'PP'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 22,
-                res_pla_id: 1,
-                res_votes: 7039,
-                res_percent_votes: 3.98,
-                res_members: 0,
-                res_party: {
-                  par_id: 22,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Ciudadanos',
-                  par_alias: 'Cs',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 22,
-                  par_superparty_name: 'Ciudadanos',
-                  par_superparty_alias: 'Cs',
-                  par_meta_id: 10,
-                  par_meta_name: 'Ciudadanos ',
-                  par_meta_alias: 'Cs'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 117,
-                res_pla_id: 1,
-                res_votes: 5587,
-                res_percent_votes: 3.16,
-                res_members: 0,
-                res_party: {
-                  par_id: 117,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Vox',
-                  par_alias: 'Vox',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 117,
-                  par_superparty_name: 'Vox',
-                  par_superparty_alias: 'Vox',
-                  par_meta_id: 52,
-                  par_meta_name: 'Vox',
-                  par_meta_alias: 'Vox'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 54,
-                res_pla_id: 1,
-                res_votes: 1863,
-                res_percent_votes: 1.05,
-                res_members: 0,
-                res_party: {
-                  par_id: 54,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_alias: 'PACMA',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 54,
-                  par_superparty_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_superparty_alias: 'PACMA',
-                  par_meta_id: 29,
-                  par_meta_name: 'Partido Animalista Contra el Maltrato Animal',
-                  par_meta_alias: 'PACMA'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 104,
-                res_pla_id: 1,
-                res_votes: 533,
-                res_percent_votes: 0.3,
-                res_members: 0,
-                res_party: {
-                  par_id: 104,
-                  par_parent_id: null,
-                  par_ele_id: 38,
-                  par_name: 'Recortes Cero - Grupo Verde',
-                  par_alias: 'Recortes Cero - Grupo Verde',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 104,
-                  par_superparty_name: 'Recortes Cero - Grupo Verde',
-                  par_superparty_alias: 'Recortes Cero - Grupo Verde',
-                  par_meta_id: 43,
-                  par_meta_name: 'Recortes Cero - Grupo Verde',
-                  par_meta_alias: 'Recortes Cero - Grupo Verde'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 101,
-                res_pla_id: 1,
-                res_votes: 335,
-                res_percent_votes: 0.19,
-                res_members: 0,
-                res_party: {
-                  par_id: 101,
-                  par_parent_id: 100,
-                  par_ele_id: 38,
-                  par_name: 'Por Un Mundo Más Justo',
-                  par_alias: 'PUM+J',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 100,
-                  par_superparty_name: 'Por Un Mundo Más Justo',
-                  par_superparty_alias: 'PUM+J',
-                  par_meta_id: 65,
-                  par_meta_name: 'Por Un Mundo Más Justo',
-                  par_meta_alias: 'PUM+J'
-                }
-              },
-              {
-                res_par_ele_id: 38,
-                res_par_id: 67,
-                res_pla_id: 1,
-                res_votes: 233,
-                res_percent_votes: 0.13,
-                res_members: 0,
-                res_party: {
-                  par_id: 67,
-                  par_parent_id: 66,
-                  par_ele_id: 38,
-                  par_name: 'Partido Comunista de los Trabajadores de Euskadi',
-                  par_alias: 'PCTE',
-                  par_color: '#C6A15B',
-                  par_img: null,
-                  par_data: null,
-                  par_superparty_id: 66,
-                  par_superparty_name: 'Partido Comunista de los Trabajadores de España',
-                  par_superparty_alias: 'PCTE',
-                  par_meta_id: 472,
-                  par_meta_name: 'Partido Comunista de los Trabajadores',
-                  par_meta_alias: 'PCTE'
-                }
-              }
-            ]
-          }
-        }
+    dataset = [
+      {
+        nombre: 'Unidas Podemos',
+        color: 'red',
+        votesNum: 51.827,
+        votesPreviousNum: 31.346,
+        par_meta_id: 37,
+        dif: 20.480999999999998
+      },
+      {
+        nombre: 'PP',
+        color: '#C6A15B',
+        votesNum: 34.276,
+        votesPreviousNum: 24.304,
+        par_meta_id: 38,
+        dif: 9.972000000000005
+      },
+      {
+        nombre: 'PSOE',
+        color: '#C6A15B',
+        votesNum: 26.381,
+        votesPreviousNum: 39.595,
+        par_meta_id: 40,
+        dif: -13.213999999999999
+      },
+      {
+        nombre: 'EH Bildu',
+        color: '#C6A15B',
+        votesNum: 15.858,
+        votesPreviousNum: 24.687,
+        par_meta_id: 15,
+        dif: -8.829
+      },
+      {
+        nombre: 'Cs',
+        color: '#C6A15B',
+        votesNum: 8.372,
+        votesPreviousNum: 7.039,
+        par_meta_id: 10,
+        dif: 1.3330000000000002
+      },
+      {
+        nombre: 'Vox',
+        color: '#C6A15B',
+        votesNum: 0.306,
+        votesPreviousNum: 5.587,
+        par_meta_id: 52,
+        dif: -5.281
       }
-    }
-
-    console.log(data, codigo, mode)
-    dataset = get_dataset(data, codigo)
+    ]
     if (mode === 'up') {
       const $div = create_div_prov(codigo)
       repos_div('prov_' + codigo)
@@ -1045,43 +436,6 @@ function app () {
   }
 
   function get_dataset (data, codigo) {
-    const placePrevious = data.data.placePrevious[codigo].results
-    console.log(placePrevious)
-    const places = data.data.places[codigo].results
-    let parMetaId
-    const res = []
-    abst = data.data.places[codigo].participation.par_abstention / multiple
-    abstPrevious = data.data.placePrevious[codigo].participation.par_abstention / multiple
-    count = data.data.places[codigo].participation.par_percent_counted
-
-    console.log(places)
-    for (var i = 0; i < places.length; i++) {
-      parMetaId = places[i].res_party.par_meta_id
-
-      console.log(party)
-      party.forEach(function (d) {
-        console.log(d)
-        if (d['Código'] === parMetaId) {
-          res.push({
-            nombre: places[i].res_party.par_meta_alias,
-            color: places[i].res_party.par_color,
-            votesNum: places[i].res_votes / multiple,
-            votesPreviousNum: places[i].res_votes_previous / multiple,
-            par_meta_id: d['Código'],
-            dif: places[i].res_votes / multiple - places[i].res_votes_previous / multiple
-          })
-        }
-      })
-    }
-    res.sort(function (a, b) {
-      if (a.votesNum < b.votesNum) {
-        return 1
-      } else if (a.votesNum > b.votesNum) {
-        return -1
-      } else {
-        return 0
-      }
-    })
     return res
   }
 
@@ -1167,7 +521,7 @@ function app () {
       $canvasPrev.classList.add('canvas_' + dataset[i].par_meta_id)
       $canvasPrev.classList.add('canvas_10n')
       $canvasPrev.setAttribute('width', width + 'px')
-      $canvasPrev.setAttribute('data-color', dataset[i].color)
+      $canvasPrev.setAttribute('data-color', 'red')
       $canvasPrev.setAttribute('data-num', dataset[i].votesPreviousNum)
       $tD1.appendChild($canvasPrev)
       get_chart(width, $canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
@@ -1181,7 +535,7 @@ function app () {
       $canvasNow.classList.add('canvas_' + dataset[i].par_meta_id)
       $canvasNow.classList.add('canvas_28a')
       $canvasNow.setAttribute('width', width + 'px')
-      $canvasNow.setAttribute('data-color', dataset[i].color)
+      $canvasNow.setAttribute('data-color', 'red')
       $canvasNow.setAttribute('data-num', dataset[i].votesNum)
 
       $tD2.appendChild($canvasNow)
