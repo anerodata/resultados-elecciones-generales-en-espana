@@ -331,10 +331,6 @@ function app () {
     setEventTooltip()
   }
 
-  function get_dataset (data, codigo) {
-    return res
-  }
-
   function get_src (diff) {
     if (diff > 0) {
       return 'src/img/up.png'
