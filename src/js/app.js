@@ -1,12 +1,11 @@
 import * as d3 from 'd3'
 import { provinces } from './constants.js'
-console.log(provinces)
-function buildChart (width, $canvas, numNodes, sep, widthSq, color) {
+function buildChart (width, canvas, numNodes, sep, widthSq, color) {
   let height = 0
   const customBase = document.createElement('custom')
   customBase.id = 'custom'
   buildModel(d3.select(customBase))
-  draw($canvas, d3.select(customBase))
+  draw(canvas, d3.select(customBase))
   function buildModel (custom) {
     let iX = 0
     let iY = 0
@@ -81,15 +80,14 @@ function buildChart (width, $canvas, numNodes, sep, widthSq, color) {
 }
 
 function app () {
-  const $divMain = document.getElementById('main')
-  const $divContent = document.getElementById('content')
+  const divMain = document.getElementById('main')
   const prov = [{ Código: '28', Literal: 'Madrid', Index: '1' }]
   let start = 0
   let limit = 5
   let count
   let provTable = buildProvTable()
   // select
-  const $divTooltip = document.getElementById('tooltip')
+  const divTooltip = document.getElementById('tooltip')
   // cuadros
   let width
   let widthSq = 3
@@ -100,27 +98,27 @@ function app () {
   // dataset
   const multiple = 1000
   const colorAbst = '#767373'
-  if ($divMain.clientWidth < 373) {
+  if (divMain.clientWidth < 373) {
     width = 60
     widthSq = 1.5
     sep = 1.2
-  } else if ($divMain.clientWidth < 430) {
+  } else if (divMain.clientWidth < 430) {
     width = 90
     widthSq = 1.2
     sep = 1.2
-  } else if ($divMain.clientWidth < 480) {
+  } else if (divMain.clientWidth < 480) {
     width = 110
     widthSq = 1.7
     sep = 1.7
-  } else if ($divMain.clientWidth < 640) {
+  } else if (divMain.clientWidth < 640) {
     width = 150
     widthSq = 1.7
     sep = 1.7
-  } else if ($divMain.clientWidth < 825) {
+  } else if (divMain.clientWidth < 825) {
     widthSq = 1.7
     sep = 1.7
     width = 210
-  } else if ($divMain.clientWidth < 890) {
+  } else if (divMain.clientWidth < 890) {
     widthSq = 2
     sep = 2
     width = 300
@@ -143,8 +141,8 @@ function app () {
           prov[j].drawn = true
         }
       }
-      const $div = create_div_prov(provTable[i].code)// REMOTO
-      get_data($div.id.split('_')[1], provTable[i].name)// REMOTO
+      const div = create_div_prov(provTable[i].code)// REMOTO
+      get_data(div.id.split('_')[1], provTable[i].name)// REMOTO
     }
   }
 
@@ -154,14 +152,14 @@ function app () {
         handleMouseMove()
         const x = event.pageX
         const y = event.pageY
-        $divTooltip.classList.remove('displayNone')
-        $divTooltip.style.left = x + 5 + 'px'
-        $divTooltip.style.top = y - 30 + 'px'
+        divTooltip.classList.remove('displayNone')
+        divTooltip.style.left = x + 5 + 'px'
+        divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
         console.log(color)
         const votes = this.getAttribute('data-num')
-        $divTooltip.style.color = color
-        $divTooltip.style.fontWeight = 'bold'
+        divTooltip.style.color = color
+        divTooltip.style.fontWeight = 'bold'
         let textVar = ''
         if (this.classList.contains('canvas_abst')) {
           textVar = 'personas'
@@ -169,11 +167,11 @@ function app () {
           textVar = 'votantes'
         }
 
-        $divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
+        divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
       }
 
       document.getElementsByTagName('canvas')[i].onmouseout = function () {
-        $divTooltip.classList.add('displayNone')
+        divTooltip.classList.add('displayNone')
       }
     }
 
@@ -182,18 +180,18 @@ function app () {
         handleMouseMove()
         const x = event.pageX
         const y = event.pageY
-        $divTooltip.classList.remove('displayNone')
-        $divTooltip.style.left = x + 5 + 'px'
-        $divTooltip.style.top = y - 30 + 'px'
+        divTooltip.classList.remove('displayNone')
+        divTooltip.style.left = x + 5 + 'px'
+        divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
         const votes = this.getAttribute('data-num')
-        $divTooltip.style.color = color
-        $divTooltip.style.fontWeight = 'bold'
-        $divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
+        divTooltip.style.color = color
+        divTooltip.style.fontWeight = 'bold'
+        divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
       }
 
       document.getElementsByClassName('imgVar')[i].onmouseout = function () {
-        $divTooltip.classList.add('displayNone')
+        divTooltip.classList.add('displayNone')
       }
     }
   }
@@ -245,16 +243,18 @@ function app () {
   }
 
   function repos_div (idDiv) {
-    const $divProv = document.getElementById(idDiv)
-    return $divContent.insertBefore($divProv, $divContent.childNodes[2])
+    const divContent = document.getElementById('content')
+    const divProv = document.getElementById(idDiv)
+    return divContent.insertBefore(divProv, divContent.childNodes[2])
   }
 
   function create_div_prov (id) {
-    const $div = document.createElement('div')
-    $div.classList.add('prov')
-    $div.id = 'prov_' + id
-    $divContent.appendChild($div)
-    return $div
+    const divContent = document.getElementById('content')
+    const div = document.createElement('div')
+    div.classList.add('prov')
+    div.id = 'prov_' + id
+    divContent.appendChild(div)
+    return div
   }
 
   function insertAndShift (arr, from, to) {
@@ -323,7 +323,7 @@ function app () {
       }
     ]
     if (mode === 'up') {
-      const $div = create_div_prov(codigo)
+      const div = create_div_prov(codigo)
       repos_div('prov_' + codigo)
     }
     feed_table_mvl(codigo, nombre)
@@ -365,136 +365,136 @@ function app () {
   }
 
   function feed_table_mvl (idProv, nombre) {
-    const $table = document.createElement('table')
-    document.getElementById('prov_' + idProv).appendChild($table)
+    const table = document.createElement('table')
+    document.getElementById('prov_' + idProv).appendChild(table)
 
-    const $tHead = document.createElement('thead')
-    $table.appendChild($tHead)
+    const tHead = document.createElement('thead')
+    table.appendChild(tHead)
 
-    const $tRH = document.createElement('tr')
-    $tHead.appendChild($tRH)
+    const tRH = document.createElement('tr')
+    tHead.appendChild(tRH)
 
-    let $tD = document.createElement('th')
-    let $tDText = document.createTextNode(nombre + ' (al ' + String(count).replace('.', ',') + '%)')
-    $tD.appendChild($tDText)
+    let tD = document.createElement('th')
+    let tDText = document.createTextNode(nombre + ' (al ' + String(count).replace('.', ',') + '%)')
+    tD.appendChild(tDText)
 
-    $tRH.appendChild($tD)
-    $tD = document.createElement('th')
-    $tDText = document.createTextNode('28-A')
-    $tD.appendChild($tDText)
-    $tRH.appendChild($tD)
+    tRH.appendChild(tD)
+    tD = document.createElement('th')
+    tDText = document.createTextNode('28-A')
+    tD.appendChild(tDText)
+    tRH.appendChild(tD)
 
-    $tD = document.createElement('th')
-    $tDText = document.createTextNode('10-N')
-    $tD.appendChild($tDText)
-    $tRH.appendChild($tD)
+    tD = document.createElement('th')
+    tDText = document.createTextNode('10-N')
+    tD.appendChild(tDText)
+    tRH.appendChild(tD)
 
-    $tD = document.createElement('th')
-    $tDText = document.createTextNode('Variación')
-    $tD.appendChild($tDText)
-    $tRH.appendChild($tD)
+    tD = document.createElement('th')
+    tDText = document.createTextNode('Variación')
+    tD.appendChild(tDText)
+    tRH.appendChild(tD)
 
-    const $tbody = document.createElement('tbody')
-    $table.appendChild($tbody)
+    const tbody = document.createElement('tbody')
+    table.appendChild(tbody)
     for (let i = 0; i < dataset.length; i++) {
-      const $tRB = document.createElement('tr')
-      $tbody.appendChild($tRB)
+      const tRB = document.createElement('tr')
+      tbody.appendChild(tRB)
 
-      const $tD0 = document.createElement('td')
-      const $tD1 = document.createElement('td')
-      const $tD2 = document.createElement('td')
-      const $tD3 = document.createElement('td')
-      $tRB.appendChild($tD0)
-      $tRB.appendChild($tD1)
-      $tRB.appendChild($tD2)
-      $tRB.appendChild($tD3)
+      const tD0 = document.createElement('td')
+      const tD1 = document.createElement('td')
+      const tD2 = document.createElement('td')
+      const tD3 = document.createElement('td')
+      tRB.appendChild(tD0)
+      tRB.appendChild(tD1)
+      tRB.appendChild(tD2)
+      tRB.appendChild(tD3)
 
       const name = document.createTextNode(dataset[i].nombre)
-      $tD0.appendChild(name)
-      $tD0.style = 'font-weight:bold; color:' + dataset[i].color
+      tD0.appendChild(name)
+      tD0.style = 'font-weight:bold; color:' + dataset[i].color
 
-      const $canvasPrev = document.createElement('canvas')
-      $canvasPrev.classList.add('canvas_' + dataset[i].par_meta_id)
-      $canvasPrev.classList.add('canvas_10n')
-      $canvasPrev.setAttribute('width', width + 'px')
-      $canvasPrev.setAttribute('data-color', 'red')
-      $canvasPrev.setAttribute('data-num', dataset[i].votesPreviousNum)
-      $tD1.appendChild($canvasPrev)
-      buildChart(width, $canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
-      // $tD1.style = 'width:'+($canvasPrev.width+30)+'px';
-      $tD1.style = 'width:' + ($canvasPrev.width + 30) + 'px; height:' + ($canvasPrev.height) + 'px'
+      const canvasPrev = document.createElement('canvas')
+      canvasPrev.classList.add('canvas_' + dataset[i].par_meta_id)
+      canvasPrev.classList.add('canvas_10n')
+      canvasPrev.setAttribute('width', width + 'px')
+      canvasPrev.setAttribute('data-color', 'red')
+      canvasPrev.setAttribute('data-num', dataset[i].votesPreviousNum)
+      tD1.appendChild(canvasPrev)
+      buildChart(width, canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
+      // tD1.style = 'width:'+(canvasPrev.width+30)+'px';
+      tD1.style = 'width:' + (canvasPrev.width + 30) + 'px; height:' + (canvasPrev.height) + 'px'
       // IE
-      $tD1.width = $canvasPrev.width + 30
-      $tD1.height = $canvasPrev.height
+      tD1.width = canvasPrev.width + 30
+      tD1.height = canvasPrev.height
 
-      const $canvasNow = document.createElement('canvas')
-      $canvasNow.classList.add('canvas_' + dataset[i].par_meta_id)
-      $canvasNow.classList.add('canvas_28a')
-      $canvasNow.setAttribute('width', width + 'px')
-      $canvasNow.setAttribute('data-color', 'red')
-      $canvasNow.setAttribute('data-num', dataset[i].votesNum)
+      const canvasNow = document.createElement('canvas')
+      canvasNow.classList.add('canvas_' + dataset[i].par_meta_id)
+      canvasNow.classList.add('canvas_28a')
+      canvasNow.setAttribute('width', width + 'px')
+      canvasNow.setAttribute('data-color', 'red')
+      canvasNow.setAttribute('data-num', dataset[i].votesNum)
 
-      $tD2.appendChild($canvasNow)
-      buildChart(width, $canvasNow, Math.round(dataset[i].votesNum), sep, widthSq, dataset[i].color)
-      $tD2.style = 'width:' + ($canvasNow.width + 30) + 'px; height:' + ($canvasNow.height) + 'px'
+      tD2.appendChild(canvasNow)
+      buildChart(width, canvasNow, Math.round(dataset[i].votesNum), sep, widthSq, dataset[i].color)
+      tD2.style = 'width:' + (canvasNow.width + 30) + 'px; height:' + (canvasNow.height) + 'px'
       // IE
-      $tD2.width = $canvasNow.width + 30
-      $tD2.height = $canvasNow.height
+      tD2.width = canvasNow.width + 30
+      tD2.height = canvasNow.height
 
-      var $img = document.createElement('img')
-      $img.src = get_src(dataset[i].dif)
-      $img.classList.add('imgVar')
-      $img.setAttribute('data-num', dataset[i].dif)
-      $img.setAttribute('data-color', get_color(dataset[i].dif))
-      $tD3.appendChild($img)
+      var img = document.createElement('img')
+      img.src = get_src(dataset[i].dif)
+      img.classList.add('imgVar')
+      img.setAttribute('data-num', dataset[i].dif)
+      img.setAttribute('data-color', get_color(dataset[i].dif))
+      tD3.appendChild(img)
     }
-    var $tRB = document.createElement('tr')
-    $tbody.appendChild($tRB)
+    var tRB = document.createElement('tr')
+    tbody.appendChild(tRB)
 
-    const $tD0 = document.createElement('td')
-    const $tD1 = document.createElement('td')
-    const $tD2 = document.createElement('td')
-    const $tD3 = document.createElement('td')
-    $tRB.appendChild($tD0)
-    $tRB.appendChild($tD1)
-    $tRB.appendChild($tD2)
-    $tRB.appendChild($tD3)
+    const tD0 = document.createElement('td')
+    const tD1 = document.createElement('td')
+    const tD2 = document.createElement('td')
+    const tD3 = document.createElement('td')
+    tRB.appendChild(tD0)
+    tRB.appendChild(tD1)
+    tRB.appendChild(tD2)
+    tRB.appendChild(tD3)
 
     var name = document.createTextNode('Abstención')
-    $tD0.appendChild(name)
+    tD0.appendChild(name)
 
-    const $canvasAbstPrev = document.createElement('canvas')
-    $canvasAbstPrev.classList.add('canvas_abst')
-    $canvasAbstPrev.setAttribute('width', width + 'px')
-    $canvasAbstPrev.setAttribute('data-color', 'black')
-    $canvasAbstPrev.setAttribute('data-num', abstPrevious)
-    $tD1.appendChild($canvasAbstPrev)
-    buildChart(width, $canvasAbstPrev, Math.round(abstPrevious), sep, widthSq, colorAbst)
-    // $tD1.style = 'width:'+($canvasNow.width+30)+'px';
-    $tD1.style = 'width:' + ($canvasAbstPrev.width + 30) + 'px; height:' + ($canvasAbstPrev.height) + 'px'
+    const canvasAbstPrev = document.createElement('canvas')
+    canvasAbstPrev.classList.add('canvas_abst')
+    canvasAbstPrev.setAttribute('width', width + 'px')
+    canvasAbstPrev.setAttribute('data-color', 'black')
+    canvasAbstPrev.setAttribute('data-num', abstPrevious)
+    tD1.appendChild(canvasAbstPrev)
+    buildChart(width, canvasAbstPrev, Math.round(abstPrevious), sep, widthSq, colorAbst)
+    // tD1.style = 'width:'+(canvasNow.width+30)+'px';
+    tD1.style = 'width:' + (canvasAbstPrev.width + 30) + 'px; height:' + (canvasAbstPrev.height) + 'px'
     // IE
-    $tD1.width = $canvasAbstPrev.width + 30
-    $tD1.height = $canvasAbstPrev.height
+    tD1.width = canvasAbstPrev.width + 30
+    tD1.height = canvasAbstPrev.height
 
-    const $canvasAbstNow = document.createElement('canvas')
-    $canvasAbstNow.classList.add('canvas_abst')
-    $canvasAbstNow.setAttribute('width', width + 'px')
-    $canvasAbstNow.setAttribute('data-color', 'black')
-    $canvasAbstNow.setAttribute('data-num', abst)
-    $tD2.appendChild($canvasAbstNow)
-    buildChart(width, $canvasAbstNow, Math.round(abst), sep, widthSq, colorAbst)
-    // $tD1.style = 'width:'+($canvasNow.width+30)+'px';
-    $tD2.style = 'width:' + ($canvasAbstNow.width + 30) + 'px; height:' + ($canvasAbstNow.height) + 'px'
+    const canvasAbstNow = document.createElement('canvas')
+    canvasAbstNow.classList.add('canvas_abst')
+    canvasAbstNow.setAttribute('width', width + 'px')
+    canvasAbstNow.setAttribute('data-color', 'black')
+    canvasAbstNow.setAttribute('data-num', abst)
+    tD2.appendChild(canvasAbstNow)
+    buildChart(width, canvasAbstNow, Math.round(abst), sep, widthSq, colorAbst)
+    // tD1.style = 'width:'+(canvasNow.width+30)+'px';
+    tD2.style = 'width:' + (canvasAbstNow.width + 30) + 'px; height:' + (canvasAbstNow.height) + 'px'
     // IE
-    $tD2.width = $canvasAbstNow.width + 30
-    $tD2.height = $canvasAbstNow.height
+    tD2.width = canvasAbstNow.width + 30
+    tD2.height = canvasAbstNow.height
 
-    $img = document.createElement('img')
-    $img.src = get_src(abst - abstPrevious)
-    $img.classList.add('imgVar')
-    $img.setAttribute('data-num', (abst - abstPrevious))
-    $img.setAttribute('data-color', get_color(abst - abstPrevious))
-    $tD3.appendChild($img)
+    img = document.createElement('img')
+    img.src = get_src(abst - abstPrevious)
+    img.classList.add('imgVar')
+    img.setAttribute('data-num', (abst - abstPrevious))
+    img.setAttribute('data-color', get_color(abst - abstPrevious))
+    tD3.appendChild(img)
   }
 
   function handleMouseMove (event) {
