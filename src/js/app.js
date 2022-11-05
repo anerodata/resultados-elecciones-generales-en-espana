@@ -441,14 +441,14 @@ function app () {
       tD2.width = canvasNow.width + 30
       tD2.height = canvasNow.height
 
-      var img = document.createElement('img')
+      const img = document.createElement('img')
       img.src = get_src(dataset[i].dif)
       img.classList.add('imgVar')
       img.setAttribute('data-num', dataset[i].dif)
       img.setAttribute('data-color', get_color(dataset[i].dif))
       tD3.appendChild(img)
     }
-    var tRB = document.createElement('tr')
+    const tRB = document.createElement('tr')
     tbody.appendChild(tRB)
 
     const tD0 = document.createElement('td')
@@ -460,7 +460,7 @@ function app () {
     tRB.appendChild(tD2)
     tRB.appendChild(tD3)
 
-    var name = document.createTextNode('Abstención')
+    const name = document.createTextNode('Abstención')
     tD0.appendChild(name)
 
     const canvasAbstPrev = document.createElement('canvas')
@@ -489,7 +489,7 @@ function app () {
     tD2.width = canvasAbstNow.width + 30
     tD2.height = canvasAbstNow.height
 
-    img = document.createElement('img')
+    const img = document.createElement('img')
     img.src = get_src(abst - abstPrevious)
     img.classList.add('imgVar')
     img.setAttribute('data-num', (abst - abstPrevious))
@@ -499,7 +499,7 @@ function app () {
 
   function handleMouseMove (event) {
     // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
-    let dot, eventDoc, doc, body, pageX, pageY
+    let eventDoc, doc, body
     event = event || window.event // IE-ism
     // If pageX/Y aren't available and clientX/Y
     // are, calculate pageX/Y - logic taken from jQuery
@@ -510,11 +510,11 @@ function app () {
       body = eventDoc.body
 
       event.pageX = event.clientX +
-        (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-        (doc && doc.clientLeft || body && body.clientLeft || 0)
+        ((doc && doc.scrollLeft) || ((body && body.scrollLeft) || 0)) -
+        ((doc && doc.clientLeft) || ((body && body.clientLeft) || 0))
       event.pageY = event.clientY +
-        (doc && doc.scrollTop || body && body.scrollTop || 0) -
-        (doc && doc.clientTop || body && body.clientTop || 0)
+        ((doc && doc.scrollTop) || ((body && body.scrollTop) || 0)) -
+        ((doc && doc.clientTop) || ((body && body.clientTop) || 0))
     }
   }
 }
