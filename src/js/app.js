@@ -1,20 +1,13 @@
 import * as d3 from 'd3'
 import { provinces } from './constants.js'
 console.log(provinces)
-function get_chart (width, $canvas, numNodes, sep, widthSq, color) {
-  var width = width
+function buildChart (width, $canvas, numNodes, sep, widthSq, color) {
   let height = 0
-  var sep = sep
-  var color = color
-  var $canvas = $canvas
-  let customBase
-  let custom
-
-  customBase = document.createElement('custom')
+  const customBase = document.createElement('custom')
   customBase.id = 'custom'
-  get_model(d3.select(customBase))
+  buildModel(d3.select(customBase))
   draw($canvas, d3.select(customBase))
-  function get_model (custom) {
+  function buildModel (custom) {
     let iX = 0
     let iY = 0
     let bStart = true
@@ -156,7 +149,7 @@ function app () {
   }
 
   function setEventTooltip () {
-    for (var i = 0; i < document.getElementsByTagName('canvas').length; i++) {
+    for (let i = 0; i < document.getElementsByTagName('canvas').length; i++) {
       document.getElementsByTagName('canvas')[i].onmousemove = function (e) {
         handleMouseMove()
         const x = event.pageX
@@ -184,7 +177,7 @@ function app () {
       }
     }
 
-    for (var i = 0; i < document.getElementsByClassName('imgVar').length; i++) {
+    for (let i = 0; i < document.getElementsByClassName('imgVar').length; i++) {
       document.getElementsByClassName('imgVar')[i].onmousemove = function (e) {
         handleMouseMove()
         const x = event.pageX
@@ -427,7 +420,7 @@ function app () {
       $canvasPrev.setAttribute('data-color', 'red')
       $canvasPrev.setAttribute('data-num', dataset[i].votesPreviousNum)
       $tD1.appendChild($canvasPrev)
-      get_chart(width, $canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
+      buildChart(width, $canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
       // $tD1.style = 'width:'+($canvasPrev.width+30)+'px';
       $tD1.style = 'width:' + ($canvasPrev.width + 30) + 'px; height:' + ($canvasPrev.height) + 'px'
       // IE
@@ -442,7 +435,7 @@ function app () {
       $canvasNow.setAttribute('data-num', dataset[i].votesNum)
 
       $tD2.appendChild($canvasNow)
-      get_chart(width, $canvasNow, Math.round(dataset[i].votesNum), sep, widthSq, dataset[i].color)
+      buildChart(width, $canvasNow, Math.round(dataset[i].votesNum), sep, widthSq, dataset[i].color)
       $tD2.style = 'width:' + ($canvasNow.width + 30) + 'px; height:' + ($canvasNow.height) + 'px'
       // IE
       $tD2.width = $canvasNow.width + 30
@@ -476,7 +469,7 @@ function app () {
     $canvasAbstPrev.setAttribute('data-color', 'black')
     $canvasAbstPrev.setAttribute('data-num', abstPrevious)
     $tD1.appendChild($canvasAbstPrev)
-    get_chart(width, $canvasAbstPrev, Math.round(abstPrevious), sep, widthSq, colorAbst)
+    buildChart(width, $canvasAbstPrev, Math.round(abstPrevious), sep, widthSq, colorAbst)
     // $tD1.style = 'width:'+($canvasNow.width+30)+'px';
     $tD1.style = 'width:' + ($canvasAbstPrev.width + 30) + 'px; height:' + ($canvasAbstPrev.height) + 'px'
     // IE
@@ -489,7 +482,7 @@ function app () {
     $canvasAbstNow.setAttribute('data-color', 'black')
     $canvasAbstNow.setAttribute('data-num', abst)
     $tD2.appendChild($canvasAbstNow)
-    get_chart(width, $canvasAbstNow, Math.round(abst), sep, widthSq, colorAbst)
+    buildChart(width, $canvasAbstNow, Math.round(abst), sep, widthSq, colorAbst)
     // $tD1.style = 'width:'+($canvasNow.width+30)+'px';
     $tD2.style = 'width:' + ($canvasAbstNow.width + 30) + 'px; height:' + ($canvasAbstNow.height) + 'px'
     // IE
