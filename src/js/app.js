@@ -1,4 +1,6 @@
 import * as d3 from 'd3'
+import { provinces } from './constants.js'
+console.log(provinces)
 function get_chart (width, $canvas, numNodes, sep, widthSq, color) {
   var width = width
   let height = 0
@@ -89,13 +91,11 @@ function app () {
   const $divMain = document.getElementById('main')
   const $divContent = document.getElementById('content')
   const prov = [{ Código: '28', Literal: 'Madrid', Index: '1' }]
-  const selectProv = prov
   let start = 0
   let limit = 5
   let count
-  let provTable = get_prov_table()
+  let provTable = buildProvTable()
   // select
-  const $select = document.getElementById('select')
   const $divTooltip = document.getElementById('tooltip')
   // cuadros
   let width
@@ -137,25 +137,25 @@ function app () {
     sep = 3
   }// width = 300; 825
 
-  get_select()
+  buildSelect()
   app()
-  get_event_tooltip()
-  get_event_btn()
-  get_event_select()
+  setEventTooltip()
+  setEventBtn()
+  setEventSelect()
 
   function app () {
     for (let i = 0; i < provTable.length; i++) {
       for (let j = 0; j < prov.length; j++) {
-        if (prov[j]['Código'] === provTable[i]['Código']) {
+        if (prov[j].code === provTable[i].name) {
           prov[j].drawn = true
         }
       }
-      const $div = create_div_prov(provTable[i]['Código'])// REMOTO
-      get_data($div.id.split('_')[1], provTable[i].Literal)// REMOTO
+      const $div = create_div_prov(provTable[i].code)// REMOTO
+      get_data($div.id.split('_')[1], provTable[i].name)// REMOTO
     }
   }
 
-  function get_event_tooltip () {
+  function setEventTooltip () {
     for (var i = 0; i < document.getElementsByTagName('canvas').length; i++) {
       document.getElementsByTagName('canvas')[i].onmousemove = function (e) {
         handleMouseMove()
@@ -205,15 +205,15 @@ function app () {
     }
   }
 
-  function get_prov_table () {
+  function buildProvTable () {
     const res = []
     for (let i = start; i < limit; i++) {
-      if (prov[i] !== undefined) {
-        if (prov[i].drawn) {
+      if (provinces[i] !== undefined) {
+        if (provinces[i].drawn) {
           limit += 1
           start += 1
         } else {
-          res.push(prov[i])
+          res.push(provinces[i])
         }
       }
     }
@@ -221,11 +221,11 @@ function app () {
     // return prov.slice(start,limit);
   }
 
-  function get_event_btn () {
+  function setEventBtn () {
     document.getElementById('more').onclick = function () {
       start += 5
       limit += 5
-      provTable = get_prov_table()
+      provTable = buildProvTable()
       app()
       if (provTable[provTable.length - 1] === prov[prov.length - 1]) {
         this.style = 'display:none;'
@@ -233,7 +233,7 @@ function app () {
     }
   }
 
-  function get_event_select () {
+  function setEventSelect () {
     document.getElementById('select').onchange = function () {
       for (let i = 0; i < prov.length; i++) {
         if (this.value === 'prov_' + prov[i]['Código']) {
@@ -269,24 +269,13 @@ function app () {
     arr.splice(to, 0, cutOut) // insert it at index 'to'
   }
 
-  function get_select () {
-    console.log(selectProv)
-    let html = '<select>'
-    for (let i = 0; i < selectProv.length; i++) {
-      html += '<option value="prov_' + prov[i]['Código'] + '" >' + prov[i].Literal + '</option>'
-      // get_ajax(prov[i]['Código']);
-    }
-
-    selectProv.sort(function (a, b) {
-      if (a.Index > b.Index) {
-        return 1
-      } else if (a.Index < b.Index) {
-        return -1
-      } else {
-        return 0
-      }
+  function buildSelect () {
+    const select = document.getElementById('select')
+    let html = ''
+    provinces.forEach(d => {
+      html += '<option value="prov_' + d.code + '" >' + d.name + '</option>'
     })
-    $select.innerHTML = html
+    select.innerHTML = html
   }
 
   function get_data (codigo, nombre, mode) {
@@ -346,7 +335,7 @@ function app () {
     }
     feed_table_mvl(codigo, nombre)
     set_height()
-    get_event_tooltip()
+    setEventTooltip()
   }
 
   function get_dataset (data, codigo) {
