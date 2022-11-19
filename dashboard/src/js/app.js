@@ -1,91 +1,11 @@
-import * as d3 from 'd3'
 import { provinces } from './constants.js'
-function buildChart (width, canvas, numNodes, sep, widthSq, color) {
-  let height = 0
-  const customBase = document.createElement('custom')
-  customBase.id = 'custom'
-  buildModel(d3.select(customBase))
-  draw(canvas, d3.select(customBase))
-  function buildModel (custom) {
-    let iX = 0
-    let iY = 0
-    let bStart = true
-
-    let nBlockX = 0
-    let nBlockY = 0
-
-    let countTen = 0
-    let countHund = 0
-
-    for (let i = 0; i < numNodes; i++) {
-      custom.append('custom')
-        .attr('class', 'square')
-        .attr('width', widthSq)
-        .attr('height', widthSq)
-        .attr('x', function () {
-          if (!bStart) {
-            countTen += 1
-            countHund += 1
-            // nuevo renglon dentro del cuadro
-            if (countTen === 10 && countHund < 100) {
-              countTen = 0
-              iX = nBlockX
-              iY += sep + 1
-            } else if (countHund === 100) {
-              countHund = 0
-              countTen = 0
-              // nuevo renglon en otro cuadro debajo
-              if (nBlockX + ((sep * 12) + 10) * 2 > width) {
-                nBlockX = 0
-                iX = 0
-                nBlockY += sep * 12 + 10
-                iY = nBlockY
-                /// /nuevo renglon en otro cuadro a continuacion
-              } else {
-                nBlockX += sep * 12 + 10
-                iX = nBlockX
-                iY = nBlockY
-              }
-            } else {
-              // nuevo punto a continuacion del anterior
-              iX += sep + 1
-            }
-          }
-          // comienzo
-          bStart = false
-          return iX
-        })
-        .attr('y', function (d) {
-          return iY
-        })
-        .attr('fillStyle', color)
-    }
-    height = nBlockY + widthSq + sep * 12 + 10 + 3
-  }
-
-  function draw (id, custom) {
-    const canvas = d3.select(id)
-      .attr('width', width)
-      .attr('height', height)
-
-    const context = canvas.node().getContext('2d')
-    context.clearRect(0, 0, width, height)
-    const elements = custom.selectAll('custom.square')
-    elements.each(function (d, i) {
-      const node = d3.select(this)
-      context.fillStyle = node.attr('fillStyle')
-      context.fillRect(node.attr('x'), node.attr('y'), node.attr('width'), node.attr('height'))
-    })
-  }
-}
-
+import  buildChart  from './chart.js'
 function app () {
   const divMain = document.getElementById('main')
   const prov = [{ Código: '28', Literal: 'Madrid', Index: '1' }]
   let start = 0
   let limit = 5
   let count
-  let provTable = buildProvTable()
   // select
   const divTooltip = document.getElementById('tooltip')
   // cuadros
@@ -131,19 +51,11 @@ function app () {
   buildSelect()
   app()
   setEventTooltip()
-  setEventBtn()
   setEventSelect()
 
   function app () {
-    for (let i = 0; i < provTable.length; i++) {
-      for (let j = 0; j < prov.length; j++) {
-        if (prov[j].code === provTable[i].name) {
-          prov[j].drawn = true
-        }
-      }
-      const div = create_div_prov(provTable[i].code)// REMOTO
-      get_data(div.id.split('_')[1], provTable[i].name)// REMOTO
-    }
+    const div = create_div_prov(provinces[0].code)// REMOTO
+    get_data(provinces[0].code, provinces[0].name)// REMOTO
   }
 
   function setEventTooltip () {
@@ -196,47 +108,14 @@ function app () {
     }
   }
 
-  function buildProvTable () {
-    const res = []
-    for (let i = start; i < limit; i++) {
-      if (provinces[i] !== undefined) {
-        if (provinces[i].drawn) {
-          limit += 1
-          start += 1
-        } else {
-          res.push(provinces[i])
-        }
-      }
-    }
-    return res
-    // return prov.slice(start,limit);
-  }
-
-  function setEventBtn () {
-    document.getElementById('more').onclick = function () {
-      start += 5
-      limit += 5
-      provTable = buildProvTable()
-      app()
-      if (provTable[provTable.length - 1] === prov[prov.length - 1]) {
-        this.style = 'display:none;'
-      }
-    }
-  }
 
   function setEventSelect () {
-    document.getElementById('select').onchange = function () {
-      for (let i = 0; i < prov.length; i++) {
-        if (this.value === 'prov_' + prov[i]['Código']) {
-          if (prov[i].drawn === undefined) {
-            console.log('no esta dibujada')
-            get_data(prov[i]['Código'], prov[i].Literal, 'up')
-            prov[i].drawnSelect = true
-            prov[i].drawn = true
-          } else {
-            console.log('sí esta dibujada')
-            repos_div(this.value)
-          }
+    document.getElementById('select').onchange = function (el) {
+      for (let i = 0; i < provinces.length; i++) {
+        if (this.value.split('prov_')[1] === provinces[i].code) {
+          const div = create_div_prov(provinces[i].code)// REMOTO
+          get_data(provinces[i].code, provinces[i].name)// REMOTO
+          buildChart(provinces[i])
         }
       }
     }
@@ -322,10 +201,7 @@ function app () {
         dif: -5.281
       }
     ]
-    if (mode === 'up') {
-      const div = create_div_prov(codigo)
-      repos_div('prov_' + codigo)
-    }
+    console.log(codigo, nombre)
     feed_table_mvl(codigo, nombre)
     set_height()
     setEventTooltip()
@@ -362,6 +238,7 @@ function app () {
 
   function feed_table_mvl (idProv, nombre) {
     const table = document.createElement('table')
+    console.log(idProv)
     document.getElementById('prov_' + idProv).appendChild(table)
 
     const tHead = document.createElement('thead')
