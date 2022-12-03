@@ -1,5 +1,5 @@
 import { provinces } from './constants.js'
-import  buildChart  from './chart.js'
+import buildChart from './chart.js'
 function app () {
   const divMain = document.getElementById('main')
   const divTooltip = document.getElementById('tooltip')
@@ -43,7 +43,7 @@ function app () {
   }// width = 300; 825
 
   buildSelect()
-  get_data("02", provinces[0].name)// REMOTO
+  getData('02', provinces[0].name)// REMOTO
   setEventTooltip()
   setEventSelect()
 
@@ -101,7 +101,7 @@ function app () {
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
           document.getElementById('prov_02').innerHTML = ''
-          get_data("02", provinces[i].name)// REMOTO
+          getData('02', provinces[i].name)// REMOTO
         }
       }
     }
@@ -116,7 +116,7 @@ function app () {
     select.innerHTML = html
   }
 
-  function get_data (codigo, nombre, mode) {
+  function getData (codigo, nombre, mode) {
     dataset = [
       {
         nombre: 'Unidas Podemos',
@@ -167,11 +167,11 @@ function app () {
         dif: -5.281
       }
     ]
-    feed_table_mvl(codigo, nombre)
+    feedTable(codigo, nombre)
     setEventTooltip()
   }
 
-  function get_src (diff) {
+  function getSrc (diff) {
     if (diff > 0) {
       return 'src/img/up.png'
     } else if (diff < 0) {
@@ -181,7 +181,7 @@ function app () {
     }
   }
 
-  function get_color (diff) {
+  function getColor (diff) {
     if (diff > 0) {
       return '#4DFFC7'
     } else if (diff < 0) {
@@ -191,7 +191,7 @@ function app () {
     }
   }
 
-  function feed_table_mvl (idProv, nombre) {
+  function feedTable (idProv, nombre) {
     const table = document.createElement('table')
     document.getElementById('prov_' + idProv).appendChild(table)
 
@@ -269,10 +269,10 @@ function app () {
       tD2.height = canvasNow.height
 
       const img = document.createElement('img')
-      img.src = get_src(dataset[i].dif)
+      img.src = getSrc(dataset[i].dif)
       img.classList.add('imgVar')
       img.setAttribute('data-num', dataset[i].dif)
-      img.setAttribute('data-color', get_color(dataset[i].dif))
+      img.setAttribute('data-color', getColor(dataset[i].dif))
       tD3.appendChild(img)
     }
     const tRB = document.createElement('tr')
@@ -317,10 +317,10 @@ function app () {
     tD2.height = canvasAbstNow.height
 
     const img = document.createElement('img')
-    img.src = get_src(abst - abstPrevious)
+    img.src = getSrc(abst - abstPrevious)
     img.classList.add('imgVar')
     img.setAttribute('data-num', (abst - abstPrevious))
-    img.setAttribute('data-color', get_color(abst - abstPrevious))
+    img.setAttribute('data-color', getColor(abst - abstPrevious))
     tD3.appendChild(img)
   }
 
