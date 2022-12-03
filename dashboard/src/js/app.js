@@ -2,13 +2,7 @@ import { provinces } from './constants.js'
 import  buildChart  from './chart.js'
 function app () {
   const divMain = document.getElementById('main')
-  const prov = [{ Código: '28', Literal: 'Madrid', Index: '1' }]
-  let start = 0
-  let limit = 5
-  let count
-  // select
   const divTooltip = document.getElementById('tooltip')
-  // cuadros
   let width
   let widthSq = 3
   let sep = 3
@@ -49,14 +43,9 @@ function app () {
   }// width = 300; 825
 
   buildSelect()
-  app()
+  get_data("02", provinces[0].name)// REMOTO
   setEventTooltip()
   setEventSelect()
-
-  function app () {
-    const div = create_div_prov(provinces[0].code)// REMOTO
-    get_data(provinces[0].code, provinces[0].name)// REMOTO
-  }
 
   function setEventTooltip () {
     for (let i = 0; i < document.getElementsByTagName('canvas').length; i++) {
@@ -68,7 +57,6 @@ function app () {
         divTooltip.style.left = x + 5 + 'px'
         divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
-        console.log(color)
         const votes = this.getAttribute('data-num')
         divTooltip.style.color = color
         divTooltip.style.fontWeight = 'bold'
@@ -108,37 +96,15 @@ function app () {
     }
   }
 
-
   function setEventSelect () {
     document.getElementById('select').onchange = function (el) {
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
-          const div = create_div_prov(provinces[i].code)// REMOTO
-          get_data(provinces[i].code, provinces[i].name)// REMOTO
-          buildChart(provinces[i])
+          document.getElementById('prov_02').innerHTML = ''
+          get_data("02", provinces[i].name)// REMOTO
         }
       }
     }
-  }
-
-  function repos_div (idDiv) {
-    const divContent = document.getElementById('content')
-    const divProv = document.getElementById(idDiv)
-    return divContent.insertBefore(divProv, divContent.childNodes[2])
-  }
-
-  function create_div_prov (id) {
-    const divContent = document.getElementById('content')
-    const div = document.createElement('div')
-    div.classList.add('prov')
-    div.id = 'prov_' + id
-    divContent.appendChild(div)
-    return div
-  }
-
-  function insertAndShift (arr, from, to) {
-    const cutOut = arr.splice(from, 1)[0] // cut the element at index 'from'
-    arr.splice(to, 0, cutOut) // insert it at index 'to'
   }
 
   function buildSelect () {
@@ -201,9 +167,7 @@ function app () {
         dif: -5.281
       }
     ]
-    console.log(codigo, nombre)
     feed_table_mvl(codigo, nombre)
-    set_height()
     setEventTooltip()
   }
 
@@ -227,18 +191,8 @@ function app () {
     }
   }
 
-  function set_height () {
-    const nHeight = document.getElementsByTagName('body')[0].clientHeight
-    window.parent.postMessage({
-      sentinel: 'amp',
-      type: 'embed-size',
-      height: nHeight + 150
-    }, '*')
-  }
-
   function feed_table_mvl (idProv, nombre) {
     const table = document.createElement('table')
-    console.log(idProv)
     document.getElementById('prov_' + idProv).appendChild(table)
 
     const tHead = document.createElement('thead')
@@ -248,7 +202,7 @@ function app () {
     tHead.appendChild(tRH)
 
     let tD = document.createElement('th')
-    let tDText = document.createTextNode(nombre + ' (al ' + String(count).replace('.', ',') + '%)')
+    let tDText = document.createTextNode(nombre)
     tD.appendChild(tDText)
 
     tRH.appendChild(tD)
