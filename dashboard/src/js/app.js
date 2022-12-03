@@ -37,7 +37,7 @@ function app () {
     sep = 2
     width = 300
   } else {
-    width = 350
+    width = 800
     widthSq = 3
     sep = 3
   }// width = 300; 825
