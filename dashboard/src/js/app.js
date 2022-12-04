@@ -1,53 +1,55 @@
 import { provinces } from './constants.js'
 import buildChart from './chart.js'
 function app () {
-  const divMain = document.getElementById('main')
-  const divTooltip = document.getElementById('tooltip')
-  let width
-  let widthSq = 3
-  let sep = 3
-  let dataset
-  let abst
-  let abstPrevious
-  // dataset
-  const multiple = 1000
-  const colorAbst = '#767373'
-  if (divMain.clientWidth < 373) {
-    width = 60
-    widthSq = 1.5
-    sep = 1.2
-  } else if (divMain.clientWidth < 430) {
-    width = 90
-    widthSq = 1.2
-    sep = 1.2
-  } else if (divMain.clientWidth < 480) {
-    width = 110
-    widthSq = 1.7
-    sep = 1.7
-  } else if (divMain.clientWidth < 640) {
-    width = 150
-    widthSq = 1.7
-    sep = 1.7
-  } else if (divMain.clientWidth < 825) {
-    widthSq = 1.7
-    sep = 1.7
-    width = 210
-  } else if (divMain.clientWidth < 890) {
-    widthSq = 2
-    sep = 2
-    width = 300
-  } else {
-    width = 800
-    widthSq = 3
-    sep = 3
-  }// width = 300; 825
+  init()
+  window.onresize = function () {
+    document.getElementById('prov_02').innerHTML = ''
+    init()
+  }
+  function init () {
+    const divMain = document.getElementById('main')
+    console.log(divMain.clientWidth)
+    let width
+    let widthSq = 3
+    let sep = 3
+    if (divMain.clientWidth < 373) {
+      width = 60
+      widthSq = 1.5
+      sep = 1.2
+    } else if (divMain.clientWidth < 430) {
+      width = 90
+      widthSq = 1.2
+      sep = 1.2
+    } else if (divMain.clientWidth < 480) {
+      width = 110
+      widthSq = 1.7
+      sep = 1.7
+    } else if (divMain.clientWidth < 640) {
+      width = 150
+      widthSq = 1.7
+      sep = 1.7
+    } else if (divMain.clientWidth < 825) {
+      widthSq = 1.7
+      sep = 1.7
+      width = 210
+    } else if (divMain.clientWidth < 890) {
+      widthSq = 2
+      sep = 2
+      width = 300
+    } else {
+      width = 800
+      widthSq = 3
+      sep = 3
+    }// width = 300; 825
 
-  buildSelect()
-  getData('02', provinces[0].name)// REMOTO
-  setEventTooltip()
-  setEventSelect()
-
+    buildSelect()
+    getData('02', provinces[0].name, width, widthSq, sep)// REMOTO
+    setEventTooltip()
+    setEventSelect('02', provinces[0].name, width, widthSq, sep)
+  }
   function setEventTooltip () {
+    const multiple = 1000
+    const divTooltip = document.getElementById('tooltip')
     for (let i = 0; i < document.getElementsByTagName('canvas').length; i++) {
       document.getElementsByTagName('canvas')[i].onmousemove = function (e) {
         handleMouseMove()
@@ -66,10 +68,8 @@ function app () {
         } else {
           textVar = 'votantes'
         }
-
         divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
       }
-
       document.getElementsByTagName('canvas')[i].onmouseout = function () {
         divTooltip.classList.add('displayNone')
       }
@@ -89,19 +89,38 @@ function app () {
         divTooltip.style.fontWeight = 'bold'
         divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
       }
-
       document.getElementsByClassName('imgVar')[i].onmouseout = function () {
         divTooltip.classList.add('displayNone')
       }
     }
+    function handleMouseMove (event) {
+    // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
+      let eventDoc, doc, body
+      event = event || window.event // IE-ism
+      // If pageX/Y aren't available and clientX/Y
+      // are, calculate pageX/Y - logic taken from jQuery
+      // Calculate pageX/Y if missing and clientX/Y available
+      if (event.pageX == null && event.clientX != null) {
+        eventDoc = (event.target && event.target.ownerDocument) || document
+        doc = eventDoc.documentElement
+        body = eventDoc.body
+
+        event.pageX = event.clientX +
+        ((doc && doc.scrollLeft) || ((body && body.scrollLeft) || 0)) -
+        ((doc && doc.clientLeft) || ((body && body.clientLeft) || 0))
+        event.pageY = event.clientY +
+        ((doc && doc.scrollTop) || ((body && body.scrollTop) || 0)) -
+        ((doc && doc.clientTop) || ((body && body.clientTop) || 0))
+      }
+    }
   }
 
-  function setEventSelect () {
+  function setEventSelect (codigo, nombre, width, widthSq, sep) {
     document.getElementById('select').onchange = function (el) {
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
           document.getElementById('prov_02').innerHTML = ''
-          getData('02', provinces[i].name)// REMOTO
+          getData(codigo, provinces[i].name, width, widthSq, sep)// REMOTO
         }
       }
     }
@@ -116,8 +135,8 @@ function app () {
     select.innerHTML = html
   }
 
-  function getData (codigo, nombre, mode) {
-    dataset = [
+  function getData (codigo, nombre, width, widthSq, sep) {
+    const dataset = [
       {
         nombre: 'Unidas Podemos',
         color: 'red',
@@ -167,31 +186,34 @@ function app () {
         dif: -5.281
       }
     ]
-    feedTable(codigo, nombre)
+    feedTable(codigo, nombre, width, widthSq, sep, dataset)
     setEventTooltip()
   }
 
-  function getSrc (diff) {
-    if (diff > 0) {
-      return 'src/img/up.png'
-    } else if (diff < 0) {
-      return 'src/img/down.png'
-    } else {
-      return 'src/img/equal.png'
+  function feedTable (idProv, nombre, width, widthSq, sep, dataset) {
+    let abst
+    let abstPrevious
+    // dataset
+    const colorAbst = '#767373'
+    function getSrc (diff) {
+      if (diff > 0) {
+        return 'src/img/up.png'
+      } else if (diff < 0) {
+        return 'src/img/down.png'
+      } else {
+        return 'src/img/equal.png'
+      }
     }
-  }
 
-  function getColor (diff) {
-    if (diff > 0) {
-      return '#4DFFC7'
-    } else if (diff < 0) {
-      return '#FF4D7A'
-    } else {
-      return 'black'
+    function getColor (diff) {
+      if (diff > 0) {
+        return '#4DFFC7'
+      } else if (diff < 0) {
+        return '#FF4D7A'
+      } else {
+        return 'black'
+      }
     }
-  }
-
-  function feedTable (idProv, nombre) {
     const table = document.createElement('table')
     document.getElementById('prov_' + idProv).appendChild(table)
 
@@ -322,27 +344,6 @@ function app () {
     img.setAttribute('data-num', (abst - abstPrevious))
     img.setAttribute('data-color', getColor(abst - abstPrevious))
     tD3.appendChild(img)
-  }
-
-  function handleMouseMove (event) {
-    // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
-    let eventDoc, doc, body
-    event = event || window.event // IE-ism
-    // If pageX/Y aren't available and clientX/Y
-    // are, calculate pageX/Y - logic taken from jQuery
-    // Calculate pageX/Y if missing and clientX/Y available
-    if (event.pageX == null && event.clientX != null) {
-      eventDoc = (event.target && event.target.ownerDocument) || document
-      doc = eventDoc.documentElement
-      body = eventDoc.body
-
-      event.pageX = event.clientX +
-        ((doc && doc.scrollLeft) || ((body && body.scrollLeft) || 0)) -
-        ((doc && doc.clientLeft) || ((body && body.clientLeft) || 0))
-      event.pageY = event.clientY +
-        ((doc && doc.scrollTop) || ((body && body.scrollTop) || 0)) -
-        ((doc && doc.clientTop) || ((body && body.clientTop) || 0))
-    }
   }
 }
 
