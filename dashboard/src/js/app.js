@@ -13,35 +13,17 @@ function app () {
     let widthSq = 3
     let sep = 3
     if (divMain.clientWidth < 373) {
-      width = 60
       widthSq = 1.5
       sep = 1.2
-    } else if (divMain.clientWidth < 430) {
-      width = 90
-      widthSq = 1.2
-      sep = 1.2
-    } else if (divMain.clientWidth < 480) {
-      width = 110
-      widthSq = 1.7
-      sep = 1.7
-    } else if (divMain.clientWidth < 640) {
-      width = 150
-      widthSq = 1.7
-      sep = 1.7
-    } else if (divMain.clientWidth < 825) {
-      widthSq = 1.7
-      sep = 1.7
-      width = 210
-    } else if (divMain.clientWidth < 890) {
+    } else if (divMain.clientWidth < 880) {
       widthSq = 2
       sep = 2
-      width = 300
     } else {
-      width = 800
       widthSq = 3
       sep = 3
     }// width = 300; 825
 
+    width = divMain.clientWidth / 2 - 120
     buildSelect()
     getData('02', provinces[0].name, width, widthSq, sep)// REMOTO
     setEventTooltip()
