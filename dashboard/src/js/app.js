@@ -10,18 +10,18 @@ function app () {
     const divMain = document.getElementById('main')
     let widthSq = 3
     let sep = 3
-    if (divMain.clientWidth < 373) {
-      widthSq = 1.5
-      sep = 1.2
-    } else if (divMain.clientWidth < 880) {
+    if (divMain.clientWidth < 880) {
       widthSq = 2
       sep = 2
     } else {
       widthSq = 3
       sep = 3
     }
-
-    const width = divMain.clientWidth / 2 - 120
+    const maxTableWidth = 480
+    const noVizRowsWidth = 120
+    const width = divMain.clientWidth > maxTableWidth
+      ? divMain.clientWidth / 2 - noVizRowsWidth
+      : maxTableWidth / 2 - noVizRowsWidth
     buildSelect()
     getData('02', provinces[0].name, width, widthSq, sep)// REMOTO
     setEventTooltip()
