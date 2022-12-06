@@ -8,8 +8,6 @@ function app () {
   }
   function init () {
     const divMain = document.getElementById('main')
-    console.log(divMain.clientWidth)
-    let width
     let widthSq = 3
     let sep = 3
     if (divMain.clientWidth < 373) {
