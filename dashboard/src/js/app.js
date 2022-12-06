@@ -21,9 +21,9 @@ function app () {
     } else {
       widthSq = 3
       sep = 3
-    }// width = 300; 825
+    }
 
-    width = divMain.clientWidth / 2 - 120
+    const width = divMain.clientWidth / 2 - 120
     buildSelect()
     getData('02', provinces[0].name, width, widthSq, sep)// REMOTO
     setEventTooltip()
