@@ -1,31 +1,32 @@
 import { provinces } from './constants.js'
 import buildChart from './chart.js'
 function app () {
+  buildSelect()
+  const divMain = document.getElementById('main')
+  const maxTableWidth = 480
+  const noVizRowsWidth = 120
   init()
   window.onresize = function () {
     document.getElementById('prov_02').innerHTML = ''
     init()
   }
   function init () {
-    const divMain = document.getElementById('main')
-    let widthSq = 3
-    let sep = 3
-    if (divMain.clientWidth < 880) {
-      widthSq = 2
-      sep = 2
-    } else {
-      widthSq = 3
-      sep = 3
-    }
-    const maxTableWidth = 480
-    const noVizRowsWidth = 120
+    const chartDimensions = getChartDimensions()
     const width = divMain.clientWidth > maxTableWidth
       ? divMain.clientWidth / 2 - noVizRowsWidth
       : maxTableWidth / 2 - noVizRowsWidth
-    buildSelect()
-    getData('02', provinces[0].name, width, widthSq, sep)// REMOTO
+    const dataset = getData('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)// REMOTO
+    buildTable('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep, dataset)
     setEventTooltip()
-    setEventSelect('02', provinces[0].name, width, widthSq, sep)
+    setEventSelect('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)
+  }
+  function getChartDimensions () {
+    const chartDimensions = { widthSq: 3, sep: 3 }
+    if (divMain.clientWidth < 880) {
+      chartDimensions.widthSq = 2
+      chartDimensions.sep = 2
+    }
+    return chartDimensions
   }
   function setEventTooltip () {
     const multiple = 1000
@@ -100,7 +101,9 @@ function app () {
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
           document.getElementById('prov_02').innerHTML = ''
-          getData(codigo, provinces[i].name, width, widthSq, sep)// REMOTO
+          const dataset = getData(codigo, provinces[i].name, width, widthSq, sep)// REMOTO
+          buildTable(codigo, provinces[i].name, width, widthSq, sep, dataset)
+          setEventTooltip()
         }
       }
     }
@@ -166,11 +169,10 @@ function app () {
         dif: -5.281
       }
     ]
-    feedTable(codigo, nombre, width, widthSq, sep, dataset)
-    setEventTooltip()
+    return dataset
   }
 
-  function feedTable (idProv, nombre, width, widthSq, sep, dataset) {
+  function buildTable (idProv, nombre, width, widthSq, sep, dataset) {
     let abst
     let abstPrevious
     // dataset
