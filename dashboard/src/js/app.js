@@ -15,7 +15,7 @@ function app () {
     const width = divMain.clientWidth > maxTableWidth
       ? divMain.clientWidth / 2 - noVizRowsWidth
       : maxTableWidth / 2 - noVizRowsWidth
-    const dataset = getData('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)// REMOTO
+    const dataset = getData('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)
     buildTable('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep, dataset)
     setEventTooltip()
     setEventSelect('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)
