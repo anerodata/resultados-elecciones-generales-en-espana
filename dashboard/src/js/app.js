@@ -2,31 +2,16 @@ import { provinces } from './constants.js'
 import buildChart from './chart.js'
 function app () {
   buildSelect()
-  const divMain = document.getElementById('main')
-  const maxTableWidth = 480
-  const noVizRowsWidth = 120
   init()
   window.onresize = function () {
-    document.getElementById('prov_02').innerHTML = ''
+    document.getElementById('prov').innerHTML = ''
     init()
   }
   function init () {
-    const chartDimensions = getChartDimensions()
-    const width = divMain.clientWidth > maxTableWidth
-      ? divMain.clientWidth / 2 - noVizRowsWidth
-      : maxTableWidth / 2 - noVizRowsWidth
-    const dataset = getData('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)
-    buildTable('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep, dataset)
+    const dataset = getData('02')
+    buildTable('02', provinces[0].name, dataset)
     setEventTooltip()
-    setEventSelect('02', provinces[0].name, width, chartDimensions.widthSq, chartDimensions.sep)
-  }
-  function getChartDimensions () {
-    const chartDimensions = { widthSq: 3, sep: 3 }
-    if (divMain.clientWidth < 880) {
-      chartDimensions.widthSq = 2
-      chartDimensions.sep = 2
-    }
-    return chartDimensions
+    setEventSelect()
   }
   function setEventTooltip () {
     const multiple = 1000
@@ -96,13 +81,15 @@ function app () {
     }
   }
 
-  function setEventSelect (codigo, nombre, width, widthSq, sep) {
-    document.getElementById('select').onchange = function (el) {
+  function setEventSelect () {
+    document.getElementById('select').onchange = function () {
+      const codigo = this.value
+      console.log(codigo)
+      document.getElementById('prov').innerHTML = ''
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
-          document.getElementById('prov_02').innerHTML = ''
-          const dataset = getData(codigo, provinces[i].name, width, widthSq, sep)// REMOTO
-          buildTable(codigo, provinces[i].name, width, widthSq, sep, dataset)
+          const dataset = getData(codigo)// REMOTO
+          buildTable(codigo, provinces[i].name, dataset)
           setEventTooltip()
         }
       }
@@ -113,12 +100,12 @@ function app () {
     const select = document.getElementById('select')
     let html = ''
     provinces.forEach(d => {
-      html += '<option value="prov_' + d.code + '" >' + d.name + '</option>'
+      html += '<option value="' + d.code + '" >' + d.name + '</option>'
     })
     select.innerHTML = html
   }
 
-  function getData (codigo, nombre, width, widthSq, sep) {
+  function getData (codigo) {
     const dataset = [
       {
         nombre: 'Unidas Podemos',
@@ -172,11 +159,7 @@ function app () {
     return dataset
   }
 
-  function buildTable (idProv, nombre, width, widthSq, sep, dataset) {
-    let abst
-    let abstPrevious
-    // dataset
-    const colorAbst = '#767373'
+  function buildTable (idProv, nombre, dataset) {
     function getSrc (diff) {
       if (diff > 0) {
         return 'src/img/up.png'
@@ -186,7 +169,14 @@ function app () {
         return 'src/img/equal.png'
       }
     }
-
+    function getChartDimensions () {
+      const chartDimensions = { widthSq: 3, sep: 3 }
+      if (divMain.clientWidth < 880) {
+        chartDimensions.widthSq = 2
+        chartDimensions.sep = 2
+      }
+      return chartDimensions
+    }
     function getColor (diff) {
       if (diff > 0) {
         return '#4DFFC7'
@@ -196,8 +186,18 @@ function app () {
         return 'black'
       }
     }
+    const divMain = document.getElementById('main')
+    const maxTableWidth = 480
+    const noVizRowsWidth = 120
+    const width = divMain.clientWidth > maxTableWidth
+      ? divMain.clientWidth / 2 - noVizRowsWidth
+      : maxTableWidth / 2 - noVizRowsWidth
+    const chartDimensions = getChartDimensions()
+    let abst
+    let abstPrevious
+    const colorAbst = '#767373'
     const table = document.createElement('table')
-    document.getElementById('prov_' + idProv).appendChild(table)
+    document.getElementById('prov').appendChild(table)
 
     const tHead = document.createElement('thead')
     table.appendChild(tHead)
@@ -251,7 +251,7 @@ function app () {
       canvasPrev.setAttribute('data-color', 'red')
       canvasPrev.setAttribute('data-num', dataset[i].votesPreviousNum)
       tD1.appendChild(canvasPrev)
-      buildChart(width, canvasPrev, Math.round(dataset[i].votesPreviousNum), sep, widthSq, dataset[i].color)
+      buildChart(width, canvasPrev, Math.round(dataset[i].votesPreviousNum), chartDimensions.sep, chartDimensions.widthSq, dataset[i].color)
       // tD1.style = 'width:'+(canvasPrev.width+30)+'px';
       tD1.style = 'width:' + (canvasPrev.width + 30) + 'px; height:' + (canvasPrev.height) + 'px'
       // IE
@@ -266,7 +266,7 @@ function app () {
       canvasNow.setAttribute('data-num', dataset[i].votesNum)
 
       tD2.appendChild(canvasNow)
-      buildChart(width, canvasNow, Math.round(dataset[i].votesNum), sep, widthSq, dataset[i].color)
+      buildChart(width, canvasNow, Math.round(dataset[i].votesNum), chartDimensions.sep, chartDimensions.widthSq, dataset[i].color)
       tD2.style = 'width:' + (canvasNow.width + 30) + 'px; height:' + (canvasNow.height) + 'px'
       // IE
       tD2.width = canvasNow.width + 30
@@ -300,7 +300,7 @@ function app () {
     canvasAbstPrev.setAttribute('data-color', 'black')
     canvasAbstPrev.setAttribute('data-num', abstPrevious)
     tD1.appendChild(canvasAbstPrev)
-    buildChart(width, canvasAbstPrev, Math.round(abstPrevious), sep, widthSq, colorAbst)
+    buildChart(width, canvasAbstPrev, Math.round(abstPrevious), chartDimensions.sep, chartDimensions.widthSq, colorAbst)
     // tD1.style = 'width:'+(canvasNow.width+30)+'px';
     tD1.style = 'width:' + (canvasAbstPrev.width + 30) + 'px; height:' + (canvasAbstPrev.height) + 'px'
     // IE
@@ -313,7 +313,7 @@ function app () {
     canvasAbstNow.setAttribute('data-color', 'black')
     canvasAbstNow.setAttribute('data-num', abst)
     tD2.appendChild(canvasAbstNow)
-    buildChart(width, canvasAbstNow, Math.round(abst), sep, widthSq, colorAbst)
+    buildChart(width, canvasAbstNow, Math.round(abst), chartDimensions.sep, chartDimensions.widthSq, colorAbst)
     // tD1.style = 'width:'+(canvasNow.width+30)+'px';
     tD2.style = 'width:' + (canvasAbstNow.width + 30) + 'px; height:' + (canvasAbstNow.height) + 'px'
     // IE
