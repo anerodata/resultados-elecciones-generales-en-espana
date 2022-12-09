@@ -1,6 +1,6 @@
 import { provinces } from './constants.js'
 import buildChart from './chart.js'
-function app () {
+function votesTable () {
   buildSelect()
   init()
   window.onresize = function () {
@@ -62,10 +62,7 @@ function app () {
     function handleMouseMove (event) {
     // https://stackoverflow.com/questions/7790725/javascript-track-mouse-position
       let eventDoc, doc, body
-      event = event || window.event // IE-ism
-      // If pageX/Y aren't available and clientX/Y
-      // are, calculate pageX/Y - logic taken from jQuery
-      // Calculate pageX/Y if missing and clientX/Y available
+      event = event || window.event
       if (event.pageX == null && event.clientX != null) {
         eventDoc = (event.target && event.target.ownerDocument) || document
         doc = eventDoc.documentElement
@@ -84,7 +81,6 @@ function app () {
   function setEventSelect () {
     document.getElementById('select').onchange = function () {
       const codigo = this.value
-      console.log(codigo)
       document.getElementById('prov').innerHTML = ''
       for (let i = 0; i < provinces.length; i++) {
         if (this.value.split('prov_')[1] === provinces[i].code) {
@@ -329,4 +325,4 @@ function app () {
   }
 }
 
-export default app
+export default votesTable
