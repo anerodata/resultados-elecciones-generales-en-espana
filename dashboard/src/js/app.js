@@ -1,15 +1,14 @@
 import { provinces } from './constants.js'
 import buildChart from './chart.js'
-function votesTable () {
+function votesTable (idDivMain, idTable) {
   buildSelect()
   init()
   window.onresize = function () {
-    document.getElementById('prov').innerHTML = ''
     init()
   }
   function init () {
     const dataset = getData('02')
-    buildTable('02', provinces[0].name, dataset)
+    buildTable(provinces[0].name, dataset, idDivMain, idTable)
     setEventTooltip()
     setEventSelect()
   }
@@ -80,15 +79,10 @@ function votesTable () {
 
   function setEventSelect () {
     document.getElementById('select').onchange = function () {
-      const codigo = this.value
-      document.getElementById('prov').innerHTML = ''
-      for (let i = 0; i < provinces.length; i++) {
-        if (this.value.split('prov_')[1] === provinces[i].code) {
-          const dataset = getData(codigo)// REMOTO
-          buildTable(codigo, provinces[i].name, dataset)
-          setEventTooltip()
-        }
-      }
+      const selectedProvince = provinces.find(d => d.code === this.value)
+      const dataset = getData(selectedProvince.code)// REMOTO
+      buildTable(selectedProvince.name, dataset, idDivMain, idTable)
+      setEventTooltip()
     }
   }
 
@@ -155,7 +149,7 @@ function votesTable () {
     return dataset
   }
 
-  function buildTable (idProv, nombre, dataset) {
+  function buildTable (nombre, dataset, idDivMain, idTable) {
     function getSrc (diff) {
       if (diff > 0) {
         return 'src/img/up.png'
@@ -182,7 +176,8 @@ function votesTable () {
         return 'black'
       }
     }
-    const divMain = document.getElementById('main')
+    const divMain = document.getElementById(idDivMain)
+    const tableContainer = document.getElementById(idTable)
     const maxTableWidth = 480
     const noVizRowsWidth = 120
     const width = divMain.clientWidth > maxTableWidth
@@ -193,7 +188,8 @@ function votesTable () {
     let abstPrevious
     const colorAbst = '#767373'
     const table = document.createElement('table')
-    document.getElementById('prov').appendChild(table)
+    tableContainer.textContent = ''
+    tableContainer.appendChild(table)
 
     const tHead = document.createElement('thead')
     table.appendChild(tHead)
