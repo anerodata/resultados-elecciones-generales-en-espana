@@ -1,5 +1,5 @@
 import dotChart from './dotChart.js'
-function dotTable (nombre, dataset, idDivMain, idTable) {
+function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
   function getSrc (diff) {
     if (diff > 0) {
       return 'src/img/up.png'
@@ -27,7 +27,6 @@ function dotTable (nombre, dataset, idDivMain, idTable) {
     }
   }
   function setEventTooltip () {
-    const multiple = 1000
     const divTooltip = document.getElementById('tooltip')
     for (let i = 0; i < document.getElementsByTagName('canvas').length; i++) {
       document.getElementsByTagName('canvas')[i].onmousemove = function (e) {
