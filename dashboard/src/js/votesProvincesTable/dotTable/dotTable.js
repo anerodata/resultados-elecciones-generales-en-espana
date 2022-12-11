@@ -234,4 +234,4 @@ function dotTable (nombre, dataset, idDivMain, idTable) {
   img.setAttribute('data-color', getColor(abst - abstPrevious))
   tD3.appendChild(img)
 }
-export { dotTable }
+export default dotTable
