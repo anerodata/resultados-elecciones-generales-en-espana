@@ -1,3 +1,3 @@
-import votesTable from './js/app'
+import votesTable from './js/votesTable/votesTable.js'
 import './styles/main.scss'
 votesTable('main', 'prov-table')

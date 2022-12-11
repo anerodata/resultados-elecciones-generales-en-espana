@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-function buildChart (width, canvas, numNodes, sep, widthSq, color) {
+function dotChart (width, canvas, numNodes, sep, widthSq, color) {
   let height = 0
   const customBase = document.createElement('custom')
   customBase.id = 'custom'
@@ -77,4 +77,4 @@ function buildChart (width, canvas, numNodes, sep, widthSq, color) {
     })
   }
 }
-export default buildChart
+export default dotChart
