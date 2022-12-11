@@ -1,6 +1,6 @@
 import { provinces } from './../constants.js'
 import { dotTable } from './dotTable/dotTable.js'
-function votesTable (idDivMain, idTable) {
+function votesProvincesTable (idDivMain, idTable) {
   buildSelect()
   init()
   window.onresize = function () {
@@ -82,4 +82,4 @@ function votesTable (idDivMain, idTable) {
     return dataset
   }
 }
-export default votesTable
+export default votesProvincesTable

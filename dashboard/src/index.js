@@ -1,3 +1,3 @@
-import votesTable from './js/votesTable/votesTable.js'
+import votesProvincesTable from './js/votesProvincesTable/votesProvincesTable.js'
 import './styles/main.scss'
-votesTable('main', 'prov-table')
+votesProvincesTable('main', 'prov-table')
