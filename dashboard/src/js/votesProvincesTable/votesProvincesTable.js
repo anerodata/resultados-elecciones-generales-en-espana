@@ -1,5 +1,5 @@
 import { provinces } from './../constants.js'
-import { dotTable } from './dotTable/dotTable.js'
+import dotTable from './dotTable/dotTable.js'
 function votesProvincesTable (idDivMain, idTable) {
   buildSelect()
   init()
