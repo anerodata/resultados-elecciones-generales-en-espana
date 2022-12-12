@@ -37,7 +37,6 @@ function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
         const x = event.pageX
         const y = event.pageY
         divTooltip.classList.remove('displayNone')
-        divTooltip.style.left = x + 5 + 'px'
         divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
         const votes = this.getAttribute('data-num')
@@ -50,6 +49,7 @@ function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
           textVar = 'votantes'
         }
         divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
+        divTooltip.style.left = x + 'px'
       }
       document.getElementsByTagName('canvas')[i].onmouseout = function () {
         divTooltip.classList.add('displayNone')
@@ -62,13 +62,13 @@ function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
         const x = event.pageX
         const y = event.pageY
         divTooltip.classList.remove('displayNone')
-        divTooltip.style.left = x + 5 + 'px'
         divTooltip.style.top = y - 30 + 'px'
         const color = this.getAttribute('data-color')
         const votes = this.getAttribute('data-num')
         divTooltip.style.color = color
         divTooltip.style.fontWeight = 'bold'
         divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
+        divTooltip.style.left = x - divTooltip.clientWidth + 5 + 'px'
       }
       document.getElementsByClassName('imgVar')[i].onmouseout = function () {
         divTooltip.classList.add('displayNone')
