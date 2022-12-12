@@ -1,12 +1,15 @@
 import dotChart from './dotChart.js'
+import up from '../../../assets/img/up.png'
+import down from '../../../assets/img/down.png'
+import equal from '../../../assets/img/equal.png'
 function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
   function getSrc (diff) {
     if (diff > 0) {
-      return 'src/img/up.png'
+      return up
     } else if (diff < 0) {
-      return 'src/img/down.png'
+      return down
     } else {
-      return 'src/img/equal.png'
+      return equal
     }
   }
   function getChartDimensions () {
