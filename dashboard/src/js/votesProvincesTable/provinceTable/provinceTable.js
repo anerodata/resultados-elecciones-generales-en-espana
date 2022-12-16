@@ -2,7 +2,7 @@ import dotChart from './dotChart.js'
 import up from '../../../assets/img/up.png'
 import down from '../../../assets/img/down.png'
 import equal from '../../../assets/img/equal.png'
-function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
+function provinceTable (nombre, dataset, idDivMain, idTable, multiple) {
   function getSrc (diff) {
     if (diff > 0) {
       return up
@@ -236,4 +236,4 @@ function dotTable (nombre, dataset, idDivMain, idTable, multiple) {
   img.setAttribute('data-color', getColor(abst - abstPrevious))
   tD3.appendChild(img)
 }
-export default dotTable
+export default provinceTable

@@ -1,5 +1,5 @@
 import { provinces } from './../constants.js'
-import dotTable from './dotTable/dotTable.js'
+import provinceTable from './provinceTable/provinceTable.js'
 function votesProvincesTable (idDivMain, idTable, multiple) {
   buildSelect()
   init()
@@ -8,14 +8,14 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
   }
   function init () {
     const dataset = getData('02')
-    dotTable(provinces[0].name, dataset, idDivMain, idTable, multiple)
+    provinceTable(provinces[0].name, dataset, idDivMain, idTable, multiple)
     setEventSelect()
   }
   function setEventSelect () {
     document.getElementById('select').onchange = function () {
       const selectedProvince = provinces.find(d => d.code === this.value)
       const dataset = getData(selectedProvince.code)// REMOTO
-      dotTable(selectedProvince.name, dataset, idDivMain, idTable)
+      provinceTable(selectedProvince.name, dataset, idDivMain, idTable)
     }
   }
 
