@@ -2,7 +2,7 @@ import dotChart from './dotChart.js'
 import up from '../../../assets/img/up.png'
 import down from '../../../assets/img/down.png'
 import equal from '../../../assets/img/equal.png'
-function provinceTable (nombre, dataset, idDivMain, idTable, multiple) {
+function provinceTable (nombre, dataset, idDivMain, idTable) {
   function getSrc (diff) {
     if (diff > 0) {
       return up
@@ -48,7 +48,7 @@ function provinceTable (nombre, dataset, idDivMain, idTable, multiple) {
         } else {
           textVar = 'votantes'
         }
-        divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
+        divTooltip.innerHTML = Math.round(votes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
         divTooltip.style.left = x + 'px'
       }
       document.getElementsByTagName('canvas')[i].onmouseout = function () {
@@ -67,7 +67,7 @@ function provinceTable (nombre, dataset, idDivMain, idTable, multiple) {
         const votes = this.getAttribute('data-num')
         divTooltip.style.color = color
         divTooltip.style.fontWeight = 'bold'
-        divTooltip.innerHTML = Math.round(votes * multiple).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
+        divTooltip.innerHTML = Math.round(votes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">electores</span>'
         divTooltip.style.left = x - divTooltip.clientWidth + 5 + 'px'
       }
       document.getElementsByClassName('imgVar')[i].onmouseout = function () {

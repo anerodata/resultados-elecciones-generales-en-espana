@@ -8,7 +8,7 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
   }
   function init () {
     const dataset = getData('02')
-    provinceTable(provinces[0].name, dataset, idDivMain, idTable, multiple)
+    provinceTable(provinces[0].name, dataset, idDivMain, idTable)
     setEventSelect()
   }
   function setEventSelect () {
