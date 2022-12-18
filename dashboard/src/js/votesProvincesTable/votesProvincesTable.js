@@ -3,34 +3,37 @@ import provinceTable from './provinceTable/provinceTable.js'
 import votesPerProvince from './../mockup-data.js'
 console.log(votesPerProvince, colors[1])
 function votesProvincesTable (idDivMain, idTable, multiple) {
-  buildSelect()
+  const selectContent = buildSelect()
+  const select = document.getElementById('select')
+  select.innerHTML = selectContent
   init()
   window.onresize = function () {
     init()
   }
   function init () {
-    const dataset = getData('02')
+    const dataset = getData(select.value, votesPerProvince)
     provinceTable(provinces[0].name, dataset, idDivMain, idTable)
     setEventSelect()
   }
   function setEventSelect () {
     document.getElementById('select').onchange = function () {
       const selectedProvince = provinces.find(d => d.code === this.value)
-      const dataset = getData(selectedProvince.code)// REMOTO
+      const dataset = getData(selectedProvince.code, votesPerProvince)// REMOTO
       provinceTable(selectedProvince.name, dataset, idDivMain, idTable)
     }
   }
 
   function buildSelect () {
-    const select = document.getElementById('select')
     let html = ''
     provinces.forEach(d => {
       html += '<option value="' + d.code + '" >' + d.name + '</option>'
     })
-    select.innerHTML = html
+    return html
   }
 
-  function getData (codigo) {
+  function getData (codigo, votesPerProvince) {
+    const province = votesPerProvince.filter(d => d['Código de Provincia'] === codigo)
+    console.log(province)
     const dataset = [
       {
         nombre: 'Unidas Podemos',
