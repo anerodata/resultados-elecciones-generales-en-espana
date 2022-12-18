@@ -52,4 +52,24 @@ const provinces = [
   { code: '51', name: 'Ceuta' },
   { code: '52', name: 'Melilla' }
 ]
-export { provinces }
+const colors = {
+  0: { initials: 'PSOE', color: '#E02020' },
+  1: { initials: 'PP', fill: '#23A1DD' },
+  2: { initials: 'VOX', fill: '#66bf00' },
+  3: { initials: 'UP', fill: '#723871' },
+  4: { initials: 'Cs', fill: '#EA8046' },
+  5: { initials: 'Más País', fill: '#27e1c3' },
+  6: { initials: 'ERC', fill: '#FCB232' },
+  7: { initials: 'JxCat', fill: '#314583' },
+  8: { initials: 'PNV', fill: '#16823b' },
+  9: { initials: 'Bildu', fill: '#a3ba5b' },
+  10: { initials: 'CUP', fill: '#efd700' },
+  12: { initials: 'Coalición Canaria', fill: '#ccba20' },
+  13: { initials: 'Nueva Canarias', fill: '#80C03B' },
+  14: { initials: 'NA+', fill: '#1C659C' },
+  15: { initials: 'BNG', fill: '#94CCF7' },
+  16: { initials: 'PRC', fill: '#AFB014' },
+  17: { initials: '¡Teruel Existe!', fill: '#0D7251' },
+  defaultColor: '#C6A15B'
+}
+export { provinces, colors }

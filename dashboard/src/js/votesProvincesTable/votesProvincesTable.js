@@ -1,5 +1,7 @@
-import { provinces } from './../constants.js'
+import { provinces, colors } from './../constants.js'
 import provinceTable from './provinceTable/provinceTable.js'
+import votesPerProvince from './../mockup-data.js'
+console.log(votesPerProvince, colors[1])
 function votesProvincesTable (idDivMain, idTable, multiple) {
   buildSelect()
   init()
