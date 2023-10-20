@@ -1,7 +1,7 @@
 import { provinces, colors } from './../constants.js'
 import provinceTable from './provinceTable/provinceTable.js'
-import votesPerProvince from './../mockup-data.js'
-console.log(votesPerProvince, colors[1])
+import { votesPerProvinceBefore, votesPerProvinceNow } from './../mockup-data.js'
+console.log(votesPerProvinceBefore, colors[1])
 function votesProvincesTable (idDivMain, idTable, multiple) {
   const selectContent = buildSelect()
   const select = document.getElementById('select')
@@ -11,14 +11,14 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
     init()
   }
   function init () {
-    const dataset = getData(select.value, votesPerProvince)
+    const dataset = getData(select.value, votesPerProvinceBefore, votesPerProvinceNow)
     provinceTable(provinces[0].name, dataset, idDivMain, idTable)
     setEventSelect()
   }
   function setEventSelect () {
     document.getElementById('select').onchange = function () {
       const selectedProvince = provinces.find(d => d.code === this.value)
-      const dataset = getData(selectedProvince.code, votesPerProvince)// REMOTO
+      const dataset = getData(selectedProvince.code, votesPerProvinceBefore, votesPerProvinceNow)// REMOTO
       provinceTable(selectedProvince.name, dataset, idDivMain, idTable)
     }
   }
@@ -31,9 +31,10 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
     return html
   }
 
-  function getData (codigo, votesPerProvince) {
-    const province = votesPerProvince.filter(d => d['Código de Provincia'] === codigo)
-    console.log(province)
+  function getData (codigo, votesPerProvinceBefore, votesPerProvinceNow) {
+    const provinceVotesBefore = votesPerProvinceBefore.filter(d => d['Código de Provincia'] === codigo)
+    const provinceVotesNow = votesPerProvinceNow.filter(d => d['Código de Provincia'] === codigo)
+    console.log(provinceVotesBefore, provinceVotesNow)
     const dataset = [
       {
         nombre: 'Unidas Podemos',
