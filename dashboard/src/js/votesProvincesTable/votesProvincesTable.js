@@ -1,11 +1,11 @@
-import { provinces, colors } from './../constants.js'
+import { provinces, colors } from './utils/constants.js'
 import provinceTable from './provinceTable/provinceTable.js'
 import { votesPerProvinceBefore, votesPerProvinceNow } from './../mockup-data.js'
-console.log(votesPerProvinceBefore, colors[1])
+import ProvinceSelect from './components/ProvincesSelect.js'
 function votesProvincesTable (idDivMain, idTable, multiple) {
-  const selectContent = buildSelect()
   const select = document.getElementById('select')
-  select.innerHTML = selectContent
+  const provinceSelect = new ProvinceSelect('select')
+  provinceSelect.setup()
   init()
   window.onresize = function () {
     init()
@@ -21,14 +21,6 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
       const dataset = getData(selectedProvince.code, votesPerProvinceBefore, votesPerProvinceNow)// REMOTO
       provinceTable(selectedProvince.name, dataset, idDivMain, idTable)
     }
-  }
-
-  function buildSelect () {
-    let html = ''
-    provinces.forEach(d => {
-      html += '<option value="' + d.code + '" >' + d.name + '</option>'
-    })
-    return html
   }
 
   function getData (codigo, votesPerProvinceBefore, votesPerProvinceNow) {
