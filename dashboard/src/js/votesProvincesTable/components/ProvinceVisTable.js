@@ -1,4 +1,4 @@
-import dotChart from './dotChart.js'
+import dotChart from './ProvinceVisTd.js'
 import up from '../../../assets/img/up.png'
 import down from '../../../assets/img/down.png'
 import equal from '../../../assets/img/equal.png'
