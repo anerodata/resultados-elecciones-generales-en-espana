@@ -3,7 +3,9 @@ import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
 import provinceTable from './components/ProvinceVisTable.js'
 
-function votesProvincesTable (idDivMain, idTable, multiple) {
+function app () {
+  const idDivMain = 'main'
+  const idTable = 'provinces-table'
   const provinceSelect = new ProvinceSelect('select')
   provinceSelect.setup()
   init()
@@ -26,4 +28,4 @@ function votesProvincesTable (idDivMain, idTable, multiple) {
     }
   }
 }
-export default votesProvincesTable
+export default app
