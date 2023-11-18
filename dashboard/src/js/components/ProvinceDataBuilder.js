@@ -1,4 +1,4 @@
-import { votesPerProvinceBefore, votesPerProvinceNow } from './../../mockup-data.js'
+import { votesPerProvinceBefore, votesPerProvinceNow } from './../mockup-data.js'
 function getProvinceVotesBefore (codigo) {
   return votesPerProvinceBefore.filter(d => d['Código de Provincia'] === codigo)
 }

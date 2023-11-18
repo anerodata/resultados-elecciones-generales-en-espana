@@ -1,4 +1,4 @@
-import { provinces } from './../utils/constants.js'
+import { provinces } from './../constants.js'
 function buildHTML () {
   let html = ''
   provinces.forEach(d => {

@@ -1,4 +1,4 @@
-import { provinces } from './utils/constants.js'
+import { provinces } from './constants.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
 import provinceTable from './components/ProvinceVisTable.js'
