@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+
 function dotChart (width, canvas, numNodes, sep, widthSq, color) {
   let height = 0
   const customBase = document.createElement('custom')

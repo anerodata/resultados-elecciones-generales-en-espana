@@ -2,6 +2,7 @@ import dotChart from './ProvinceVisTd.js'
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
+
 function provinceTable (nombre, dataset, idDivMain, idTable) {
   function getSrc (diff) {
     if (diff > 0) {
