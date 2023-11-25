@@ -1,7 +1,7 @@
 import { provinces } from './constants.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
-import provinceTable from './components/ProvinceVisTable.js'
+import { provinceTable, ProvinceVisTable } from './components/ProvinceVisTable.js'
 
 const idDivMain = 'main'
 const idTable = 'provinces-table'
@@ -32,6 +32,14 @@ function setupProvinceTable (provinceCode) {
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
   const provinceDataset = provinceDataBuilder.setup()
   provinceTable(provinces[0].name, provinceDataset, idDivMain, idTable)
+  const provinceVisTable = new ProvinceVisTable({
+    dataset: provinceDataset,
+    idDivMain,
+    idTable: 'provinces-table-2',
+    headDataValues: { province: provinces[0].name, firstElection: '28-A', secondElection: '10-N', variation: 'Variación' }
+  })
+  console.log(provinceVisTable)
+  provinceVisTable.setup()
 }
 
 export default app

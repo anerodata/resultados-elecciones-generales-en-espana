@@ -1,7 +1,92 @@
-import dotChart from './ProvinceVisTd.js'
+import dotChart from './ProvinceVisDotChart.js'
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
+
+const headDataKeys = ['province', 'firstElection', 'secondElection', 'variation']
+const getChartDimensions = new WeakMap()
+const dotChartWidth = new WeakMap()
+const setupTable = new WeakMap()
+const setupTableHead = new WeakMap()
+const setupTableBody = new WeakMap()
+function getSrc (diff) {
+  if (diff > 0) {
+    return up
+  } else if (diff < 0) {
+    return down
+  } else {
+    return equal
+  }
+}
+
+function getColor (diff) {
+  if (diff > 0) {
+    return '#4DFFC7'
+  } else if (diff < 0) {
+    return '#FF4D7A'
+  } else {
+    return 'black'
+  }
+}
+class ProvinceVisTable {
+  constructor ({ nombre, dataset, idDivMain, idTable, headDataValues }) {
+    this.maxTableWidth = 480
+    this.noVizRowsWidth = 120
+    this.divMain = document.getElementById(idDivMain)
+    this.tableContainer = document.getElementById(idTable)
+    this.provinceName = nombre
+    this.dataset = dataset
+    this.idTable = idTable
+    this.headDataValues = headDataValues
+    dotChartWidth.set(this, () => {
+      return this.divMain.clientWidth > this.maxTableWidth
+        ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
+        : this.maxTableWidth / 2 - this.noVizRowsWidth
+    })
+    getChartDimensions.set(this, () => {
+      const chartDimensions = { widthSq: 3, sep: 3 }
+      if (this.divMain.clientWidth < 880) {
+        chartDimensions.widthSq = 2
+        chartDimensions.sep = 2
+      }
+      return chartDimensions
+    })
+    setupTable.set(this, () => {
+      const table = document.createElement('table')
+      const tHead = setupTableHead.get(this)()
+      setupTableBody.get(this)()
+      table.appendChild(tHead)
+      this.tableContainer.textContent = ''
+      this.tableContainer.appendChild(table)
+    })
+    setupTableHead.set(this, () => {
+      const tHead = document.createElement('thead')
+      const tRH = document.createElement('tr')
+      headDataKeys.forEach(field => {
+        const tD = document.createElement('th')
+        const tDText = document.createTextNode(this.headDataValues[field])
+        tD.appendChild(tDText)
+        tRH.appendChild(tD)
+      })
+      tHead.appendChild(tRH)
+      return tHead
+    })
+    setupTableBody.set(this, () => {
+      const tbody = document.createElement('tbody')
+      dataset.forEach(row => {
+        const tR = document.createElement('tr')
+        headDataKeys.forEach(field => {
+          const tD = document.createElement('td')
+          tR.appendChild(tD)
+        })
+      })
+    })
+  }
+
+  setup () {
+    setupTable.get(this)()
+  }
+}
 
 function provinceTable (nombre, dataset, idDivMain, idTable) {
   function getSrc (diff) {
@@ -237,4 +322,4 @@ function provinceTable (nombre, dataset, idDivMain, idTable) {
   img.setAttribute('data-color', getColor(abst - abstPrevious))
   tD3.appendChild(img)
 }
-export default provinceTable
+export { provinceTable, ProvinceVisTable }
