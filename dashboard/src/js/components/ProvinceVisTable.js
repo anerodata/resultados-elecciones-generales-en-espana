@@ -3,7 +3,6 @@ import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
 
-const headDataKeys = ['province', 'firstElection', 'secondElection', 'variation']
 const getChartDimensions = new WeakMap()
 const dotChartWidth = new WeakMap()
 const setupTable = new WeakMap()
@@ -29,7 +28,7 @@ function getColor (diff) {
   }
 }
 class ProvinceVisTable {
-  constructor ({ nombre, dataset, idDivMain, idTable, headDataValues }) {
+  constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
     this.maxTableWidth = 480
     this.noVizRowsWidth = 120
     this.divMain = document.getElementById(idDivMain)
@@ -37,7 +36,7 @@ class ProvinceVisTable {
     this.provinceName = nombre
     this.dataset = dataset
     this.idTable = idTable
-    this.headDataValues = headDataValues
+    this.headData= headData
     dotChartWidth.set(this, () => {
       return this.divMain.clientWidth > this.maxTableWidth
         ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
@@ -62,9 +61,9 @@ class ProvinceVisTable {
     setupTableHead.set(this, () => {
       const tHead = document.createElement('thead')
       const tRH = document.createElement('tr')
-      headDataKeys.forEach(field => {
+      this.headData.forEach(headField => {
         const tD = document.createElement('th')
-        const tDText = document.createTextNode(this.headDataValues[field])
+        const tDText = document.createTextNode(headField.value)
         tD.appendChild(tDText)
         tRH.appendChild(tD)
       })
@@ -75,7 +74,8 @@ class ProvinceVisTable {
       const tbody = document.createElement('tbody')
       dataset.forEach(row => {
         const tR = document.createElement('tr')
-        headDataKeys.forEach(field => {
+        headData.forEach(field => {
+          console.log(headData)
           const tD = document.createElement('td')
           tR.appendChild(tD)
         })

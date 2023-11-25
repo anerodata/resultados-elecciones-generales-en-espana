@@ -36,7 +36,28 @@ function setupProvinceTable (provinceCode) {
     dataset: provinceDataset,
     idDivMain,
     idTable: 'provinces-table-2',
-    headDataValues: { province: provinces[0].name, firstElection: '28-A', secondElection: '10-N', variation: 'Variación' }
+    headData: [
+      {
+        name: 'nombre',
+        value: provinces[0].name,
+        type: 'string'
+      },
+      {
+        name: 'votesPreviousNum',
+        value: '28-A',
+        type: 'chart'
+      },
+      {
+        name: 'votesNum',
+        value: '10-N',
+        type: 'chart'
+      },
+      {
+        name: 'dif',
+        value: 'Variación',
+        type: 'string'
+      }
+    ]
   })
   console.log(provinceVisTable)
   provinceVisTable.setup()
