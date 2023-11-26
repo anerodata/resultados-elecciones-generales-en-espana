@@ -8,6 +8,12 @@ const dotChartWidth = new WeakMap()
 const setupTable = new WeakMap()
 const setupTableHead = new WeakMap()
 const setupTableBody = new WeakMap()
+function createNodeWithText (element, text) {
+  const node = document.createElement(element)
+  const textNode = document.createTextNode(text)
+  node.appendChild(textNode)
+  return node
+}
 function getSrc (diff) {
   if (diff > 0) {
     return up
@@ -36,7 +42,7 @@ class ProvinceVisTable {
     this.provinceName = nombre
     this.dataset = dataset
     this.idTable = idTable
-    this.headData= headData
+    this.headData = headData
     dotChartWidth.set(this, () => {
       return this.divMain.clientWidth > this.maxTableWidth
         ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
@@ -53,21 +59,19 @@ class ProvinceVisTable {
     setupTable.set(this, () => {
       const table = document.createElement('table')
       const tHead = setupTableHead.get(this)()
-      setupTableBody.get(this)()
       table.appendChild(tHead)
+      setupTableBody.get(this)()
       this.tableContainer.textContent = ''
       this.tableContainer.appendChild(table)
     })
     setupTableHead.set(this, () => {
       const tHead = document.createElement('thead')
       const tRH = document.createElement('tr')
+      tHead.appendChild(tRH)
       this.headData.forEach(headField => {
-        const tD = document.createElement('th')
-        const tDText = document.createTextNode(headField.value)
-        tD.appendChild(tDText)
+        const tD = createNodeWithText('th', headField.value)
         tRH.appendChild(tD)
       })
-      tHead.appendChild(tRH)
       return tHead
     })
     setupTableBody.set(this, () => {
@@ -75,7 +79,7 @@ class ProvinceVisTable {
       dataset.forEach(row => {
         const tR = document.createElement('tr')
         headData.forEach(field => {
-          console.log(headData)
+          console.log(row[field.name])
           const tD = document.createElement('td')
           tR.appendChild(tD)
         })
