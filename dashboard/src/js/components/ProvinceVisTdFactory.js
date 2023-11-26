@@ -10,9 +10,9 @@ class TdFactory {
     const { tdType, ...rest } = options
     switch (tdType) {
       case 'party':
-        return new ProvinceVisDotChart(rest)
+        return new ProvinceVisTdParty(rest)
       case 'variation':
-        return new TdVariation(rest)
+        return new ProvinceVisTdVariation(rest)
       default:
         return new this.TdDefaultClass(rest)
     }
