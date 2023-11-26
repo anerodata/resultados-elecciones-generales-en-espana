@@ -1,4 +1,5 @@
 import dotChart from './ProvinceVisDotChart.js'
+import ProvinceVisTdFactory from './ProvinceVisTdFactory.js'
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
@@ -78,10 +79,15 @@ class ProvinceVisTable {
       const tbody = document.createElement('tbody')
       dataset.forEach(row => {
         const tR = document.createElement('tr')
-        headData.forEach(field => {
-          console.log(row[field.name])
+        headData.forEach(headField => {
           const tD = document.createElement('td')
           tR.appendChild(tD)
+          const provinceVisTdFactory = new ProvinceVisTdFactory()
+          const tDContent = provinceVisTdFactory.createTd({
+            tdType: headField.type,
+            value: row[headField.name]
+          })
+          console.log(tDContent.constructor)
         })
       })
     })

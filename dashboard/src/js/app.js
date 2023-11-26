@@ -40,7 +40,7 @@ function setupProvinceTable (provinceCode) {
       {
         name: 'nombre',
         value: provinces[0].name,
-        type: 'string'
+        type: 'party'
       },
       {
         name: 'votesPreviousNum',
@@ -55,7 +55,7 @@ function setupProvinceTable (provinceCode) {
       {
         name: 'dif',
         value: 'Variación',
-        type: 'string'
+        type: 'variation'
       }
     ]
   })

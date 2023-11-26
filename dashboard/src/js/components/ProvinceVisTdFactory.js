@@ -1,7 +1,7 @@
 import ProvinceVisTdParty from './ProvinceVisTdParty.js'
 import ProvinceVisTdVariation from './ProvinceVisTdVariation.js'
 import ProvinceVisDotChart from './ProvinceVisDotChart.js'
-class TdFactory {
+class ProvinceVisTdFactory {
   constructor () {
     this.TdDefaultClass = ProvinceVisDotChart
   }
@@ -14,8 +14,9 @@ class TdFactory {
       case 'variation':
         return new ProvinceVisTdVariation(rest)
       default:
-        return new this.TdDefaultClass(rest)
+        return 'visualizacion'
+        // return new this.TdDefaultClass(rest)
     }
   }
 }
-export default TdFactory
+export default ProvinceVisTdFactory
