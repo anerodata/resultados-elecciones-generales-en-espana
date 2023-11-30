@@ -1,6 +1,7 @@
-class ProvinceVisTdVariation {
+class ProvinceVisTdDotChart {
   constructor (config) {
     this.value = config.value
+    this.color = config.color
   }
 
   getTdNode () {
@@ -10,4 +11,4 @@ class ProvinceVisTdVariation {
     return span
   }
 }
-export default ProvinceVisTdVariation
+export default ProvinceVisTdDotChart

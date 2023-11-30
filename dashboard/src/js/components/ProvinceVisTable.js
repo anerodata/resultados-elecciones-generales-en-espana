@@ -61,7 +61,8 @@ class ProvinceVisTable {
       const table = document.createElement('table')
       const tHead = setupTableHead.get(this)()
       table.appendChild(tHead)
-      setupTableBody.get(this)()
+      const tableBody = setupTableBody.get(this)()
+      table.appendChild(tableBody)
       this.tableContainer.textContent = ''
       this.tableContainer.appendChild(table)
     })
@@ -85,11 +86,14 @@ class ProvinceVisTable {
           const provinceVisTdFactory = new ProvinceVisTdFactory()
           const tDContent = provinceVisTdFactory.createTd({
             tdType: headField.type,
-            value: row[headField.name]
+            value: row[headField.name],
+            color: row.color
           })
-          console.log(tDContent.constructor)
+          tD.appendChild(tDContent.getTdNode())
         })
+        tbody.appendChild(tR)
       })
+      return tbody
     })
   }
 
@@ -231,6 +235,7 @@ function provinceTable (nombre, dataset, idDivMain, idTable) {
 
   const tbody = document.createElement('tbody')
   table.appendChild(tbody)
+  console.log(dataset)
   for (let i = 0; i < dataset.length; i++) {
     const tRB = document.createElement('tr')
     tbody.appendChild(tRB)
