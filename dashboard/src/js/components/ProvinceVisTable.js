@@ -9,6 +9,10 @@ const dotChartWidth = new WeakMap()
 const setupTable = new WeakMap()
 const setupTableHead = new WeakMap()
 const setupTableBody = new WeakMap()
+const setupTableTr = new WeakMap()
+const setupTableTd = new WeakMap()
+
+
 function createNodeWithText (element, text) {
   const node = document.createElement(element)
   const textNode = document.createTextNode(text)
@@ -77,23 +81,31 @@ class ProvinceVisTable {
       return tHead
     })
     setupTableBody.set(this, () => {
-      const tbody = document.createElement('tbody')
+      const tBody = document.createElement('tbody')
       dataset.forEach(row => {
-        const tR = document.createElement('tr')
-        headData.forEach(headField => {
-          const tD = document.createElement('td')
-          tR.appendChild(tD)
-          const provinceVisTdFactory = new ProvinceVisTdFactory()
-          const tDContent = provinceVisTdFactory.createTd({
-            tdType: headField.type,
-            value: row[headField.name],
-            color: row.color
-          })
-          tD.appendChild(tDContent.getTdNode())
-        })
-        tbody.appendChild(tR)
+        const tR = setupTableTr.get(this)(row)
+        tBody.appendChild(tR)
       })
-      return tbody
+      return tBody
+    })
+    setupTableTr.set(this, (row) => {
+      const tR = document.createElement('tr')
+      headData.forEach(headField => {
+        const tD = setupTableTd.get(this)(row, headField)
+        tR.appendChild(tD)
+      })
+      return tR
+    })
+    setupTableTd.set(this, (row, headField) => {
+      const tD = document.createElement('td')
+      const provinceVisTdFactory = new ProvinceVisTdFactory()
+      const tDContent = provinceVisTdFactory.createTd({
+        tdType: headField.type,
+        value: row[headField.name],
+        color: row.color
+      })
+      tD.appendChild(tDContent.getTdNode())
+      return tD
     })
   }
 
