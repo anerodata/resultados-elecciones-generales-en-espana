@@ -64,8 +64,8 @@ class ProvinceVisTable {
     setupTable.set(this, () => {
       const table = document.createElement('table')
       const tHead = setupTableHead.get(this)()
-      table.appendChild(tHead)
       const tableBody = setupTableBody.get(this)()
+      table.appendChild(tHead)
       table.appendChild(tableBody)
       this.tableContainer.textContent = ''
       this.tableContainer.appendChild(table)
