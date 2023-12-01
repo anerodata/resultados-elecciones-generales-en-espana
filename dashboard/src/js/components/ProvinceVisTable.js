@@ -11,6 +11,7 @@ const setupTableHead = new WeakMap()
 const setupTableBody = new WeakMap()
 const setupTableTr = new WeakMap()
 const setupTableTd = new WeakMap()
+const provinceVisTdFactory = new ProvinceVisTdFactory()
 
 
 function createNodeWithText (element, text) {
@@ -98,7 +99,6 @@ class ProvinceVisTable {
     })
     setupTableTd.set(this, (row, headField) => {
       const tD = document.createElement('td')
-      const provinceVisTdFactory = new ProvinceVisTdFactory()
       const tDContent = provinceVisTdFactory.createTd({
         tdType: headField.type,
         value: row[headField.name],
