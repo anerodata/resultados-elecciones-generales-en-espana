@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 let height = 0
 const setupCustomBase = new WeakMap()
-const setupCanvas = new WeakMap()
+const setupVis = new WeakMap()
 
 class ProvinceVisTdDotChart {
   constructor (config) {
@@ -69,7 +69,7 @@ class ProvinceVisTdDotChart {
       height = nBlockY + this.widthSq + this.sep * 12 + 10 + 3
       return customBase
     })
-    setupCanvas.set(this, (customBase) => {
+    setupVis.set(this, (customBase) => {
       let canvas = document.createElement('canvas')
       canvas = d3.select(canvas)
         .attr('width', this.width)
@@ -81,17 +81,20 @@ class ProvinceVisTdDotChart {
       elements.each(function () {
         const node = d3.select(this)
         context.fillStyle = node.attr('fillStyle')
-        console.log(node.attr('x'), node.attr('y'), node.attr('width'), node.attr('height'))
         context.fillRect(node.attr('x'), node.attr('y'), node.attr('width'), node.attr('height'))
       })
-      return canvas.node()
+      const canvasContainer = document.createElement('div')
+      canvasContainer.appendChild(canvas.node())
+      console.log(height)
+      canvasContainer.style.height = `${height}px`
+      return canvasContainer
     })
   }
 
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
-    const canvas = setupCanvas.get(this)(customBase)
-    return canvas
+    const vis = setupVis.get(this)(customBase)
+    return vis
   }
 }
 export default ProvinceVisTdDotChart
