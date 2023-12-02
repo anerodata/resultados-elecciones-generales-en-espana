@@ -5,7 +5,6 @@ class ProvinceVisTdFactory {
   constructor () {
     this.createTd = (options) => {
       const { tdType, ...tdProps } = options
-      console.log(tdProps, 111)
       switch (tdType) {
         case 'party':
           return new ProvinceVisTdParty({

@@ -48,20 +48,10 @@ class ProvinceVisTable {
     this.dataset = dataset
     this.idTable = idTable
     this.headData = headData
-    getChartWidth.set(this, () => {
-      return this.divMain.clientWidth > this.maxTableWidth
-        ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
-        : this.maxTableWidth / 2 - this.noVizRowsWidth
-    })
-    getChartDimensions.set(this, () => {
-      const chartDimensions = { chartWidth: getChartWidth.get(this)(), widthSq: 3, sep: 3 }
-      if (this.divMain.clientWidth < 880) {
-        chartDimensions.widthSq = 2
-        chartDimensions.sep = 2
-      }
-      return chartDimensions
-    })
+    this.chartDimensions = {}
+
     setupTable.set(this, () => {
+      this.chartDimensions = getChartDimensions.get(this)()
       const table = document.createElement('table')
       const tHead = setupTableHead.get(this)()
       const tableBody = setupTableBody.get(this)()
@@ -70,6 +60,22 @@ class ProvinceVisTable {
       this.tableContainer.textContent = ''
       this.tableContainer.appendChild(table)
     })
+
+    getChartDimensions.set(this, () => {
+      const chartDimensions = { chartWidth: getChartWidth.get(this)(), widthSq: 3, sep: 3 }
+      if (this.divMain.clientWidth < 880) {
+        chartDimensions.widthSq = 2
+        chartDimensions.sep = 2
+      }
+      return chartDimensions
+    })
+
+    getChartWidth.set(this, () => {
+      return this.divMain.clientWidth > this.maxTableWidth
+        ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
+        : this.maxTableWidth / 2 - this.noVizRowsWidth
+    })
+
     setupTableHead.set(this, () => {
       const tHead = document.createElement('thead')
       const tRH = document.createElement('tr')
@@ -80,6 +86,7 @@ class ProvinceVisTable {
       })
       return tHead
     })
+
     setupTableBody.set(this, () => {
       const tBody = document.createElement('tbody')
       dataset.forEach(row => {
@@ -88,6 +95,7 @@ class ProvinceVisTable {
       })
       return tBody
     })
+
     setupTableTr.set(this, (row) => {
       const tR = document.createElement('tr')
       headData.forEach(headField => {
@@ -102,13 +110,12 @@ class ProvinceVisTable {
         tdType: headField.type,
         value: row[headField.name],
         color: row.color,
-        chartDimensions: {
-          ...getChartDimensions.get(this)()
-        }
+        chartDimensions: this.chartDimensions
       })
       tD.appendChild(tDContent.getTdNode())
       return tD
     })
+
   }
 
   setup () {
