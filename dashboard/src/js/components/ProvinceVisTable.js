@@ -1,5 +1,5 @@
 import ProvinceVisTdFactory from './ProvinceVisTdFactory.js'
-import { createNodeWithText } from './utils.js'
+import { createNodeWithText } from './helpers.js'
 import dotChart from './ProvinceVisDotChart.js'
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
