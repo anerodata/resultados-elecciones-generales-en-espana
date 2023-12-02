@@ -5,14 +5,13 @@ import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
 
 const getChartDimensions = new WeakMap()
-const dotChartWidth = new WeakMap()
+const getChartWidth = new WeakMap()
 const setupTable = new WeakMap()
 const setupTableHead = new WeakMap()
 const setupTableBody = new WeakMap()
 const setupTableTr = new WeakMap()
 const setupTableTd = new WeakMap()
 const provinceVisTdFactory = new ProvinceVisTdFactory()
-
 
 function createNodeWithText (element, text) {
   const node = document.createElement(element)
@@ -49,13 +48,13 @@ class ProvinceVisTable {
     this.dataset = dataset
     this.idTable = idTable
     this.headData = headData
-    dotChartWidth.set(this, () => {
+    getChartWidth.set(this, () => {
       return this.divMain.clientWidth > this.maxTableWidth
         ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
         : this.maxTableWidth / 2 - this.noVizRowsWidth
     })
     getChartDimensions.set(this, () => {
-      const chartDimensions = { widthSq: 3, sep: 3 }
+      const chartDimensions = { chartWidth: getChartWidth.get(this)(), widthSq: 3, sep: 3 }
       if (this.divMain.clientWidth < 880) {
         chartDimensions.widthSq = 2
         chartDimensions.sep = 2
@@ -102,7 +101,10 @@ class ProvinceVisTable {
       const tDContent = provinceVisTdFactory.createTd({
         tdType: headField.type,
         value: row[headField.name],
-        color: row.color
+        color: row.color,
+        chartDimensions: {
+          ...getChartDimensions.get(this)()
+        }
       })
       tD.appendChild(tDContent.getTdNode())
       return tD

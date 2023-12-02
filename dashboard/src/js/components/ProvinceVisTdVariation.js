@@ -20,8 +20,8 @@ function getDiffSymbolColor (diff) {
   }
 }
 class ProvinceVisTdVariation {
-  constructor (config) {
-    this.value = config.value
+  constructor (value) {
+    this.value = value
   }
 
   getTdNode () {
