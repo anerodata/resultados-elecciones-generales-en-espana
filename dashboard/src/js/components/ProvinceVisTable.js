@@ -13,31 +13,6 @@ const setupTableTr = new WeakMap()
 const setupTableTd = new WeakMap()
 const provinceVisTdFactory = new ProvinceVisTdFactory()
 
-function createNodeWithText (element, text) {
-  const node = document.createElement(element)
-  const textNode = document.createTextNode(text)
-  node.appendChild(textNode)
-  return node
-}
-function getSrc (diff) {
-  if (diff > 0) {
-    return up
-  } else if (diff < 0) {
-    return down
-  } else {
-    return equal
-  }
-}
-
-function getColor (diff) {
-  if (diff > 0) {
-    return '#4DFFC7'
-  } else if (diff < 0) {
-    return '#FF4D7A'
-  } else {
-    return 'black'
-  }
-}
 class ProvinceVisTable {
   constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
     this.maxTableWidth = 480
