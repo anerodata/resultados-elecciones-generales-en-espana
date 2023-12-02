@@ -104,6 +104,7 @@ class ProvinceVisTable {
       })
       return tR
     })
+
     setupTableTd.set(this, (row, headField) => {
       const tD = document.createElement('td')
       const tDContent = provinceVisTdFactory.createTd({
@@ -115,7 +116,6 @@ class ProvinceVisTable {
       tD.appendChild(tDContent.getTdNode())
       return tD
     })
-
   }
 
   setup () {
