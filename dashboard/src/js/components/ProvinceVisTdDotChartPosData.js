@@ -3,11 +3,13 @@ let iY
 let bStart
 let nBlockX
 let nBlockY
-let countTen
-let countHund
-function dotIsInNewBlock () {
-  return countTen === 10 && countHund < 100
-}
+let countRow
+let countBlock
+const addOneToCountRowBlock = new WeakMap()
+const dotIsInNewRow = new WeakMap()
+const initNewRow = new WeakMap()
+const dotIsInNewBlock = new WeakMap()
+const restartCountRowBlock = new WeakMap()
 class ProvinceVisTdDotChartPosData {
   constructor (width, sep) {
     this.width = width
@@ -17,40 +19,58 @@ class ProvinceVisTdDotChartPosData {
     bStart = true
     nBlockX = 0
     nBlockY = 0
-    countTen = 0
-    countHund = 0
+    countRow = 0
+    countBlock = 0
+    addOneToCountRowBlock.set(this, () => {
+      countRow += 1
+      countBlock += 1
+    })
+    dotIsInNewRow.set(this, () => {
+      return countRow === 10 && countBlock < 100
+    })
+    initNewRow.set(this, () => {
+      countRow = 0
+      iX = nBlockX
+      iY += this.sep + 1
+    })
+    dotIsInNewBlock.set(this, () => {
+      return countBlock === 100
+    })
+    restartCountRowBlock.set(this, () => {
+      countBlock = 0
+      countRow = 0
+    })
   }
 
   getPosition () {
+    if (bStart) {
+      bStart = false
+      return { iX, iY, nBlockX, nBlockY }
+    }
     if (!bStart) {
-      countTen += 1
-      countHund += 1
-      if (dotIsInNewBlock()) {
-        countTen = 0
-        iX = nBlockX
-        iY += this.sep + 1
-      } else if (countHund === 100) {
-        countHund = 0
-        countTen = 0
-        // nuevo renglon en otro cuadro debajo
-        if (nBlockX + ((this.sep * 12) + 10) * 2 > this.width) {
-          nBlockX = 0
-          iX = 0
-          nBlockY += this.sep * 12 + 10
-          iY = nBlockY
-          /// /nuevo renglon en otro cuadro a continuacion
-        } else {
-          nBlockX += this.sep * 12 + 10
-          iX = nBlockX
-          iY = nBlockY
-        }
+      addOneToCountRowBlock.get(this)()
+    }
+    if (dotIsInNewRow.get(this)()) {
+      initNewRow.get(this)()
+    } else if (dotIsInNewBlock.get(this)()) {
+      restartCountRowBlock.get(this)()
+      // nuevo renglon en otro cuadro debajo
+      if (nBlockX + ((this.sep * 12) + 10) * 2 > this.width) {
+        nBlockX = 0
+        iX = 0
+        nBlockY += this.sep * 12 + 10
+        iY = nBlockY
+        /// /nuevo renglon en otro cuadro a continuacion
       } else {
-        // nuevo punto a continuacion del anterior
-        iX += this.sep + 1
+        nBlockX += this.sep * 12 + 10
+        iX = nBlockX
+        iY = nBlockY
       }
+    } else {
+      // nuevo punto a continuacion del anterior
+      iX += this.sep + 1
     }
     // comienzo
-    bStart = false
     return { iX, iY, nBlockX, nBlockY }
   }
 
