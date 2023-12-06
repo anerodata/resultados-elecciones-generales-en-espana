@@ -5,6 +5,9 @@ let nBlockX
 let nBlockY
 let countTen
 let countHund
+function dotIsInNewBlock () {
+  return countTen === 10 && countHund < 100
+}
 class ProvinceVisTdDotChartPosData {
   constructor (width, sep) {
     this.width = width
@@ -22,8 +25,7 @@ class ProvinceVisTdDotChartPosData {
     if (!bStart) {
       countTen += 1
       countHund += 1
-      // nuevo renglon dentro del cuadro
-      if (countTen === 10 && countHund < 100) {
+      if (dotIsInNewBlock()) {
         countTen = 0
         iX = nBlockX
         iY += this.sep + 1
@@ -50,6 +52,10 @@ class ProvinceVisTdDotChartPosData {
     // comienzo
     bStart = false
     return { iX, iY, nBlockX, nBlockY }
+  }
+
+  getChartHeight () {
+    return nBlockY + this.sep * 10 + 10
   }
 }
 export default ProvinceVisTdDotChartPosData
