@@ -43,16 +43,18 @@ class ProvinceVisTdDotChartPosData {
   }
 
   getPosition () {
+    if (!bStart) {
+      addOneToCountRowBlock.get(this)()
+    }
     if (bStart) {
       bStart = false
       return { iX, iY, nBlockX, nBlockY }
     }
-    if (!bStart) {
-      addOneToCountRowBlock.get(this)()
-    }
     if (dotIsInNewRow.get(this)()) {
       initNewRow.get(this)()
-    } else if (dotIsInNewBlock.get(this)()) {
+      return { iX, iY, nBlockX, nBlockY }
+    }
+    if (dotIsInNewBlock.get(this)()) {
       restartCountRowBlock.get(this)()
       // nuevo renglon en otro cuadro debajo
       if (nBlockX + ((this.sep * 12) + 10) * 2 > this.width) {
@@ -66,11 +68,10 @@ class ProvinceVisTdDotChartPosData {
         iX = nBlockX
         iY = nBlockY
       }
-    } else {
-      // nuevo punto a continuacion del anterior
-      iX += this.sep + 1
+      return { iX, iY, nBlockX, nBlockY }
     }
-    // comienzo
+    // nuevo punto a continuacion del anterior
+    iX += this.sep + 1
     return { iX, iY, nBlockX, nBlockY }
   }
 
