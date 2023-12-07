@@ -12,7 +12,7 @@ const restartCountRow = new WeakMap()
 const initDotInNewRow = new WeakMap()
 
 const isDotInNewBlock = new WeakMap()
-const restartCountRowBlock = new WeakMap()
+const restartCountBlock = new WeakMap()
 const initDotInNewBlock = new WeakMap()
 const isDotInNewBlockBehindCurrent = new WeakMap()
 const initDotInNewBlockBehindCurrent = new WeakMap()
@@ -52,9 +52,8 @@ class ProvinceVisTdDotChartPositionData {
       return countBlock === 100
     })
 
-    restartCountRowBlock.set(this, () => {
+    restartCountBlock.set(this, () => {
       countBlock = 0
-      countRow = 0
     })
 
     initDotInNewBlock.set(this, () => {
@@ -103,7 +102,8 @@ class ProvinceVisTdDotChartPositionData {
       return { xDot, yDot }
     }
     if (isDotInNewBlock.get(this)()) {
-      restartCountRowBlock.get(this)()
+      restartCountRow.get(this)()
+      restartCountBlock.get(this)()
       const coord = initDotInNewBlock.get(this)()
       return coord
     }
