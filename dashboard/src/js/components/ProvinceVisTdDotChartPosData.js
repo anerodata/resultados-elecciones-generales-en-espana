@@ -17,7 +17,7 @@ const initDotInNewBlock = new WeakMap()
 const isDotInNewBlockBehindCurrent = new WeakMap()
 const initDotInNewBlockBehindCurrent = new WeakMap()
 const initDotInNewBlockNextToCurrent = new WeakMap()
-const getChartSize = new WeakMap()
+const getBlockSize = new WeakMap()
 const initDotNextToCurrent = new WeakMap()
 class ProvinceVisTdDotChartPosData {
   constructor (width, dotWidth) {
@@ -63,16 +63,16 @@ class ProvinceVisTdDotChartPosData {
     })
     initDotInNewBlockBehindCurrent.set(this, () => {
       xBlock = 0
-      yBlock += getChartSize.get(this)()
+      yBlock += getBlockSize.get(this)()
       xDot = 0
       yDot = yBlock
     })
     initDotInNewBlockNextToCurrent.set(this, () => {
-      xBlock += getChartSize.get(this)()
+      xBlock += getBlockSize.get(this)()
       xDot = xBlock
       yDot = yBlock
     })
-    getChartSize.set(this, () => {
+    getBlockSize.set(this, () => {
       return this.dotWidth * 12 + blockSeparator
     })
     initDotNextToCurrent.set(this, () => {
