@@ -1,4 +1,3 @@
-import * as d3 from 'd3'
 import ProvinceVisTdDotChartPositionBuilder from './ProvinceVisTdDotChartPositionBuilder.js'
 let height = 0
 const setupCustomBase = new WeakMap()
@@ -30,21 +29,23 @@ class ProvinceVisTdDotChart {
     calcCoordinates.set(this, () => {
     })
     setupVis.set(this, (customBase) => {
-      let canvas = document.createElement('canvas')
-      canvas = d3.select(canvas)
-        .attr('width', this.width)
-        .attr('height', height)
-
-      const context = canvas.node().getContext('2d')
+      const canvas = document.createElement('canvas')
+      canvas.setAttribute('width', this.width)
+      canvas.setAttribute('height', height)
+      const context = canvas.getContext('2d')
       context.clearRect(0, 0, this.width, height)
-      const elements = customBase.selectAll('custom.square')
-      elements.each(function () {
-        const node = d3.select(this)
-        context.fillStyle = node.attr('fillStyle')
-        context.fillRect(node.attr('x'), node.attr('y'), node.attr('width'), node.attr('height'))
+      const elements = customBase.querySelectorAll('.square')
+      elements.forEach(function (el) {
+        context.fillStyle = el.getAttribute('fillStyle')
+        context.fillRect(
+          el.getAttribute('x'),
+          el.getAttribute('y'),
+          el.getAttribute('width'),
+          el.getAttribute('height')
+        )
       })
       const canvasContainer = document.createElement('div')
-      canvasContainer.appendChild(canvas.node())
+      canvasContainer.appendChild(canvas)
       canvasContainer.style.height = `${height}px`
       return canvasContainer
     })
@@ -52,7 +53,7 @@ class ProvinceVisTdDotChart {
 
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
-    const vis = setupVis.get(this)(d3.select(customBase))
+    const vis = setupVis.get(this)(customBase)
     return vis
   }
 }
