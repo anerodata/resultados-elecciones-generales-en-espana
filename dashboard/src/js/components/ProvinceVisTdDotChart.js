@@ -1,8 +1,11 @@
 import ProvinceVisTdDotChartPositionBuilder from './ProvinceVisTdDotChartPositionBuilder.js'
 let height = 0
 const setupCustomBase = new WeakMap()
-const setupVis = new WeakMap()
-const calcCoordinates = new WeakMap()
+const setupVisualization = new WeakMap()
+const setupCanvas = new WeakMap()
+const setupContext = new WeakMap()
+const setupContextAttr = new WeakMap()
+const setupCanvasContainer = new WeakMap()
 class ProvinceVisTdDotChart {
   constructor (config) {
     this.value = config.value
@@ -26,26 +29,39 @@ class ProvinceVisTdDotChart {
       height = this.posData.getChartHeight()
       return customBase
     })
-    calcCoordinates.set(this, () => {
+    setupVisualization.set(this, (customBase) => {
+      const canvas = setupCanvas.get(this)()
+      const context = setupContext.get(this)(canvas)
+      const elements = customBase.querySelectorAll('.square')
+      elements.forEach((el) => {
+        setupContextAttr.get(this)(context, el)
+      })
+      const canvasContainer = setupCanvasContainer.get(this)()
+      canvasContainer.appendChild(canvas)
+      return canvasContainer
     })
-    setupVis.set(this, (customBase) => {
+    setupCanvas.set(this, () => {
       const canvas = document.createElement('canvas')
       canvas.setAttribute('width', this.width)
       canvas.setAttribute('height', height)
+      return canvas
+    })
+    setupContext.set(this, (canvas) => {
       const context = canvas.getContext('2d')
       context.clearRect(0, 0, this.width, height)
-      const elements = customBase.querySelectorAll('.square')
-      elements.forEach(function (el) {
-        context.fillStyle = el.getAttribute('fillStyle')
-        context.fillRect(
-          el.getAttribute('x'),
-          el.getAttribute('y'),
-          el.getAttribute('width'),
-          el.getAttribute('height')
-        )
-      })
+      return context
+    })
+    setupContextAttr.set(this, (context, el) => {
+      context.fillStyle = el.getAttribute('fillStyle')
+      context.fillRect(
+        el.getAttribute('x'),
+        el.getAttribute('y'),
+        el.getAttribute('width'),
+        el.getAttribute('height')
+      )
+    })
+    setupCanvasContainer.set(this, () => {
       const canvasContainer = document.createElement('div')
-      canvasContainer.appendChild(canvas)
       canvasContainer.style.height = `${height}px`
       return canvasContainer
     })
@@ -53,8 +69,8 @@ class ProvinceVisTdDotChart {
 
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
-    const vis = setupVis.get(this)(customBase)
-    return vis
+    const visualization = setupVisualization.get(this)(customBase)
+    return visualization
   }
 }
 export default ProvinceVisTdDotChart
