@@ -10,8 +10,8 @@ class ProvinceVisTdDotChart {
     this.color = config.color
     this.width = config.chartDimensions.chartWidth
     this.dotWidth = config.chartDimensions.dotWidth
+    this.posData = new ProvinceVisTdDotChartPosData(this.width, this.dotWidth)
     setupCustomBase.set(this, () => {
-      const posData = new ProvinceVisTdDotChartPosData(this.width, this.dotWidth)
       const customBase = document.createElement('custom')
       let currentCoord = {}
       for (let i = 0; i < this.value; i++) {
@@ -20,12 +20,12 @@ class ProvinceVisTdDotChart {
         customSquare.classList.add('square')
         customSquare.setAttribute('width', `${this.dotWidth}`)
         customSquare.setAttribute('height', `${this.dotWidth}`)
-        currentCoord = posData.getPosition(i)
+        currentCoord = this.posData.getPosition(i)
         customSquare.setAttribute('x', currentCoord.xDot)
         customSquare.setAttribute('y', currentCoord.yDot)
         customSquare.setAttribute('fillStyle', this.color)
       }
-      height = posData.getChartHeight()
+      height = this.posData.getChartHeight()
       console.log(height)
       return customBase
     })
