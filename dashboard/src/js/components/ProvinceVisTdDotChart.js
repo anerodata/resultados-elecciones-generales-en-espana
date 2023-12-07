@@ -22,8 +22,8 @@ class ProvinceVisTdDotChart {
         customSquare.setAttribute('width', `${this.widthSq}`) // .width = `${this.widthSq}px`
         customSquare.setAttribute('height', `${this.widthSq}`) // .height = `${this.widthSq}px`
         currentCoord = posData.getPosition(i)
-        customSquare.setAttribute('x', currentCoord.iX)
-        customSquare.setAttribute('y', currentCoord.iY)
+        customSquare.setAttribute('x', currentCoord.xDot)
+        customSquare.setAttribute('y', currentCoord.yDot)
         customSquare.setAttribute('fillStyle', this.color)
       }
       height = posData.getChartHeight()
