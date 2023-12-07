@@ -13,6 +13,7 @@ class ProvinceVisTdDotChart {
     this.width = config.chartDimensions.chartWidth
     this.dotWidth = config.chartDimensions.dotWidth
     this.posData = new ProvinceVisTdDotChartPositionBuilder(this.width, this.dotWidth)
+
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
       for (let i = 0; i < this.value; i++) {
@@ -29,6 +30,7 @@ class ProvinceVisTdDotChart {
       height = this.posData.getChartHeight()
       return customBase
     })
+
     setupVisualization.set(this, (customBase) => {
       const canvas = setupCanvas.get(this)()
       const context = setupContext.get(this)(canvas)
@@ -40,17 +42,20 @@ class ProvinceVisTdDotChart {
       canvasContainer.appendChild(canvas)
       return canvasContainer
     })
+
     setupCanvas.set(this, () => {
       const canvas = document.createElement('canvas')
       canvas.setAttribute('width', this.width)
       canvas.setAttribute('height', height)
       return canvas
     })
+
     setupContext.set(this, (canvas) => {
       const context = canvas.getContext('2d')
       context.clearRect(0, 0, this.width, height)
       return context
     })
+
     setupContextAttr.set(this, (context, el) => {
       context.fillStyle = el.getAttribute('fillStyle')
       context.fillRect(
@@ -60,6 +65,7 @@ class ProvinceVisTdDotChart {
         el.getAttribute('height')
       )
     })
+
     setupCanvasContainer.set(this, () => {
       const canvasContainer = document.createElement('div')
       canvasContainer.style.height = `${height}px`

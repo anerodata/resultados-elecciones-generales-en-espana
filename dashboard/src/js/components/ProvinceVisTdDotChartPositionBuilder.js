@@ -29,27 +29,34 @@ class ProvinceVisTdDotChartPositionData {
     yBlock = 0
     countRow = 0
     countBlock = 0
+
     addOneToCountRowBlock.set(this, () => {
       countRow += 1
       countBlock += 1
     })
+
     isDotInNewRow.set(this, () => {
       return countRow === 10 && countBlock < 100
     })
+
     restartCountRow.set(this, () => {
       countRow = 0
     })
+
     initDotInNewRow.set(this, () => {
       xDot = xBlock
       yDot += this.dotWidth + 1
     })
+
     isDotInNewBlock.set(this, () => {
       return countBlock === 100
     })
+
     restartCountRowBlock.set(this, () => {
       countBlock = 0
       countRow = 0
     })
+
     initDotInNewBlock.set(this, () => {
       if (isDotInNewBlockBehindCurrent.get(this)()) {
         initDotInNewBlockBehindCurrent.get(this)()
@@ -58,23 +65,28 @@ class ProvinceVisTdDotChartPositionData {
       initDotInNewBlockNextToCurrent.get(this)()
       return { xDot, yDot, xBlock, yBlock }
     })
+
     isDotInNewBlockBehindCurrent.set(this, () => {
       return xBlock + ((this.dotWidth * 12) + 10) * 2 > this.width
     })
+
     initDotInNewBlockBehindCurrent.set(this, () => {
       xBlock = 0
       yBlock += getBlockSize.get(this)()
       xDot = 0
       yDot = yBlock
     })
+
     initDotInNewBlockNextToCurrent.set(this, () => {
       xBlock += getBlockSize.get(this)()
       xDot = xBlock
       yDot = yBlock
     })
+
     getBlockSize.set(this, () => {
       return this.dotWidth * 12 + blockSeparator
     })
+
     initDotNextToCurrent.set(this, () => {
       xDot += this.dotWidth + 1
     })
