@@ -9,16 +9,16 @@ const addOneToCountRowBlock = new WeakMap()
 
 const isDotInNewRow = new WeakMap()
 const restartCountRow = new WeakMap()
-const setupDotInNewRow = new WeakMap()
+const setupDotPosInNewRow = new WeakMap()
 
 const isDotInNewBlock = new WeakMap()
 const restartCountBlock = new WeakMap()
-const setupDotInNewBlock = new WeakMap()
+const setupDotPosInNewBlock = new WeakMap()
 const isDotInNewBlockBehindCurrent = new WeakMap()
-const setupDotInNewBlockBehindCurrent = new WeakMap()
-const setupDotInNewBlockNextToCurrent = new WeakMap()
+const setupDotPosInNewBlockBehindCurrent = new WeakMap()
+const setupDotPosInNewBlockNextToCurrent = new WeakMap()
 const getBlockSize = new WeakMap()
-const setupDotNextToCurrent = new WeakMap()
+const setupDotPosNextToCurrent = new WeakMap()
 class ProvinceVisTdDotChartPositionData {
   constructor (width, dotWidth) {
     this.width = width
@@ -43,7 +43,7 @@ class ProvinceVisTdDotChartPositionData {
       countRow = 0
     })
 
-    setupDotInNewRow.set(this, () => {
+    setupDotPosInNewRow.set(this, () => {
       xDot = xBlock
       yDot += this.dotWidth + 1
       return { xDot, yDot }
@@ -57,12 +57,12 @@ class ProvinceVisTdDotChartPositionData {
       countBlock = 0
     })
 
-    setupDotInNewBlock.set(this, () => {
+    setupDotPosInNewBlock.set(this, () => {
       if (isDotInNewBlockBehindCurrent.get(this)()) {
-        setupDotInNewBlockBehindCurrent.get(this)()
+        setupDotPosInNewBlockBehindCurrent.get(this)()
         return { xDot, yDot }
       }
-      setupDotInNewBlockNextToCurrent.get(this)()
+      setupDotPosInNewBlockNextToCurrent.get(this)()
       return { xDot, yDot }
     })
 
@@ -70,14 +70,14 @@ class ProvinceVisTdDotChartPositionData {
       return xBlock + ((this.dotWidth * 12) + 10) * 2 > this.width
     })
 
-    setupDotInNewBlockBehindCurrent.set(this, () => {
+    setupDotPosInNewBlockBehindCurrent.set(this, () => {
       xBlock = 0
       yBlock += getBlockSize.get(this)()
       xDot = 0
       yDot = yBlock
     })
 
-    setupDotInNewBlockNextToCurrent.set(this, () => {
+    setupDotPosInNewBlockNextToCurrent.set(this, () => {
       xBlock += getBlockSize.get(this)()
       xDot = xBlock
       yDot = yBlock
@@ -87,7 +87,7 @@ class ProvinceVisTdDotChartPositionData {
       return this.dotWidth * 12 + blockSeparator
     })
 
-    setupDotNextToCurrent.set(this, () => {
+    setupDotPosNextToCurrent.set(this, () => {
       xDot += this.dotWidth + 1
       return { xDot, yDot }
     })
@@ -100,16 +100,16 @@ class ProvinceVisTdDotChartPositionData {
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
       restartCountRow.get(this)()
-      const coord = setupDotInNewRow.get(this)()
+      const coord = setupDotPosInNewRow.get(this)()
       return coord
     }
     if (isDotInNewBlock.get(this)()) {
       restartCountRow.get(this)()
       restartCountBlock.get(this)()
-      const coord = setupDotInNewBlock.get(this)()
+      const coord = setupDotPosInNewBlock.get(this)()
       return coord
     }
-    const coord = setupDotNextToCurrent.get(this)()
+    const coord = setupDotPosNextToCurrent.get(this)()
     return coord
   }
 
