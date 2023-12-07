@@ -32,9 +32,9 @@ class ProvinceVisTdDotChart {
     setupVisualization.set(this, (customBase) => {
       const canvas = setupCanvas.get(this)()
       const context = setupContext.get(this)(canvas)
-      const elements = customBase.querySelectorAll('.square')
-      elements.forEach((el) => {
-        setupContextAttr.get(this)(context, el)
+      const dots = customBase.querySelectorAll('.square')
+      dots.forEach((dot) => {
+        setupContextAttr.get(this)(context, dot)
       })
       const canvasContainer = setupCanvasContainer.get(this)()
       canvasContainer.appendChild(canvas)
