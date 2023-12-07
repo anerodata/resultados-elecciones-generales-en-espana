@@ -60,10 +60,10 @@ class ProvinceVisTdDotChartPositionData {
     initDotInNewBlock.set(this, () => {
       if (isDotInNewBlockBehindCurrent.get(this)()) {
         initDotInNewBlockBehindCurrent.get(this)()
-        return { xDot, yDot, xBlock, yBlock }
+        return { xDot, yDot }
       }
       initDotInNewBlockNextToCurrent.get(this)()
-      return { xDot, yDot, xBlock, yBlock }
+      return { xDot, yDot }
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
