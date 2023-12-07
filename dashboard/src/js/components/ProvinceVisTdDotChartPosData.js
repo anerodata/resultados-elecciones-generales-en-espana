@@ -18,9 +18,9 @@ const initDotInNewBlockBehindCurrent = new WeakMap()
 const initDotInNewBlockNextToCurrent = new WeakMap()
 const initDotNextToCurrent = new WeakMap()
 class ProvinceVisTdDotChartPosData {
-  constructor (width, sep) {
+  constructor (width, dotWidth) {
     this.width = width
-    this.sep = sep
+    this.dotWidth = dotWidth
     xDot = 0
     yDot = 0
     xBlock = 0
@@ -39,7 +39,7 @@ class ProvinceVisTdDotChartPosData {
     })
     initDotInNewRow.set(this, () => {
       xDot = xBlock
-      yDot += this.sep + 1
+      yDot += this.dotWidth + 1
     })
     isDotInNewBlock.set(this, () => {
       return countBlock === 100
@@ -57,21 +57,21 @@ class ProvinceVisTdDotChartPosData {
       return { xDot, yDot, xBlock, yBlock }
     })
     isDotInNewBlockBehindCurrent.set(this, () => {
-      return xBlock + ((this.sep * 12) + 10) * 2 > this.width
+      return xBlock + ((this.dotWidth * 12) + 10) * 2 > this.width
     })
     initDotInNewBlockBehindCurrent.set(this, () => {
       xBlock = 0
       xDot = 0
-      yBlock += this.sep * 12 + 10
+      yBlock += this.dotWidth * 12 + 10
       yDot = yBlock
     })
     initDotInNewBlockNextToCurrent.set(this, () => {
-      xBlock += this.sep * 12 + 10
+      xBlock += this.dotWidth * 12 + 10
       xDot = xBlock
       yDot = yBlock
     })
     initDotNextToCurrent.set(this, () => {
-      xDot += this.sep + 1
+      xDot += this.dotWidth + 1
     })
   }
 
@@ -95,7 +95,7 @@ class ProvinceVisTdDotChartPosData {
   }
 
   getChartHeight () {
-    return yBlock + this.sep * 12 + 10
+    return yBlock + this.dotWidth * 12 + 10
   }
 }
 export default ProvinceVisTdDotChartPosData
