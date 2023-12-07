@@ -14,15 +14,15 @@ class ProvinceVisTdDotChart {
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
       for (let i = 0; i < this.value; i++) {
-        const customSquare = document.createElement('custom')
-        customBase.appendChild(customSquare)
-        customSquare.classList.add('square')
-        customSquare.setAttribute('width', `${this.dotWidth}`)
-        customSquare.setAttribute('height', `${this.dotWidth}`)
+        const customDot = document.createElement('custom')
+        customBase.appendChild(customDot)
+        customDot.classList.add('square')
+        customDot.setAttribute('width', `${this.dotWidth}`)
+        customDot.setAttribute('height', `${this.dotWidth}`)
         const currentCoord = this.posData.getPosition(i)
-        customSquare.setAttribute('x', currentCoord.xDot)
-        customSquare.setAttribute('y', currentCoord.yDot)
-        customSquare.setAttribute('fillStyle', this.color)
+        customDot.setAttribute('x', currentCoord.xDot)
+        customDot.setAttribute('y', currentCoord.yDot)
+        customDot.setAttribute('fillStyle', this.color)
       }
       height = this.posData.getChartHeight()
       return customBase
