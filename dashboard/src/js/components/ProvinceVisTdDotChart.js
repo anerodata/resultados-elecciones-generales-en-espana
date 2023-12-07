@@ -26,7 +26,6 @@ class ProvinceVisTdDotChart {
         customSquare.setAttribute('fillStyle', this.color)
       }
       height = this.posData.getChartHeight()
-      console.log(height)
       return customBase
     })
     calcCoordinates.set(this, () => {

@@ -28,7 +28,6 @@ function setEventSelect () {
 }
 
 function setupProvinceTable (provinceCode) {
-  console.log(provinceCode)
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
   const provinceDataset = provinceDataBuilder.setup()
   provinceTable(provinces[0].name, provinceDataset, idDivMain, idTable)
@@ -59,7 +58,6 @@ function setupProvinceTable (provinceCode) {
       }
     ]
   })
-  console.log(provinceVisTable)
   provinceVisTable.setup()
 }
 

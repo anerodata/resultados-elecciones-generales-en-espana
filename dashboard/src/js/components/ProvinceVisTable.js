@@ -232,7 +232,6 @@ function provinceTable (nombre, dataset, idDivMain, idTable) {
 
   const tbody = document.createElement('tbody')
   table.appendChild(tbody)
-  console.log(dataset)
   for (let i = 0; i < dataset.length; i++) {
     const tRB = document.createElement('tr')
     tbody.appendChild(tRB)
