@@ -40,7 +40,7 @@ class ProvinceVisTable {
     getChartDimensions.set(this, () => {
       const chartDimensions = { chartWidth: getChartWidth.get(this)(), dotWidth: 3 }
       if (this.divMain.clientWidth < 880) {
-        chartDimensions.widthSq = 2
+        chartDimensions.dotWidth = 2
         chartDimensions.sep = 2
       }
       return chartDimensions
