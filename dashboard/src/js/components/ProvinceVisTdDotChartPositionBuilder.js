@@ -59,11 +59,11 @@ class ProvinceVisTdDotChartPositionData {
 
     setupDotPosInNewBlock.set(this, () => {
       if (isDotInNewBlockBehindCurrent.get(this)()) {
-        setupDotPosInNewBlockBehindCurrent.get(this)()
-        return { xDot, yDot }
+        const coord = setupDotPosInNewBlockBehindCurrent.get(this)()
+        return coord
       }
-      setupDotPosInNewBlockNextToCurrent.get(this)()
-      return { xDot, yDot }
+      const coord = setupDotPosInNewBlockNextToCurrent.get(this)()
+      return coord
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
@@ -75,12 +75,14 @@ class ProvinceVisTdDotChartPositionData {
       yBlock += getBlockSize.get(this)()
       xDot = 0
       yDot = yBlock
+      return { xDot, yDot }
     })
 
     setupDotPosInNewBlockNextToCurrent.set(this, () => {
       xBlock += getBlockSize.get(this)()
       xDot = xBlock
       yDot = yBlock
+      return { xDot, yDot }
     })
 
     getBlockSize.set(this, () => {
