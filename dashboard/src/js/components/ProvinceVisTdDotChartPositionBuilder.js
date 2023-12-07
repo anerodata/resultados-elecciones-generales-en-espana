@@ -19,7 +19,7 @@ const initDotInNewBlockBehindCurrent = new WeakMap()
 const initDotInNewBlockNextToCurrent = new WeakMap()
 const getBlockSize = new WeakMap()
 const initDotNextToCurrent = new WeakMap()
-class ProvinceVisTdDotChartPosData {
+class ProvinceVisTdDotChartPositionData {
   constructor (width, dotWidth) {
     this.width = width
     this.dotWidth = dotWidth
@@ -103,4 +103,4 @@ class ProvinceVisTdDotChartPosData {
     return yBlock + getBlockSize.get(this)()
   }
 }
-export default ProvinceVisTdDotChartPosData
+export default ProvinceVisTdDotChartPositionData

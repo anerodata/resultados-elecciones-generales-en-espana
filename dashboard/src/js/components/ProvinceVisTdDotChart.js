@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import ProvinceVisTdDotChartPosData from './ProvinceVisTdDotChartPosData.js'
+import ProvinceVisTdDotChartPositionBuilder from './ProvinceVisTdDotChartPositionBuilder.js'
 let height = 0
 const setupCustomBase = new WeakMap()
 const setupVis = new WeakMap()
@@ -10,17 +10,16 @@ class ProvinceVisTdDotChart {
     this.color = config.color
     this.width = config.chartDimensions.chartWidth
     this.dotWidth = config.chartDimensions.dotWidth
-    this.posData = new ProvinceVisTdDotChartPosData(this.width, this.dotWidth)
+    this.posData = new ProvinceVisTdDotChartPositionBuilder(this.width, this.dotWidth)
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
-      let currentCoord = {}
       for (let i = 0; i < this.value; i++) {
         const customSquare = document.createElement('custom')
         customBase.appendChild(customSquare)
         customSquare.classList.add('square')
         customSquare.setAttribute('width', `${this.dotWidth}`)
         customSquare.setAttribute('height', `${this.dotWidth}`)
-        currentCoord = this.posData.getPosition(i)
+        const currentCoord = this.posData.getPosition(i)
         customSquare.setAttribute('x', currentCoord.xDot)
         customSquare.setAttribute('y', currentCoord.yDot)
         customSquare.setAttribute('fillStyle', this.color)
