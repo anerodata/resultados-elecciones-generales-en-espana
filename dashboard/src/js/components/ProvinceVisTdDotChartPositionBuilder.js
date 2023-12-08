@@ -64,7 +64,7 @@ class ProvinceVisTdDotChartPositionData {
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
-      return xBlock + ((this.dotWidth * 12) + 10) * 2 > this.width
+      return xBlock + getBlockSize.get(this)() * 2 > this.width
     })
 
     setDotPosInNewBlockBehindCurrent.set(this, () => {
