@@ -18,7 +18,8 @@ class ProvinceVisTdDotChart {
       const customBase = document.createElement('custom')
       for (let i = 0; i < this.value; i++) {
         const customDot = document.createElement('custom')
-        const currentCoord = this.posData.getPosition(i)
+        this.posData.setCurrentPosition(i)
+        const currentCoord = this.posData.getCurrentPosition(i)
         customDot.setAttribute('x', currentCoord.xDot)
         customDot.setAttribute('y', currentCoord.yDot)
         customDot.setAttribute('width', `${this.dotWidth}`)

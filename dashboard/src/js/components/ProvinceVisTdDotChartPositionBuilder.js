@@ -5,8 +5,8 @@ let yBlock
 let countRow
 let countBlock
 const blockSeparator = 10
+const getDotCoord = new WeakMap()
 const addOneToCountRowBlock = new WeakMap()
-
 const isDotInNewRow = new WeakMap()
 const restartCountRow = new WeakMap()
 const setupDotPosInNewRow = new WeakMap()
@@ -30,6 +30,10 @@ class ProvinceVisTdDotChartPositionData {
     countRow = 0
     countBlock = 0
 
+    getDotCoord.set(this, () => {
+      return { xDot, yDot }
+    })
+
     addOneToCountRowBlock.set(this, () => {
       countRow += 1
       countBlock += 1
@@ -46,7 +50,6 @@ class ProvinceVisTdDotChartPositionData {
     setupDotPosInNewRow.set(this, () => {
       xDot = xBlock
       yDot += this.dotWidth + 1
-      return { xDot, yDot }
     })
 
     isDotInNewBlock.set(this, () => {
@@ -59,11 +62,10 @@ class ProvinceVisTdDotChartPositionData {
 
     setupDotPosInNewBlock.set(this, () => {
       if (isDotInNewBlockBehindCurrent.get(this)()) {
-        const coord = setupDotPosInNewBlockBehindCurrent.get(this)()
-        return coord
+        setupDotPosInNewBlockBehindCurrent.get(this)()
+        return
       }
-      const coord = setupDotPosInNewBlockNextToCurrent.get(this)()
-      return coord
+      setupDotPosInNewBlockNextToCurrent.get(this)()
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
@@ -75,14 +77,12 @@ class ProvinceVisTdDotChartPositionData {
       yBlock += getBlockSize.get(this)()
       xDot = 0
       yDot = yBlock
-      return { xDot, yDot }
     })
 
     setupDotPosInNewBlockNextToCurrent.set(this, () => {
       xBlock += getBlockSize.get(this)()
       xDot = xBlock
       yDot = yBlock
-      return { xDot, yDot }
     })
 
     getBlockSize.set(this, () => {
@@ -91,32 +91,35 @@ class ProvinceVisTdDotChartPositionData {
 
     setupDotPosNextToCurrent.set(this, () => {
       xDot += this.dotWidth + 1
-      return { xDot, yDot }
     })
   }
 
-  getPosition (squareIndex) {
+  setCurrentPosition (squareIndex) {
     if (squareIndex === 0) {
-      return { xDot, yDot }
+      return
     }
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
       restartCountRow.get(this)()
-      const coord = setupDotPosInNewRow.get(this)()
-      return coord
+      setupDotPosInNewRow.get(this)()
+      return
     }
     if (isDotInNewBlock.get(this)()) {
       restartCountRow.get(this)()
       restartCountBlock.get(this)()
-      const coord = setupDotPosInNewBlock.get(this)()
-      return coord
+      setupDotPosInNewBlock.get(this)()
+      return
     }
-    const coord = setupDotPosNextToCurrent.get(this)()
-    return coord
+    setupDotPosNextToCurrent.get(this)()
+  }
+
+  getCurrentPosition () {
+    return { xDot, yDot }
   }
 
   getChartHeight () {
     return yBlock + getBlockSize.get(this)()
   }
+
 }
 export default ProvinceVisTdDotChartPositionData
