@@ -5,7 +5,6 @@ let yBlock
 let countRow
 let countBlock
 const blockSeparator = 10
-const getDotCoord = new WeakMap()
 const addOneToCountRowBlock = new WeakMap()
 const isDotInNewRow = new WeakMap()
 const restartCountRow = new WeakMap()
@@ -29,10 +28,6 @@ class ProvinceVisTdDotChartPositionData {
     yBlock = 0
     countRow = 0
     countBlock = 0
-
-    getDotCoord.set(this, () => {
-      return { xDot, yDot }
-    })
 
     addOneToCountRowBlock.set(this, () => {
       countRow += 1
