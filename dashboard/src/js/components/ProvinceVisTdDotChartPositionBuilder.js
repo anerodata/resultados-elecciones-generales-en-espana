@@ -25,7 +25,6 @@ class ProvinceVisTdDotChartPositionData {
     this.dotWidth = dotWidth
     squareSeparator.set(this, () => dotWidth < 3 ? 1 : dotWidth / 3)
     blockSeparator.set(this, () => dotWidth < 3 ? 10 : dotWidth / 3 * 10)
-    console.log(squareSeparator.get(this)(), blockSeparator.get(this)())
     xDot = 0
     yDot = 0
     xBlock = 0
