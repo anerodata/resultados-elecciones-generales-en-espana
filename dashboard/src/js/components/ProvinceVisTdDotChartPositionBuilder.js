@@ -120,6 +120,5 @@ class ProvinceVisTdDotChartPositionData {
   getChartHeight () {
     return yBlock + getBlockSize.get(this)()
   }
-
 }
 export default ProvinceVisTdDotChartPositionData
