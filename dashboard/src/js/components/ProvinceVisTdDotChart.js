@@ -75,18 +75,18 @@ class ProvinceVisTdDotChart {
       return canvasContainer
     })
     setupVisualizationEvent.set(this, (visualization) => {
-      visualization.onmouseenter = () => {
+      visualization.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
           value: this.value,
           color: this.color
         })
-      }
-      visualization.onmousemove = (evt) => {
+      })
+      visualization.addEventListener('mousemove', (evt) => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
           x: evt.pageX,
           y: evt.pageY
         })
-      }
+      })
     })
   }
 
