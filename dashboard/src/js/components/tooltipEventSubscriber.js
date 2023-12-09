@@ -29,7 +29,7 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
   tooltip.setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
-  const htmlContent = data.value + '<span style="font-weight:normal;"> votantes</span>'
+  const htmlContent = `${data.value} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
 })
