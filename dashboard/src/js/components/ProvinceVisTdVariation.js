@@ -11,10 +11,10 @@ class ProvinceVisTdVariation {
     this.tooltipEventSubscriber = tooltipEventSubscriber
     setupImg.set(this, () => {
       const imgNode = document.createElement('img')
-      imgNode.src = getDiffSymbolSrc(this.value)
+      imgNode.src = getDiffSymbolSrc.get(this)()
       imgNode.classList.add('imgVar')
       imgNode.setAttribute('data-num', this.value)
-      imgNode.setAttribute('data-color', getDiffSymbolColor(this.value))
+      imgNode.setAttribute('data-color', getDiffSymbolColor.get(this)())
       return imgNode
     })
     getDiffSymbolSrc.set(this, () => {
