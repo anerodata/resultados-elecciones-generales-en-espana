@@ -40,6 +40,12 @@ class ProvinceVisTdVariation {
           value: this.value
         })
       })
+      imgNode.addEventListener('mousemove', (evt) => {
+        this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseMove', {
+          x: evt.pageX,
+          y: evt.pageY
+        })
+      })
     })
   }
 
