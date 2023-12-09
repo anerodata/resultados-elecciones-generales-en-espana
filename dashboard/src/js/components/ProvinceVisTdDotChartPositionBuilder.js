@@ -6,6 +6,7 @@ let countRow
 let countBlock
 const squareSeparator = new WeakMap()
 const blockSeparator = new WeakMap()
+
 const addOneToCountRowBlock = new WeakMap()
 const isDotInNewRow = new WeakMap()
 const restartCountRow = new WeakMap()
@@ -17,7 +18,7 @@ const setDotPosInNewBlock = new WeakMap()
 const isDotInNewBlockBehindCurrent = new WeakMap()
 const setDotPosInNewBlockBehindCurrent = new WeakMap()
 const setDotPosInNewBlockNextToCurrent = new WeakMap()
-const getBlockSize = new WeakMap()
+const getBlockSide = new WeakMap()
 const setDotPosNextToCurrent = new WeakMap()
 class ProvinceVisTdDotChartPositionData {
   constructor (width, dotWidth) {
@@ -67,23 +68,23 @@ class ProvinceVisTdDotChartPositionData {
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
-      return xBlock + getBlockSize.get(this)() * 2 > this.width
+      return xBlock + getBlockSide.get(this)() * 2 > this.width
     })
 
     setDotPosInNewBlockBehindCurrent.set(this, () => {
       xBlock = 0
-      yBlock += getBlockSize.get(this)()
+      yBlock += getBlockSide.get(this)()
       xDot = 0
       yDot = yBlock
     })
 
     setDotPosInNewBlockNextToCurrent.set(this, () => {
-      xBlock += getBlockSize.get(this)()
+      xBlock += getBlockSide.get(this)()
       xDot = xBlock
       yDot = yBlock
     })
 
-    getBlockSize.set(this, () => {
+    getBlockSide.set(this, () => {
       return this.dotWidth * 12 + blockSeparator.get(this)()
     })
 
@@ -116,7 +117,7 @@ class ProvinceVisTdDotChartPositionData {
   }
 
   getChartHeight () {
-    return yBlock + getBlockSize.get(this)()
+    return yBlock + getBlockSide.get(this)()
   }
 }
 export default ProvinceVisTdDotChartPositionData
