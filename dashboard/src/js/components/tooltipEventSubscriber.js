@@ -1,3 +1,4 @@
+import Tooltip from './Tooltip.js'
 const tooltipEventSubscriber = (function () {
   const types = {}
   const hOP = types.hasOwnProperty
@@ -23,27 +24,21 @@ const tooltipEventSubscriber = (function () {
     }
   }
 })()
+const tooltip = new Tooltip('tooltip')
 tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
-  const divTooltip = document.getElementById('tooltip')
-  divTooltip.style.top = data.y - 30 + 'px'
-  divTooltip.style.left = data.x + 'px'
+  tooltip.setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
-  const divTooltip = document.getElementById('tooltip')
-  divTooltip.classList.remove('displayNone')
-  divTooltip.style.color = data.color
-  divTooltip.style.fontWeight = 'bold'
-  const textVar = 'votantes'
-  divTooltip.innerHTML = Math.round(data.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
+  const htmlContent = data.value + '<span style="font-weight:normal;"> votantes</span>'
+  tooltip.showTooltip(data.color)
+  tooltip.setTooltipContent(htmlContent)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
   console.log(data)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
-  console.log(data)
 })
-tooltipEventSubscriber.subscribe('tdMouseOut', () => {
-  const divTooltip = document.getElementById('tooltip')
-  divTooltip.classList.add('displayNone')
+tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
+  tooltip.hideTooltip()
 })
 export default tooltipEventSubscriber

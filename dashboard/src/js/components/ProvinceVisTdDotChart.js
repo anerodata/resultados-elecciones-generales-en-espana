@@ -88,7 +88,7 @@ class ProvinceVisTdDotChart {
         })
       })
       visualization.addEventListener('mouseleave', () => {
-        this.tooltipEventSubscriber.publish('tdMouseOut')
+        this.tooltipEventSubscriber.publish('tdMouseLeave')
       })
     })
   }
