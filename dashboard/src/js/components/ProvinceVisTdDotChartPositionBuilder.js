@@ -113,7 +113,7 @@ class ProvinceVisTdDotChartPositionData {
   }
 
   getCurrentPosition () {
-    return { xDot, yDot }
+    return { x: xDot, y: yDot }
   }
 
   getChartHeight () {
