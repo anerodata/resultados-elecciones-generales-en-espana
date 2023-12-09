@@ -12,7 +12,10 @@ class ProvinceVisTdFactory {
             color: tdProps.color
           })
         case 'variation':
-          return new ProvinceVisTdVariation(tdProps.value)
+          return new ProvinceVisTdVariation({
+            value: tdProps.value,
+            tooltipEventSubscriber: tdProps.tooltipEventSubscriber
+          })
         case 'chart':
           return new ProvinceVisDotChart({
             value: tdProps.value,

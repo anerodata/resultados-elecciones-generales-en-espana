@@ -1,6 +1,8 @@
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
+const setupImg = new WeakMap()
+const setupVisualizationEvent = new WeakMap()
 function getDiffSymbolSrc (diff) {
   if (diff > 0) {
     return up
@@ -20,16 +22,30 @@ function getDiffSymbolColor (diff) {
   }
 }
 class ProvinceVisTdVariation {
-  constructor (value) {
+  constructor ({ value, tooltipEventSubscriber }) {
     this.value = value
+    this.tooltipEventSubscriber = tooltipEventSubscriber
+    console.log(tooltipEventSubscriber)
+    setupImg.set(this, () => {
+      const imgNode = document.createElement('img')
+      imgNode.src = getDiffSymbolSrc(this.value)
+      imgNode.classList.add('imgVar')
+      imgNode.setAttribute('data-num', this.value)
+      imgNode.setAttribute('data-color', getDiffSymbolColor(this.value))
+      return imgNode
+    })
+    setupVisualizationEvent.set(this, (imgNode) => {
+      imgNode.addEventListener('mouseenter', () => {
+        this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseEnter', {
+          value: this.value
+        })
+      })
+    })
   }
 
   getTdNode () {
-    const imgNode = document.createElement('img')
-    imgNode.src = getDiffSymbolSrc(this.value)
-    imgNode.classList.add('imgVar')
-    imgNode.setAttribute('data-num', this.value)
-    imgNode.setAttribute('data-color', getDiffSymbolColor(this.value))
+    const imgNode = setupImg.get(this)()
+    setupVisualizationEvent.get(this)(imgNode)
     return imgNode
   }
 }
