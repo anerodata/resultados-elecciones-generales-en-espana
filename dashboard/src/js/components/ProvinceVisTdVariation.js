@@ -2,25 +2,9 @@ import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
 const setupImg = new WeakMap()
+const getDiffSymbolSrc = new WeakMap()
+const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
-function getDiffSymbolSrc (diff) {
-  if (diff > 0) {
-    return up
-  } else if (diff < 0) {
-    return down
-  } else {
-    return equal
-  }
-}
-function getDiffSymbolColor (diff) {
-  if (diff > 0) {
-    return '#4DFFC7'
-  } else if (diff < 0) {
-    return '#FF4D7A'
-  } else {
-    return 'black'
-  }
-}
 class ProvinceVisTdVariation {
   constructor ({ value, tooltipEventSubscriber }) {
     this.value = value
@@ -32,6 +16,24 @@ class ProvinceVisTdVariation {
       imgNode.setAttribute('data-num', this.value)
       imgNode.setAttribute('data-color', getDiffSymbolColor(this.value))
       return imgNode
+    })
+    getDiffSymbolSrc.set(this, () => {
+      if (this.value > 0) {
+        return up
+      } else if (this.value < 0) {
+        return down
+      } else {
+        return equal
+      }
+    })
+    getDiffSymbolColor.set(this, () => {
+      if (this.value > 0) {
+        return '#4DFFC7'
+      } else if (this.value < 0) {
+        return '#FF4D7A'
+      } else {
+        return 'black'
+      }
     })
     setupVisualizationEvent.set(this, (imgNode) => {
       imgNode.addEventListener('mouseenter', () => {
