@@ -1,7 +1,6 @@
 import { provinces } from './constants.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
-import tooltipEventSubscriber from './components/tooltipEventSubscriber.js'
 import { provinceTable, ProvinceVisTable } from './components/ProvinceVisTable.js'
 
 const idDivMain = 'main'
@@ -57,8 +56,7 @@ function setupProvinceTable (provinceCode) {
         value: 'Variación',
         type: 'variation'
       }
-    ],
-    tooltipEventSubscriber
+    ]
   })
   provinceVisTable.setup()
 }
