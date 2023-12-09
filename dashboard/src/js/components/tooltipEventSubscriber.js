@@ -24,15 +24,26 @@ const tooltipEventSubscriber = (function () {
   }
 })()
 tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
-  console.log(data)
+  const divTooltip = document.getElementById('tooltip')
+  divTooltip.style.top = data.y - 30 + 'px'
+  divTooltip.style.left = data.x + 'px'
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
-  console.log(data)
+  const divTooltip = document.getElementById('tooltip')
+  divTooltip.classList.remove('displayNone')
+  divTooltip.style.color = data.color
+  divTooltip.style.fontWeight = 'bold'
+  const textVar = 'votantes'
+  divTooltip.innerHTML = Math.round(data.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' <span style="font-weight:normal;">' + textVar + '</span>'
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
   console.log(data)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
   console.log(data)
+})
+tooltipEventSubscriber.subscribe('tdMouseOut', () => {
+  const divTooltip = document.getElementById('tooltip')
+  divTooltip.classList.add('displayNone')
 })
 export default tooltipEventSubscriber
