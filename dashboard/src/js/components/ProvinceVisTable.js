@@ -15,7 +15,7 @@ const setupTableTd = new WeakMap()
 const provinceVisTdFactory = new ProvinceVisTdFactory()
 
 class ProvinceVisTable {
-  constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
+  constructor ({ nombre, dataset, idDivMain, idTable, headData, tooltipEventSubscriber }) {
     this.maxTableWidth = 480
     this.noVizRowsWidth = 120
     this.divMain = document.getElementById(idDivMain)
@@ -25,6 +25,7 @@ class ProvinceVisTable {
     this.idTable = idTable
     this.headData = headData
     this.chartDimensions = {}
+    this.tooltipEventSubscriber = tooltipEventSubscriber
 
     setupTable.set(this, () => {
       this.chartDimensions = getChartDimensions.get(this)()
@@ -87,7 +88,8 @@ class ProvinceVisTable {
         tdType: headField.type,
         value: row[headField.name],
         color: row.color,
-        chartDimensions: this.chartDimensions
+        chartDimensions: this.chartDimensions,
+        tooltipEventSubscriber: this.tooltipEventSubscriber
       })
       tD.appendChild(tDContent.getTdNode())
       return tD

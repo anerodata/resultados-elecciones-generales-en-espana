@@ -6,6 +6,7 @@ const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 const setupCanvasContainer = new WeakMap()
+const setupVisualizationEvent = new WeakMap()
 class ProvinceVisTdDotChart {
   constructor (config) {
     this.value = config.value
@@ -13,6 +14,7 @@ class ProvinceVisTdDotChart {
     this.width = config.chartDimensions.chartWidth
     this.dotWidth = config.chartDimensions.dotWidth
     this.posData = new ProvinceVisTdDotChartPositionBuilder(this.width, this.dotWidth)
+    this.tooltipEventSubscriber = config.tooltipEventSubscriber
 
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
@@ -72,11 +74,26 @@ class ProvinceVisTdDotChart {
       canvasContainer.style.height = `${height}px`
       return canvasContainer
     })
+    setupVisualizationEvent.set(this, (visualization) => {
+      visualization.onmouseenter = () => {
+        this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
+          value: this.value,
+          color: this.color
+        })
+      }
+      visualization.onmousemove = (evt) => {
+        this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
+          x: evt.pageX,
+          y: evt.pageY
+        })
+      }
+    })
   }
 
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
     const visualization = setupVisualization.get(this)(customBase)
+    setupVisualizationEvent.get(this)(visualization)
     return visualization
   }
 }

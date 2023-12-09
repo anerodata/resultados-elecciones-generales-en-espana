@@ -17,7 +17,8 @@ class ProvinceVisTdFactory {
           return new ProvinceVisDotChart({
             value: tdProps.value,
             color: tdProps.color,
-            chartDimensions: tdProps.chartDimensions
+            chartDimensions: tdProps.chartDimensions,
+            tooltipEventSubscriber: tdProps.tooltipEventSubscriber
           })
       }
     }
