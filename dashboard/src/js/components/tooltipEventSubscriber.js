@@ -30,8 +30,8 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
   const htmlContent = data.value + '<span style="font-weight:normal;"> votantes</span>'
-  tooltip.showTooltip(data.color)
   tooltip.setTooltipContent(htmlContent)
+  tooltip.showTooltip(data.color)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
   console.log(data)

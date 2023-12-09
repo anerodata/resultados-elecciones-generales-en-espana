@@ -8,14 +8,14 @@ class Tooltip {
     this.tooltipContainer.style.top = y - 30 + 'px'
   }
 
+  setTooltipContent (htmlContent) {
+    this.tooltipContainer.innerHTML = htmlContent
+  }
+
   showTooltip (color) {
     this.tooltipContainer.classList.remove('displayNone')
     this.tooltipContainer.style.color = color
     this.tooltipContainer.style.fontWeight = 'bold'
-  }
-
-  setTooltipContent (htmlContent) {
-    this.tooltipContainer.innerHTML = htmlContent
   }
 
   hideTooltip () {
