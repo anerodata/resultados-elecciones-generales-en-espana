@@ -25,7 +25,6 @@ class ProvinceVisTdVariation {
   constructor ({ value, tooltipEventSubscriber }) {
     this.value = value
     this.tooltipEventSubscriber = tooltipEventSubscriber
-    console.log(tooltipEventSubscriber)
     setupImg.set(this, () => {
       const imgNode = document.createElement('img')
       imgNode.src = getDiffSymbolSrc(this.value)
