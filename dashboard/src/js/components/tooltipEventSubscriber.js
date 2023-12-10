@@ -31,7 +31,8 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
   tooltip.showTooltip(data.color)
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
-  tooltip.setTooltipPosition(data.x, data.y)
+  tooltip.setTooltipXPositionRight(data.x)
+  tooltip.setTooltipYPosition(data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
   const htmlContent = `${data.value} %`
@@ -39,7 +40,8 @@ tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
   tooltip.showTooltip(data.color)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
-  tooltip.setTooltipPosition(data.x, data.y)
+  tooltip.setTooltipXPositionLeft(data.x)
+  tooltip.setTooltipYPosition(data.y)
 })
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
   tooltip.hideTooltip()

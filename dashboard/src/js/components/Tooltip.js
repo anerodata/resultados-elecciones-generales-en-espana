@@ -3,8 +3,17 @@ class Tooltip {
     this.tooltipContainer = document.getElementById(id)
   }
 
-  setTooltipPosition (x, y) {
+  setTooltipXPositionLeft (x) {
+    this.tooltipContainer.style.right = window.innerWidth - x + 'px'
+    this.tooltipContainer.style.left = ''
+  }
+
+  setTooltipXPositionRight (x) {
     this.tooltipContainer.style.left = x + 'px'
+    this.tooltipContainer.style.right = ''
+  }
+
+  setTooltipYPosition (y) {
     this.tooltipContainer.style.top = y - 30 + 'px'
   }
 
