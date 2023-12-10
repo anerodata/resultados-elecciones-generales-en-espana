@@ -35,7 +35,8 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
   tooltip.setTooltipYPosition(data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
-  const htmlContent = `${data.value} %`
+  const value = data.value > 0 ? '+' + data.value : data.value
+  const htmlContent = `${value} %`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
 })
