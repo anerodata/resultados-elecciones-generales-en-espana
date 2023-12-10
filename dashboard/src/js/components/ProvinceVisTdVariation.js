@@ -14,7 +14,6 @@ class ProvinceVisTdVariation {
       imgNode.src = getDiffSymbolSrc.get(this)()
       imgNode.classList.add('imgVar')
       imgNode.setAttribute('data-num', this.value)
-      imgNode.setAttribute('data-color', getDiffSymbolColor.get(this)())
       return imgNode
     })
     getDiffSymbolSrc.set(this, () => {
@@ -38,7 +37,8 @@ class ProvinceVisTdVariation {
     setupVisualizationEvent.set(this, (imgNode) => {
       imgNode.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseEnter', {
-          value: this.value
+          value: this.value,
+          color: getDiffSymbolColor.get(this)()
         })
       })
       imgNode.addEventListener('mousemove', (evt) => {
@@ -46,6 +46,9 @@ class ProvinceVisTdVariation {
           x: evt.pageX,
           y: evt.pageY
         })
+      })
+      imgNode.addEventListener('mouseleave', () => {
+        this.tooltipEventSubscriber.publish('tdMouseLeave')
       })
     })
   }

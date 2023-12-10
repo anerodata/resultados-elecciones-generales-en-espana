@@ -25,18 +25,21 @@ const tooltipEventSubscriber = (function () {
   }
 })()
 const tooltip = new Tooltip('tooltip')
-tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
-  tooltip.setTooltipPosition(data.x, data.y)
-})
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
   const htmlContent = `${data.value} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
 })
-tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
-  console.log(data)
+tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
+  tooltip.setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
+  const htmlContent = `${data.value} %`
+  tooltip.setTooltipContent(htmlContent)
+  tooltip.showTooltip(data.color)
+})
+tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
+  tooltip.setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
   tooltip.hideTooltip()
