@@ -74,6 +74,7 @@ class ProvinceVisTdDotChart {
       canvasContainer.style.height = `${height}px`
       return canvasContainer
     })
+
     setupVisualizationEvent.set(this, (visualization) => {
       visualization.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
