@@ -94,9 +94,7 @@ class ProvinceVisTdDotChartPositionData {
   }
 
   setCurrentPosition (squareIndex) {
-    if (squareIndex === 0) {
-      return
-    }
+    if (squareIndex === 0) return
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
       restartCountRow.get(this)()
