@@ -1,7 +1,7 @@
 import { provinces } from './constants.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
-import { provinceTable, ProvinceVisTable } from './components/ProvinceVisTable.js'
+import ProvinceVisTable from './components/ProvinceVisTable.js'
 
 const idDivMain = 'main'
 const idTable = 'provinces-table'
@@ -30,7 +30,6 @@ function setEventSelect () {
 function setupProvinceTable (provinceCode) {
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
   const provinceDataset = provinceDataBuilder.setup()
-  provinceTable(provinces[0].name, provinceDataset, idDivMain, idTable)
   const provinceVisTable = new ProvinceVisTable({
     dataset: provinceDataset,
     idDivMain,
