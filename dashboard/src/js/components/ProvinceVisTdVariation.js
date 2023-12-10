@@ -2,6 +2,7 @@ import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
 const setupImg = new WeakMap()
+const setupContainerNode = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
@@ -34,6 +35,11 @@ class ProvinceVisTdVariation {
         return 'black'
       }
     })
+    setupContainerNode.set(this, (imgNode) => {
+      const containerNode = document.createElement('div')
+      containerNode.appendChild(imgNode)
+      return containerNode
+    })
     setupVisualizationEvent.set(this, (imgNode) => {
       imgNode.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseEnter', {
@@ -55,8 +61,9 @@ class ProvinceVisTdVariation {
 
   getTdNode () {
     const imgNode = setupImg.get(this)()
-    setupVisualizationEvent.get(this)(imgNode)
-    return imgNode
+    const containerNode = setupContainerNode.get(this)(imgNode)
+    setupVisualizationEvent.get(this)(containerNode)
+    return containerNode
   }
 }
 export default ProvinceVisTdVariation
