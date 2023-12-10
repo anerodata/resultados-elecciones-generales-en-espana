@@ -33,7 +33,7 @@ function setupProvinceTable (provinceCode) {
   const provinceVisTable = new ProvinceVisTable({
     dataset: provinceDataset,
     idDivMain,
-    idTable: 'provinces-table-2',
+    idTable,
     headData: [
       {
         name: 'nombre',
