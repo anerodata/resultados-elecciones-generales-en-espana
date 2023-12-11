@@ -1,1 +1,0 @@
-# Resultados electorales en España
