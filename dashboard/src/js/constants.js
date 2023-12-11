@@ -72,4 +72,75 @@ const colors = {
   17: { initials: '¡Teruel Existe!', fill: '#0D7251' },
   defaultColor: '#C6A15B'
 }
-export { provinces, colors }
+const parties = [
+  {
+    initials: ['PSOE'],
+    name: 'Partido Socialista Obrero Español',
+    color: '#E43D32'
+  },
+  {
+    initials: ['PP'],
+    name: 'Partido Popular',
+    color: '#0157A4'
+  },
+  {
+    initials: ['Cs'],
+    name: 'Ciudadanos',
+    color: '#FF4700'
+  },
+  {
+    initials: [
+      'PODEMOS-IU-EQUO',
+      'PODEMOS-EU-MAREAS EN COMÚN-EQUO',
+      'ECP-GUANYEM EL CANVI'
+    ],
+    name: 'Unidas Podemos',
+    color: '#612760'
+  },
+  {
+    initials: ['VOX'],
+    name: 'Vox',
+    color: '#5AC035'
+  },
+  {
+    initials: ['ERC-SOBIRANISTES'],
+    name: 'Esquerra Republicana',
+    color: '#F7B93F'
+  },
+  {
+    initials: ['JxCAT-JUNTS'],
+    name: 'Junts per Catalunya',
+    color: '#EE5976'
+  },
+  {
+    initials: ['EAJ-PNV'],
+    name: 'Partido Nacionalista Vasco',
+    color: '#008336'
+  },
+  {
+    initials: ['EH Bildu'],
+    name: 'Euskal Herria Bildu',
+    color: '#B0D136'
+  },
+  {
+    initials: ['CCa-PNC'],
+    name: 'Coalición Canaria - Partido Nacionalista Canario',
+    color: '#F7D04D'
+  },
+  {
+    initials: ['NA+'],
+    name: 'Navarra Suma',
+    color: '#DC1717'
+  },
+  {
+    initials: ['COMPROMÍS'],
+    name: 'Compromís',
+    color: '#D35427'
+  },
+  {
+    initials: ['PRC'],
+    name: 'Partido Reginonalista de Cantabria',
+    color: '#B9C714'
+  }
+]
+export { provinces, colors, parties }
