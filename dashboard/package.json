@@ -28,5 +28,8 @@
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "fast-csv": "^4.3.6"
   }
 }
