@@ -3,11 +3,10 @@ import { createNodeWithText } from './utils.js'
 
 const getChartDimensions = new WeakMap()
 const getChartWidth = new WeakMap()
-const setupTable = new WeakMap()
-const setupTableHead = new WeakMap()
-const setupTableBody = new WeakMap()
-const setupTableTr = new WeakMap()
-const setupTableTd = new WeakMap()
+const getTableHead = new WeakMap()
+const getTableBody = new WeakMap()
+const getTableTr = new WeakMap()
+const getTableTd = new WeakMap()
 const provinceVisTdFactory = new ProvinceVisTdFactory()
 
 class ProvinceVisTable {
@@ -22,16 +21,6 @@ class ProvinceVisTable {
     this.headData = headData
     this.chartDimensions = {}
 
-    setupTable.set(this, () => {
-      this.chartDimensions = getChartDimensions.get(this)()
-      const table = document.createElement('table')
-      const tHead = setupTableHead.get(this)()
-      const tableBody = setupTableBody.get(this)()
-      table.appendChild(tHead)
-      table.appendChild(tableBody)
-      this.tableContainer.textContent = ''
-      this.tableContainer.appendChild(table)
-    })
 
     getChartDimensions.set(this, () => {
       const chartDimensions = { chartWidth: getChartWidth.get(this)(), dotWidth: 3 }
@@ -48,7 +37,7 @@ class ProvinceVisTable {
         : this.maxTableWidth / 2 - this.noVizRowsWidth
     })
 
-    setupTableHead.set(this, () => {
+    getTableHead.set(this, () => {
       const tHead = document.createElement('thead')
       const tRH = document.createElement('tr')
       tHead.appendChild(tRH)
@@ -59,25 +48,25 @@ class ProvinceVisTable {
       return tHead
     })
 
-    setupTableBody.set(this, () => {
+    getTableBody.set(this, () => {
       const tBody = document.createElement('tbody')
       dataset.forEach(row => {
-        const tR = setupTableTr.get(this)(row)
+        const tR = getTableTr.get(this)(row)
         tBody.appendChild(tR)
       })
       return tBody
     })
 
-    setupTableTr.set(this, (row) => {
+    getTableTr.set(this, (row) => {
       const tR = document.createElement('tr')
       headData.forEach(headField => {
-        const tD = setupTableTd.get(this)(row, headField)
+        const tD = getTableTd.get(this)(row, headField)
         tR.appendChild(tD)
       })
       return tR
     })
 
-    setupTableTd.set(this, (row, headField) => {
+    getTableTd.set(this, (row, headField) => {
       const tD = document.createElement('td')
       const tDContent = provinceVisTdFactory.createTd({
         tdType: headField.type,
@@ -90,8 +79,15 @@ class ProvinceVisTable {
     })
   }
 
-  setup () {
-    setupTable.get(this)()
+  setupTable () {
+    this.chartDimensions = getChartDimensions.get(this)()
+    const table = document.createElement('table')
+    const tHead = getTableHead.get(this)()
+    const tableBody = getTableBody.get(this)()
+    table.appendChild(tHead)
+    table.appendChild(tableBody)
+    this.tableContainer.textContent = ''
+    this.tableContainer.appendChild(table)
   }
 }
 export default ProvinceVisTable

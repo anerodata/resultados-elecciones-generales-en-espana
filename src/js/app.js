@@ -57,7 +57,7 @@ function setupProvinceTable (provinceCode) {
       }
     ]
   })
-  provinceVisTable.setup()
+  provinceVisTable.setupTable()
 }
 
 export default setupApp
