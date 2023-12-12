@@ -4,7 +4,7 @@ let xBlock
 let yBlock
 let countRow
 let countBlock
-const squareSeparator = new WeakMap()
+const dotSeparator = new WeakMap()
 const blockSeparator = new WeakMap()
 
 const addOneToCountRowBlock = new WeakMap()
@@ -24,7 +24,7 @@ class ProvinceVisTdDotChartPositionData {
   constructor (width, dotWidth) {
     this.width = width
     this.dotWidth = dotWidth
-    squareSeparator.set(this, () => dotWidth < 3 ? 1 : dotWidth / 3)
+    dotSeparator.set(this, () => dotWidth < 3 ? 1 : dotWidth / 3)
     blockSeparator.set(this, () => dotWidth < 3 ? 10 : dotWidth / 3 * 10)
     xDot = 0
     yDot = 0
@@ -48,7 +48,7 @@ class ProvinceVisTdDotChartPositionData {
 
     setDotPosInNewRow.set(this, () => {
       xDot = xBlock
-      yDot += this.dotWidth + squareSeparator.get(this)()
+      yDot += this.dotWidth + dotSeparator.get(this)()
     })
 
     isDotInNewBlock.set(this, () => {
@@ -89,12 +89,12 @@ class ProvinceVisTdDotChartPositionData {
     })
 
     setDotPosNextToCurrent.set(this, () => {
-      xDot += this.dotWidth + squareSeparator.get(this)()
+      xDot += this.dotWidth + dotSeparator.get(this)()
     })
   }
 
-  setCurrentPosition (squareIndex) {
-    if (squareIndex === 0) return
+  setCurrentPosition (dotIndex) {
+    if (dotIndex === 0) return
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
       restartCountRow.get(this)()
