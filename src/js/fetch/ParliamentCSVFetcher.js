@@ -1,13 +1,13 @@
 import Papa from 'papaparse'
-import getParlamentVotesData from './../fetch/getParlamentVotesData.js'
-class ParliamentDataFetcher {
+import getParliamentVotesData from './getParliamentVotesData.js'
+class ParliamentCSVFetcher {
   constructor (proccessId) {
     this.proccessId = proccessId
   }
 
-  async getParliamentData () {
+  async getParliamentJSON () {
     try {
-      const parliamentDataCSV = await getParlamentVotesData()
+      const parliamentDataCSV = await getParliamentVotesData()
       return this.parseCSVtoJSON(parliamentDataCSV)
     } catch (err) {
       console.log(err)
@@ -20,4 +20,4 @@ class ParliamentDataFetcher {
     })
   }
 }
-export default ParliamentDataFetcher
+export default ParliamentCSVFetcher
