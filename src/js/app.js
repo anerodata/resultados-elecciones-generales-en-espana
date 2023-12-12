@@ -4,7 +4,7 @@ import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
-async function buildApp () {
+async function setupApp () {
   const parliamentCSVFetcher = new ParliamentCSVFetcher()
   const parliamentJSON = await parliamentCSVFetcher.getParliamentJSON()
   console.log(parliamentJSON)
@@ -12,17 +12,17 @@ async function buildApp () {
   setupProvinceTable(provinces[0].code)
 }
 
-window.onresize = function () {
-  setupProvinceTable(provinces[0].code)
-}
-
 function setupSelect () {
   const provinceSelect = new ProvinceSelect('select')
   provinceSelect.setup()
-  document.getElementById('select').onchange = function () {
-    const selectedProvince = provinces.find(d => d.code === this.value)
+  provinceSelect.onChange = function (value) {
+    const selectedProvince = provinces.find(d => d.code === value)
     setupProvinceTable(selectedProvince.code)
   }
+}
+
+window.onresize = function () {
+  setupProvinceTable(provinces[0].code)
 }
 
 function setupProvinceTable (provinceCode) {
@@ -60,4 +60,4 @@ function setupProvinceTable (provinceCode) {
   provinceVisTable.setup()
 }
 
-export default buildApp
+export default setupApp

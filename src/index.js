@@ -1,3 +1,3 @@
 import './styles/main.scss'
-import buildApp from './js/app.js'
-buildApp()
+import setupApp from './js/app.js'
+setupApp()
