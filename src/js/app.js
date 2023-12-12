@@ -1,26 +1,24 @@
 import { provinces } from './constants.js'
+import ParliamentDataFetcher from './components/ParliamentDataFetcher.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
-const idDivMain = 'main'
-const idTable = 'provinces-table'
-const provinceSelect = new ProvinceSelect('select')
-
-function app () {
-  window.onresize = function () {
-    init()
-  }
-  init()
-}
-
-function init () {
-  provinceSelect.setup()
+async function app () {
+  const parliamentDataFetcher = new ParliamentDataFetcher()
+  const parliamentData = await parliamentDataFetcher.getParliamentData()
+  console.log(parliamentData)
+  setupSelect()
   setupProvinceTable(provinces[0].code)
-  setEventSelect()
 }
 
-function setEventSelect () {
+window.onresize = function () {
+  setupProvinceTable(provinces[0].code)
+}
+
+function setupSelect () {
+  const provinceSelect = new ProvinceSelect('select')
+  provinceSelect.setup()
   document.getElementById('select').onchange = function () {
     const selectedProvince = provinces.find(d => d.code === this.value)
     setupProvinceTable(selectedProvince.code)
@@ -28,6 +26,8 @@ function setEventSelect () {
 }
 
 function setupProvinceTable (provinceCode) {
+  const idDivMain = 'main'
+  const idTable = 'provinces-table'
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
   const provinceDataset = provinceDataBuilder.setup()
   const provinceVisTable = new ProvinceVisTable({
