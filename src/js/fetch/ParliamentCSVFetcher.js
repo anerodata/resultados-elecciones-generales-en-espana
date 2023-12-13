@@ -7,7 +7,7 @@ class ParliamentCSVFetcher {
 
   async getParliamentJSON () {
     try {
-      const parliamentDataCSV = await getParliamentVotesData()
+      const parliamentDataCSV = await getParliamentVotesData(this.proccessId)
       return this.parseCSVtoJSON(parliamentDataCSV)
     } catch (err) {
       console.log(err)
@@ -16,7 +16,8 @@ class ParliamentCSVFetcher {
 
   parseCSVtoJSON (csvString) {
     return Papa.parse(csvString, {
-      header: true
+      header: true,
+      skipEmptyLines: true
     })
   }
 }

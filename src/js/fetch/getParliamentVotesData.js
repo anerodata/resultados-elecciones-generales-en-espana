@@ -1,6 +1,6 @@
-const getParliamentVotesData = async () => {
+const getParliamentVotesData = async (csvFileName) => {
   try {
-    const response = await fetch('https://raw.githubusercontent.com/anerodata/data-elecciones-congreso-espana/main/PROV_02_201911_1.csv')
+    const response = await fetch(`https://raw.githubusercontent.com/anerodata/data-elecciones-congreso-espana/main/${csvFileName}.csv`)
     if (response.ok) {
       return await response.text()
     }
