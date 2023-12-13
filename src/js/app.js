@@ -29,9 +29,9 @@ function setupProvinceTable (provinceCode) {
   const idDivMain = 'main'
   const idTable = 'provinces-table'
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
-  const provinceDataset = provinceDataBuilder.getProvinceData()
+  const provinceData = provinceDataBuilder.getProvinceData()
   const provinceVisTable = new ProvinceVisTable({
-    dataset: provinceDataset,
+    dataset: provinceData,
     idDivMain,
     idTable,
     headData: [
