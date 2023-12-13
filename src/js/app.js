@@ -1,7 +1,7 @@
 import { provinces } from './constants.js'
 import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
-import ProvinceDataBuilder from './components/ProvinceDataBuilder.js'
+import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
 async function setupApp () {

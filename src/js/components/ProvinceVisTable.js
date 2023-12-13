@@ -1,5 +1,5 @@
 import ProvinceVisTdFactory from './ProvinceVisTdFactory.js'
-import { createNodeWithText } from './utils.js'
+import { createNodeWithText } from '../utils.js'
 
 const getChartDimensions = new WeakMap()
 const getChartWidth = new WeakMap()
