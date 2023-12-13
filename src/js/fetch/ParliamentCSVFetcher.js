@@ -1,25 +1,25 @@
 import Papa from 'papaparse'
 import getParliamentVotesData from './getParliamentVotesData.js'
+const parseCSVtoJSON = new WeakMap()
 class ParliamentCSVFetcher {
   constructor (proccessId) {
     this.proccessId = proccessId
+
+    parseCSVtoJSON.set(this, (csvString) => {
+      return Papa.parse(csvString, {
+        header: true,
+        skipEmptyLines: true
+      })
+    })
   }
 
   async getParliamentJSON () {
     try {
       const parliamentDataCSV = await getParliamentVotesData(this.proccessId)
-      return this.parseCSVtoJSON(parliamentDataCSV)
+      return parseCSVtoJSON.get(this)(parliamentDataCSV)
     } catch (err) {
-      console.log(err)
       throw new Error(err.message)
     }
-  }
-
-  parseCSVtoJSON (csvString) {
-    return Papa.parse(csvString, {
-      header: true,
-      skipEmptyLines: true
-    })
   }
 }
 export default ParliamentCSVFetcher
