@@ -23,13 +23,13 @@ class ParliamentCSVFetcher {
     })
 
     getVotesAndDeputiesData.set(this, (data) => {
-      const votesAndDeputiesData = { votes: [], deputies: [] }
+      const parliamentVotesAndDeputies = { votes: [], deputies: [] }
       data.forEach(row => {
         const sortedData = sortParliamentData.get(this)(row)
-        votesAndDeputiesData.votes.push(sortedData.votes)
-        votesAndDeputiesData.deputies.push(sortedData.deputies)
+        parliamentVotesAndDeputies.votes.push(sortedData.votes)
+        parliamentVotesAndDeputies.deputies.push(sortedData.deputies)
       })
-      return votesAndDeputiesData
+      return parliamentVotesAndDeputies
     })
 
     sortParliamentData.set(this, (row) => {
@@ -54,8 +54,8 @@ class ParliamentCSVFetcher {
     try {
       const parliamentDataCSV = await getParliamentVotesData(this.proccessId)
       const parliamentDataJSON = parseCSVtoJSON.get(this)(parliamentDataCSV)
-      const votesAndDeputiesData = getVotesAndDeputiesData.get(this)(parliamentDataJSON)
-      return votesAndDeputiesData
+      const parliamentVotesAndDeputies = getVotesAndDeputiesData.get(this)(parliamentDataJSON)
+      return parliamentVotesAndDeputies
     } catch (err) {
       throw new Error(err.message)
     }

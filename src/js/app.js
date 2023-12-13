@@ -3,11 +3,11 @@ import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
-
+const presSelectedProvinceId = '28'
 async function setupApp () {
   try {
-    const parliamentData = await getParliamentData('201911', '201904')
-    console.log(parliamentData)
+    const parliamentVotesAndDeputies = await getParliamentData('201911', '201904')
+    console.log(parliamentVotesAndDeputies)
   } catch (err) {
     console.log(err)
   } finally {
