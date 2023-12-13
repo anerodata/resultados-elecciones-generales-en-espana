@@ -13,7 +13,7 @@ class ProvincesSelect {
     this.selectNode = document.querySelector(`#${id}`)
   }
 
-  setup () {
+  setupSelect () {
     this.selectHTML = buildHTML()
     this.selectNode.innerHTML = this.selectHTML
   }

@@ -14,7 +14,7 @@ class ProvinceDataBuilder {
     this.multiple = 100
   }
 
-  setup () {
+  getProvinceData () {
     const provinceVotesBefore = getProvinceVotesBefore(this.provinceCode)
     const provinceVotesNow = getProvinceVotesNow(this.provinceCode)
     console.log(provinceVotesBefore, provinceVotesNow)

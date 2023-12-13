@@ -8,13 +8,13 @@ async function setupApp () {
   const parliamentCSVFetcher = new ParliamentCSVFetcher()
   const parliamentJSON = await parliamentCSVFetcher.getParliamentJSON()
   console.log(parliamentJSON)
-  setupSelect()
+  setupProvinceSelect()
   setupProvinceTable(provinces[0].code)
 }
 
-function setupSelect () {
+function setupProvinceSelect () {
   const provinceSelect = new ProvinceSelect('select')
-  provinceSelect.setup()
+  provinceSelect.setupSelect()
   provinceSelect.onChange = function (value) {
     const selectedProvince = provinces.find(d => d.code === value)
     setupProvinceTable(selectedProvince.code)
@@ -29,7 +29,7 @@ function setupProvinceTable (provinceCode) {
   const idDivMain = 'main'
   const idTable = 'provinces-table'
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
-  const provinceDataset = provinceDataBuilder.setup()
+  const provinceDataset = provinceDataBuilder.getProvinceData()
   const provinceVisTable = new ProvinceVisTable({
     dataset: provinceDataset,
     idDivMain,
