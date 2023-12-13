@@ -4,9 +4,9 @@ const getParliamentVotesData = async (csvFileName) => {
     if (response.ok) {
       return await response.text()
     }
-    throw new Error(response.statusText)
+    throw new Error(`Error fetching data: ${response.status} ${response.statusText}`)
   } catch (error) {
-    return error
+    throw new Error(error.message)
   }
 }
 export default getParliamentVotesData

@@ -5,17 +5,26 @@ import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
 async function setupApp () {
-  const parliamentData = await getParliamentData('201911', '201904')
-  console.log(parliamentData)
-  setupProvinceSelect()
-  setupProvinceTable(provinces[0].code)
+  try {
+    const parliamentData = await getParliamentData('201911', '201904')
+    console.log(parliamentData)
+  } catch (err) {
+    console.log(err)
+  } finally {
+    setupProvinceSelect()
+    setupProvinceTable(provinces[0].code)
+  }
 }
 async function getParliamentData (proccessId, csvFileName) {
-  const parliamentCSVFetcherPrevious = new ParliamentCSVFetcher(proccessId)
-  const parliamentCSVFetcherCurrent = new ParliamentCSVFetcher(csvFileName)
-  return {
-    previous: await parliamentCSVFetcherPrevious.getParliamentJSON(),
-    current: await parliamentCSVFetcherCurrent.getParliamentJSON()
+  try {
+    const parliamentCSVFetcherPrevious = new ParliamentCSVFetcher(proccessId)
+    const parliamentCSVFetcherCurrent = new ParliamentCSVFetcher(csvFileName)
+    return {
+      previous: await parliamentCSVFetcherPrevious.getParliamentJSON(),
+      current: await parliamentCSVFetcherCurrent.getParliamentJSON()
+    }
+  } catch (err) {
+    throw new Error(err.message)
   }
 }
 

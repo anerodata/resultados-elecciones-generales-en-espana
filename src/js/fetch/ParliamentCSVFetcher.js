@@ -11,6 +11,7 @@ class ParliamentCSVFetcher {
       return this.parseCSVtoJSON(parliamentDataCSV)
     } catch (err) {
       console.log(err)
+      throw new Error(err.message)
     }
   }
 
