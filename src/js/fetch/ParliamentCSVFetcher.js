@@ -3,7 +3,7 @@ import getParliamentVotesData from './getParliamentVotesData.js'
 
 const parseCSVtoJSON = new WeakMap()
 const getVotesAndDeputiesData = new WeakMap()
-const sortParliamentData = new WeakMap()
+const sortDataByVotesAndDeputies = new WeakMap()
 const strVotesToReplace = '_votos'
 const strDeputiesToReplace = '_diputados'
 
@@ -25,14 +25,14 @@ class ParliamentCSVFetcher {
     getVotesAndDeputiesData.set(this, (data) => {
       const parliamentVotesAndDeputies = { votes: [], deputies: [] }
       data.forEach(row => {
-        const sortedData = sortParliamentData.get(this)(row)
+        const sortedData = sortDataByVotesAndDeputies.get(this)(row)
         parliamentVotesAndDeputies.votes.push(sortedData.votes)
         parliamentVotesAndDeputies.deputies.push(sortedData.deputies)
       })
       return parliamentVotesAndDeputies
     })
 
-    sortParliamentData.set(this, (row) => {
+    sortDataByVotesAndDeputies.set(this, (row) => {
       const sortedData = { votes: {}, deputies: {} }
       for (const key in row) {
         if (key.includes(strVotesToReplace)) {
