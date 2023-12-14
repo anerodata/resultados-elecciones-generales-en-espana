@@ -5,14 +5,14 @@ import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
 const parliamentVotes = {}
-let parliamentVotesProv = {}
+let parliamentVotesByProv = {}
 const parliamentDeputies = {}
-const selectedProvId = '28'
 
-async function updateApp (currentCSVName, previousCSVName) {
+async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   try {
     const parliamentData = await getParliamentData(currentCSVName, previousCSVName)
     separateParliamentData(parliamentData)
+    parliamentVotesByProv = filterVotesByProvince(selectedProvId)
     setupProvinceTable(selectedProvId)
   } catch (err) {
     console.log(err)
@@ -39,20 +39,19 @@ function separateParliamentData (parliamentData) {
   parliamentVotes.previous = parliamentData.previous.votes
   parliamentDeputies.current = parliamentData.current.deputies
   parliamentDeputies.previous = parliamentData.previous.deputies
-  parliamentVotesProv = filterVotesByProvince(selectedProvId)
 }
 
 function filterVotesByProvince (provinceCode) {
-  const parliamentVotesProv = {}
+  const parliamentVotesByProv = {}
   for (const time in parliamentVotes) {
     const filteredDataByProv = parliamentVotes[time].find(d => d['Código de Provincia'] === provinceCode)
-    parliamentVotesProv[time] = filteredDataByProv
+    parliamentVotesByProv[time] = filteredDataByProv
   }
-  return parliamentVotesProv
+  return parliamentVotesByProv
 }
 
 function setupProvinceTable (provinceCode) {
-  console.log(provinceCode, parliamentVotesProv)
+  console.log(provinceCode, parliamentVotesByProv)
   const idDivMain = 'main'
   const idTable = 'provinces-table'
   const provinceDataBuilder = new ProvinceDataBuilder(provinceCode, parliamentVotes)
@@ -91,7 +90,7 @@ function setupProvinceSelect () {
   const provinceSelect = new ProvinceSelect('select')
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (value) {
-    parliamentVotesProv = filterVotesByProvince(value)
+    parliamentVotesByProv = filterVotesByProvince(value)
     setupProvinceTable(value)
   })
 }
