@@ -1,3 +1,3 @@
 import './styles/main.scss'
-import setupApp from './js/app.js'
-setupApp()
+import updateApp from './js/app.js'
+updateApp('201911', '201904')

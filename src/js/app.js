@@ -3,18 +3,24 @@ import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
-const presSelectedProvinceId = '28'
-async function setupApp () {
+
+const parliamentVotes = {}
+let parliamentVotesProv = {}
+const parliamentDeputies = {}
+const selectedProvId = '28'
+
+async function updateApp (currentCSVName, previousCSVName) {
   try {
-    const parliamentVotesAndDeputies = await getParliamentData('201911', '201904')
-    console.log(parliamentVotesAndDeputies)
+    const parliamentData = await getParliamentData(currentCSVName, previousCSVName)
+    separateParliamentData(parliamentData)
+    setupProvinceTable(selectedProvId)
   } catch (err) {
     console.log(err)
   } finally {
     setupProvinceSelect()
-    setupProvinceTable(provinces[0].code)
   }
 }
+
 async function getParliamentData (proccessId, csvFileName) {
   try {
     const parliamentCSVFetcherPrevious = new ParliamentCSVFetcher(proccessId)
@@ -28,23 +34,28 @@ async function getParliamentData (proccessId, csvFileName) {
   }
 }
 
-function setupProvinceSelect () {
-  const provinceSelect = new ProvinceSelect('select')
-  provinceSelect.setupSelect()
-  provinceSelect.onChange = function (value) {
-    const selectedProvince = provinces.find(d => d.code === value)
-    setupProvinceTable(selectedProvince.code)
-  }
+function separateParliamentData (parliamentData) {
+  parliamentVotes.current = parliamentData.current.votes
+  parliamentVotes.previous = parliamentData.previous.votes
+  parliamentDeputies.current = parliamentData.current.deputies
+  parliamentDeputies.previous = parliamentData.previous.deputies
+  parliamentVotesProv = filterVotesByProvince(selectedProvId)
 }
 
-window.onresize = function () {
-  setupProvinceTable(provinces[0].code)
+function filterVotesByProvince (provinceCode) {
+  const parliamentVotesProv = {}
+  for (const time in parliamentVotes) {
+    const filteredDataByProv = parliamentVotes[time].find(d => d['Código de Provincia'] === provinceCode)
+    parliamentVotesProv[time] = filteredDataByProv
+  }
+  return parliamentVotesProv
 }
 
 function setupProvinceTable (provinceCode) {
+  console.log(provinceCode, parliamentVotesProv)
   const idDivMain = 'main'
   const idTable = 'provinces-table'
-  const provinceDataBuilder = new ProvinceDataBuilder(provinceCode)
+  const provinceDataBuilder = new ProvinceDataBuilder(provinceCode, parliamentVotes)
   const provinceData = provinceDataBuilder.getProvinceData()
   const provinceVisTable = new ProvinceVisTable({
     dataset: provinceData,
@@ -76,4 +87,17 @@ function setupProvinceTable (provinceCode) {
   provinceVisTable.setupTable()
 }
 
-export default setupApp
+function setupProvinceSelect () {
+  const provinceSelect = new ProvinceSelect('select')
+  provinceSelect.setupSelect()
+  provinceSelect.onChange(function (value) {
+    parliamentVotesProv = filterVotesByProvince(value)
+    setupProvinceTable(value)
+  })
+}
+
+window.onresize = function () {
+  setupProvinceTable(provinces[0].code)
+}
+
+export default updateApp
