@@ -1,10 +1,34 @@
+import ModelPartyData from './ModelPartyData.js'
 const multiple = 100
+const votesData = []
+
+const storeCurrentVotes = new WeakMap()
+const storePreviousVotes = new WeakMap()
+
 class VotesDataBuilder {
-  constructor (provinceData) {
-    this.provinceData = provinceData
+  constructor (votesDataProv) {
+    this.votesDataProv = votesDataProv
+
+    storeCurrentVotes.set(this, () => {
+      const currentVotes = this.votesDataProv.current
+      for (const key in currentVotes) {
+        const partyData = new ModelPartyData(key, currentVotes[key])
+        console.log(partyData)
+        console.log(key, currentVotes[key])
+      }
+    })
+
+    storePreviousVotes.set(this, () => {
+      const previousVotes = this.votesDataProv.previous
+      for (const key in previousVotes) {
+        console.log(key, previousVotes[key])
+      }
+    })
+    console.log(this.votesDataProv)
   }
 
   getVotesData () {
+    storeCurrentVotes.get(this)()
     return [
       {
         nombre: 'Unidas Podemos',
