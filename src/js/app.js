@@ -44,7 +44,6 @@ function filterVotesDataByProv(provinceCode) {
 }
 
 function setupProvinceTable (provinceCode) {
-  console.log(provinceCode, votesDataProv)
   const idDivMain = 'main'
   const idTable = 'provinces-table'
   const votesDataBuilder = new VotesDataBuilder(votesDataProv)
