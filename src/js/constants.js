@@ -141,6 +141,16 @@ const parties = [
     initials: ['PRC'],
     name: 'Partido Reginonalista de Cantabria',
     color: '#B9C714'
+  },
+  {
+    initials: ['BNG'],
+    name: 'Bloque Nacionalista Galego',
+    color: '#94CCF7'
+  },
+  {
+    initials: '¡Teruel Existe!',
+    name: '¡Teruel Existe!',
+    color: '#0D7251'
   }
 ]
 export { provinces, colors, parties }
