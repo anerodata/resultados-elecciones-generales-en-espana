@@ -1,4 +1,4 @@
-class ProvinceVisTdParty {
+class VotesVisTdParty {
   constructor (config) {
     this.value = config.value
     this.color = config.color
@@ -13,4 +13,4 @@ class ProvinceVisTdParty {
     return partySpan
   }
 }
-export default ProvinceVisTdParty
+export default VotesVisTdParty

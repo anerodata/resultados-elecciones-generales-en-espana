@@ -1,23 +1,23 @@
-import ProvinceVisTdParty from './ProvinceVisTdParty.js'
-import ProvinceVisTdVariation from './ProvinceVisTdVariation.js'
-import ProvinceVisDotChart from './ProvinceVisTdDotChart.js'
+import VotesVisTdParty from './VotesVisTdParty.js'
+import VotesVisTdVariation from './VotesVisTdVariation.js'
+import VotesVisDotChart from './VotesVisTdDotChart.js'
 import tooltipEventSubscriber from './tooltipEventSubscriber.js'
-class ProvinceVisTdFactory {
+class VotesVisTdFactory {
   createTd (options) {
     const { tdType, ...tdProps } = options
     switch (tdType) {
       case 'party':
-        return new ProvinceVisTdParty({
+        return new VotesVisTdParty({
           value: tdProps.value,
           color: tdProps.color
         })
       case 'variation':
-        return new ProvinceVisTdVariation({
+        return new VotesVisTdVariation({
           value: tdProps.value,
           tooltipEventSubscriber
         })
       case 'chart':
-        return new ProvinceVisDotChart({
+        return new VotesVisDotChart({
           value: tdProps.value,
           color: tdProps.color,
           chartDimensions: tdProps.chartDimensions,
@@ -27,4 +27,4 @@ class ProvinceVisTdFactory {
     throw new Error(`Unknown tdType: ${tdType}`)
   }
 }
-export default ProvinceVisTdFactory
+export default VotesVisTdFactory

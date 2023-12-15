@@ -1,4 +1,4 @@
-class ProvinceDataModel {
+class ModelPartiesVotesData {
   constructor (config) {
     this.nombre = config.nombre
     this.color = ''
@@ -7,3 +7,4 @@ class ProvinceDataModel {
     this.dif = config.dif
   }
 }
+export default ModelPartiesVotesData

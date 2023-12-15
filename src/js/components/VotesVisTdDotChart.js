@@ -1,4 +1,4 @@
-import ProvinceVisTdDotChartPositionBuilder from './ProvinceVisTdDotChartPositionBuilder.js'
+import VotesVisTdDotChartPositionBuilder from './VotesVisTdDotChartPositionBuilder.js'
 let height = 0
 const setupCustomBase = new WeakMap()
 const setupVisualization = new WeakMap()
@@ -7,13 +7,13 @@ const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 const setupCanvasContainer = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
-class ProvinceVisTdDotChart {
+class VotesVisTdDotChart {
   constructor (config) {
     this.value = config.value
     this.color = config.color
     this.width = config.chartDimensions.chartWidth
     this.dotWidth = config.chartDimensions.dotWidth
-    this.posData = new ProvinceVisTdDotChartPositionBuilder(this.width, this.dotWidth)
+    this.posData = new VotesVisTdDotChartPositionBuilder(this.width, this.dotWidth)
     this.tooltipEventSubscriber = config.tooltipEventSubscriber
 
     setupCustomBase.set(this, () => {
@@ -101,4 +101,4 @@ class ProvinceVisTdDotChart {
     return visualization
   }
 }
-export default ProvinceVisTdDotChart
+export default VotesVisTdDotChart

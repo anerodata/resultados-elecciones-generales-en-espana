@@ -2,8 +2,8 @@ import { provinces } from './constants.js'
 import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
 import ModelParliamentData from './data-handling/ModelParliamentData.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
-import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
-import ProvinceVisTable from './components/ProvinceVisTable.js'
+import VotesDataBuilder from './data-handling/VotesDataBuilder.js'
+import VotesVisTable from './components/VotesVisTable.js'
 
 let parliamentVotes = {}
 let parliamentVotesSelectedProv = {}
@@ -47,10 +47,10 @@ function setupProvinceTable (provinceCode) {
   console.log(provinceCode, parliamentVotesSelectedProv)
   const idDivMain = 'main'
   const idTable = 'provinces-table'
-  const provinceDataBuilder = new ProvinceDataBuilder(provinceCode, parliamentVotesSelectedProv)
-  const provinceData = provinceDataBuilder.getProvinceData()
-  const provinceVisTable = new ProvinceVisTable({
-    dataset: provinceData,
+  const votesDataBuilder = new VotesDataBuilder(provinceCode, parliamentVotesSelectedProv)
+  const votesData = votesDataBuilder.getProvinceData()
+  const votesVisTable = new VotesVisTable({
+    dataset: votesData,
     idDivMain,
     idTable,
     headData: [
@@ -76,7 +76,7 @@ function setupProvinceTable (provinceCode) {
       }
     ]
   })
-  provinceVisTable.setupTable()
+  votesVisTable.setupTable()
 }
 
 function setupProvinceSelect () {

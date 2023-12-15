@@ -6,7 +6,7 @@ const setupContainerNode = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
-class ProvinceVisTdVariation {
+class VotesVisTdVariation {
   constructor ({ value, tooltipEventSubscriber }) {
     this.value = value
     this.tooltipEventSubscriber = tooltipEventSubscriber
@@ -66,4 +66,4 @@ class ProvinceVisTdVariation {
     return containerNode
   }
 }
-export default ProvinceVisTdVariation
+export default VotesVisTdVariation

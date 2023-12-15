@@ -8,7 +8,7 @@ function getProvinceVotesNow (codigo) {
   return votesPerProvinceNow.filter(d => d['Código de Provincia'] === codigo)
 }
 
-class ProvinceDataBuilder {
+class VotesDataBuilder {
   constructor (provinceCode) {
     this.provinceCode = provinceCode
     this.multiple = 100
@@ -71,4 +71,4 @@ class ProvinceDataBuilder {
     ]
   }
 }
-export default ProvinceDataBuilder
+export default VotesDataBuilder

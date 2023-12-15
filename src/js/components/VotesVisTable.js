@@ -1,4 +1,4 @@
-import ProvinceVisTdFactory from './ProvinceVisTdFactory.js'
+import VotesVisTdFactory from './VotesVisTdFactory.js'
 import { createNodeWithText } from '../utils.js'
 
 const getChartDimensions = new WeakMap()
@@ -7,9 +7,9 @@ const getTableHead = new WeakMap()
 const getTableBody = new WeakMap()
 const getTableTr = new WeakMap()
 const getTableTd = new WeakMap()
-const provinceVisTdFactory = new ProvinceVisTdFactory()
+const provinceVisTdFactory = new VotesVisTdFactory()
 
-class ProvinceVisTable {
+class VotesVisTable {
   constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
     this.maxTableWidth = 480
     this.noVizRowsWidth = 120
@@ -90,4 +90,4 @@ class ProvinceVisTable {
     this.tableContainer.appendChild(table)
   }
 }
-export default ProvinceVisTable
+export default VotesVisTable
