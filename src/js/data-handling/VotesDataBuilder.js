@@ -1,23 +1,10 @@
-import { votesPerProvinceBefore, votesPerProvinceNow } from './../mockup-data.js'
-
-function getProvinceVotesBefore (codigo) {
-  return votesPerProvinceBefore.filter(d => d['Código de Provincia'] === codigo)
-}
-
-function getProvinceVotesNow (codigo) {
-  return votesPerProvinceNow.filter(d => d['Código de Provincia'] === codigo)
-}
-
 class VotesDataBuilder {
-  constructor (provinceCode) {
-    this.provinceCode = provinceCode
+  constructor (provinceData) {
+    this.provinceData = provinceData
     this.multiple = 100
   }
 
-  getProvinceData () {
-    const provinceVotesBefore = getProvinceVotesBefore(this.provinceCode)
-    const provinceVotesNow = getProvinceVotesNow(this.provinceCode)
-    console.log(provinceVotesBefore, provinceVotesNow)
+  getVotesData () {
     return [
       {
         nombre: 'Unidas Podemos',
