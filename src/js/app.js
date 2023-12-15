@@ -1,18 +1,18 @@
 import { provinces } from './constants.js'
 import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
+import ModelParliamentData from './data-handling/ModelParliamentData.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 import ProvinceDataBuilder from './data-handling/ProvinceDataBuilder.js'
 import ProvinceVisTable from './components/ProvinceVisTable.js'
 
-const parliamentVotes = {}
-let parliamentVotesByProv = {}
-const parliamentDeputies = {}
+let parliamentVotes = {}
+let parliamentVotesSelectedProv = {}
 
 async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   try {
     const parliamentData = await getParliamentData(currentCSVName, previousCSVName)
-    separateParliamentData(parliamentData)
-    parliamentVotesByProv = filterVotesByProvince(selectedProvId)
+    parliamentVotes = parliamentData.votes
+    parliamentVotesSelectedProv = filterVotesByProvince(selectedProvId)
     setupProvinceTable(selectedProvId)
   } catch (err) {
     console.log(err)
@@ -25,36 +25,29 @@ async function getParliamentData (proccessId, csvFileName) {
   try {
     const parliamentCSVFetcherPrevious = new ParliamentCSVFetcher(proccessId)
     const parliamentCSVFetcherCurrent = new ParliamentCSVFetcher(csvFileName)
-    return {
-      previous: await parliamentCSVFetcherPrevious.getParliamentJSON(),
-      current: await parliamentCSVFetcherCurrent.getParliamentJSON()
-    }
+    const previousData = await parliamentCSVFetcherPrevious.getParliamentJSON()
+    const currentData = await parliamentCSVFetcherCurrent.getParliamentJSON()
+    const modelParliamentData = new ModelParliamentData(previousData, currentData)
+    return modelParliamentData.data
   } catch (err) {
     throw new Error(err.message)
   }
 }
 
-function separateParliamentData (parliamentData) {
-  parliamentVotes.current = parliamentData.current.votes
-  parliamentVotes.previous = parliamentData.previous.votes
-  parliamentDeputies.current = parliamentData.current.deputies
-  parliamentDeputies.previous = parliamentData.previous.deputies
-}
-
 function filterVotesByProvince (provinceCode) {
-  const parliamentVotesByProv = {}
+  const parliamentVotesSelectedProv = {}
   for (const time in parliamentVotes) {
     const filteredDataByProv = parliamentVotes[time].find(d => d['Código de Provincia'] === provinceCode)
-    parliamentVotesByProv[time] = filteredDataByProv
+    parliamentVotesSelectedProv[time] = filteredDataByProv
   }
-  return parliamentVotesByProv
+  return parliamentVotesSelectedProv
 }
 
 function setupProvinceTable (provinceCode) {
-  console.log(provinceCode, parliamentVotesByProv)
+  console.log(provinceCode, parliamentVotesSelectedProv)
   const idDivMain = 'main'
   const idTable = 'provinces-table'
-  const provinceDataBuilder = new ProvinceDataBuilder(provinceCode, parliamentVotes)
+  const provinceDataBuilder = new ProvinceDataBuilder(provinceCode, parliamentVotesSelectedProv)
   const provinceData = provinceDataBuilder.getProvinceData()
   const provinceVisTable = new ProvinceVisTable({
     dataset: provinceData,
@@ -90,7 +83,7 @@ function setupProvinceSelect () {
   const provinceSelect = new ProvinceSelect('select')
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (value) {
-    parliamentVotesByProv = filterVotesByProvince(value)
+    parliamentVotesSelectedProv = filterVotesByProvince(value)
     setupProvinceTable(value)
   })
 }
