@@ -52,7 +52,7 @@ const provinces = [
   { code: '51', name: 'Ceuta' },
   { code: '52', name: 'Melilla' }
 ]
-const colors = {
+const oldColors = {
   0: { initials: 'PSOE', color: '#E02020' },
   1: { initials: 'PP', fill: '#23A1DD' },
   2: { initials: 'VOX', fill: '#66bf00' },
