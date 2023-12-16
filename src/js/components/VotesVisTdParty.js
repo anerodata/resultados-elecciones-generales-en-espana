@@ -1,6 +1,6 @@
 class VotesVisTdParty {
   constructor (config) {
-    this.value = config.value
+    this.value = config.value.length > 5 ? config.value.slice(0, 5) + '.' : config.value
     this.color = config.color
   }
 
