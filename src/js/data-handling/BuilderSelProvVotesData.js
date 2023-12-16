@@ -1,7 +1,6 @@
 import { partiesStore } from '../constants.js'
 import ModelVotesData from './ModelVotesData.js'
 
-const multiple = 100
 const votesData = new WeakMap()
 
 const storeVotes = new WeakMap()
