@@ -41,7 +41,7 @@ function setupProvinceTable (selectedProvId) {
     idTable,
     headData: [
       {
-        name: 'nombre',
+        name: 'initials',
         value: provinces[0].name,
         type: 'party'
       },
