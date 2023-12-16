@@ -12,11 +12,10 @@ async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
     const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
     const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
-    setupProvinceTable(selectedProvId)
+    setupProvinceSelect()
+    setupProvinceTable(provinceSelect.value)
   } catch (err) {
     console.log(err)
-  } finally {
-    setupProvinceSelect()
   }
 }
 
