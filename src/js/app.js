@@ -3,7 +3,9 @@ import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
+import ProvincesSelect from './components/ProvincesSelect.js'
 
+let provinceSelect = {}
 let votesData = {}
 
 async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
@@ -34,6 +36,7 @@ function setupProvinceTable (selectedProvId) {
   const votesDataProv = filterVotesDataByProv(selectedProvId)
   const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
   const selProvVotesData = selProvVotesDataBuilder.getVotesData()
+  console.log(selProvVotesData)
   const votesVisTable = new VotesVisTable({
     dataset: selProvVotesData,
     idDivMain,
@@ -65,7 +68,7 @@ function setupProvinceTable (selectedProvId) {
 }
 
 function setupProvinceSelect () {
-  const provinceSelect = new ProvinceSelect('select')
+  provinceSelect = new ProvinceSelect('select')
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (selectedProvId) {
     setupProvinceTable(selectedProvId)
@@ -73,7 +76,9 @@ function setupProvinceSelect () {
 }
 
 window.onresize = function () {
-  setupProvinceTable(provinces[0].code)
+  const selectedProvId = provinceSelect.value
+  console.log(provinceSelect)
+  setupProvinceTable(selectedProvId)
 }
 
 export default updateApp

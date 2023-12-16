@@ -2,7 +2,7 @@ import { partiesStore } from '../constants.js'
 import ModelVotesData from './ModelVotesData.js'
 
 const multiple = 100
-const votesData = []
+const votesData = new WeakMap()
 
 const storeVotes = new WeakMap()
 const getPartiesCurrentVotes = new WeakMap()
@@ -14,16 +14,19 @@ const getPartyMetaInfo = new WeakMap()
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
     this.votesDataProv = votesDataProv
+    votesData.set(this, () => [])
 
     storeVotes.set(this, () => {
       const partiesVotes = getPartiesCurrentVotes.get(this)()
       for (const fullPartyName in partiesVotes) {
         const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
-        const votesData = new ModelVotesData({
+        const partyData = new ModelVotesData({
           votesNum: partiesVotes[fullPartyName],
           ...expandedPartyInfo
         })
-        console.log(votesData)
+        const privateVotesData = votesData.get(this)()
+        privateVotesData.push(partyData)
+        votesData.set(this, () => privateVotesData)
       }
     })
     getPartiesCurrentVotes.set(this, () => {
@@ -72,6 +75,7 @@ class BuilderSelProvVotesData {
 
   getVotesData () {
     storeVotes.get(this)()
+    return votesData.get(this)()
     return [
       {
         nombre: 'Unidas Podemos',

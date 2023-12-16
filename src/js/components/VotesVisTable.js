@@ -21,7 +21,6 @@ class VotesVisTable {
     this.headData = headData
     this.chartDimensions = {}
 
-
     getChartDimensions.set(this, () => {
       const chartDimensions = { chartWidth: getChartWidth.get(this)(), dotWidth: 3 }
       if (this.divMain.clientWidth < 880) {

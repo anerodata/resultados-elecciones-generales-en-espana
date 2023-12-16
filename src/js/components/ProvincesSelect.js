@@ -11,6 +11,7 @@ class ProvincesSelect {
   constructor (id) {
     this.selectHTML = ''
     this.selectNode = document.querySelector(`#${id}`)
+    this.value = '28'
   }
 
   setupSelect () {
@@ -19,7 +20,8 @@ class ProvincesSelect {
   }
 
   onChange (callback) {
-    this.selectNode.onchange = function () {
+    this.selectNode.onchange = (el) => {
+      this.value = el.value
       callback(this.value)
     }
   }
