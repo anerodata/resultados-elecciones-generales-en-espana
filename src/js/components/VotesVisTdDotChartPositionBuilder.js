@@ -69,8 +69,8 @@ class VotesVisTdDotChartPositionData {
 
     isDotInNewBlockBehindCurrent.set(this, () => {
       const separatorPx = blockSeparator.get(this)() * 2
-      const dotWidthAndBlockWidthPlusSep = separatorPx + getBlockSide.get(this)() + this.dotWidth
-      return xBlock + dotWidthAndBlockWidthPlusSep * 2 > this.width
+      const dotAndBlockWidthPlusSep = separatorPx + getBlockSide.get(this)() + this.dotWidth
+      return xBlock + dotAndBlockWidthPlusSep * 2 > this.width
     })
 
     setDotPosInNewBlockBehindCurrent.set(this, () => {
