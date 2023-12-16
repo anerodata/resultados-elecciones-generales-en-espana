@@ -2,33 +2,48 @@ import ModelVotesData from './ModelVotesData.js'
 const multiple = 100
 const votesData = []
 
-const storeCurrentVotes = new WeakMap()
-const storePreviousVotes = new WeakMap()
+const storeVotes = new WeakMap()
+const getPartiesCurrentVotes = new WeakMap()
+const getInitials = new WeakMap()
+const getPastVotes = new WeakMap()
+const checkIfPartyIsInPastVotesArr = new WeakMap()
 
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
     this.votesDataProv = votesDataProv
 
-    storeCurrentVotes.set(this, () => {
-      const currentVotes = this.votesDataProv.current
-      for (const key in currentVotes) {
-        const partyData = new ModelVotesData(key, currentVotes[key])
-        console.log(partyData)
-        console.log(key, currentVotes[key])
+    storeVotes.set(this, () => {
+      const partiesVotes = getPartiesCurrentVotes.get(this)()
+      for (const key in partiesVotes) {
+        const initials = getInitials.get(this)(key)
+        getPastVotes.get(this)(initials)
       }
     })
-
-    storePreviousVotes.set(this, () => {
+    getPartiesCurrentVotes.set(this, () => {
+      const arrOfArrs = Object
+        .entries(this.votesDataProv.current)
+        .filter(([key]) => key.includes('_'))
+      return Object.fromEntries(arrOfArrs)
+    })
+    getInitials.set(this, (partyName) => {
+      return partyName.split('_')[1]
+    })
+    getPastVotes.set(this, (partyName) => {
+      const isPartyInPastVotesArr = checkIfPartyIsInPastVotesArr.get(this)(partyName)
+      // Otro camino: mirar en el array de colores y sacar el indice
+    })
+    checkIfPartyIsInPastVotesArr.set(this, (partyName) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
-        console.log(key, previousVotes[key])
+        if (getInitials.get(this)(key) === partyName) {
+          console.log(key, partyName)
+        }
       }
     })
-    console.log(this.votesDataProv)
   }
 
   getVotesData () {
-    storeCurrentVotes.get(this)()
+    storeVotes.get(this)()
     return [
       {
         nombre: 'Unidas Podemos',
