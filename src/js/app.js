@@ -3,7 +3,6 @@ import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
-import ProvincesSelect from './components/ProvincesSelect.js'
 
 let provinceSelect = {}
 let votesData = {}
