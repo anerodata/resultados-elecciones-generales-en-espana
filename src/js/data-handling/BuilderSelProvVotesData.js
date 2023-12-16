@@ -37,10 +37,12 @@ class BuilderSelProvVotesData {
     })
     getExpandedPartyInfo.set(this, (fullPartyName) => {
       const expandedPartyInfo = {}
-      const partyInitials = getInitials.get(this)(fullPartyName)
+      const fullPartyNameSplitted = fullPartyName.split('_')
+      const partyInitials = fullPartyNameSplitted[1]
+      const partyName = fullPartyNameSplitted[0]
       const partyMetaInfo = getPartyMetaInfo.get(this)(partyInitials)
       const pastVotes = getPastVotesFromIPastVotesArr.get(this)(partyInitials)
-      expandedPartyInfo.partyName = fullPartyName
+      expandedPartyInfo.partyName = partyName
       expandedPartyInfo.initials = partyInitials
       expandedPartyInfo.votesPreviousNum = pastVotes
       // if (pastVotes === undefined || partyMetaInfo !== null) {
@@ -60,9 +62,6 @@ class BuilderSelProvVotesData {
       }
       return null
     })
-    getInitials.set(this, (fullPartyName) => {
-      return fullPartyName.split('_')[1]
-    })
     getPastVotesFromIPastVotesArr.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
@@ -70,6 +69,9 @@ class BuilderSelProvVotesData {
           return previousVotes[key]
         }
       }
+    })
+    getInitials.set(this, (fullPartyName) => {
+      return fullPartyName.split('_')[1]
     })
   }
 
