@@ -12,7 +12,7 @@ const provinceVisTdFactory = new VotesVisTdFactory()
 class VotesVisTable {
   constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
     this.maxTableWidth = 480
-    this.noVizRowsWidth = 120
+    this.noVizRowsWidth = 112
     this.divMain = document.getElementById(idDivMain)
     this.tableContainer = document.getElementById(idTable)
     this.provinceName = nombre
@@ -31,9 +31,7 @@ class VotesVisTable {
     })
 
     getChartWidth.set(this, () => {
-      return this.divMain.clientWidth > this.maxTableWidth
-        ? this.divMain.clientWidth / 2 - this.noVizRowsWidth
-        : this.maxTableWidth / 2 - this.noVizRowsWidth
+      return this.divMain.clientWidth / 2 - this.noVizRowsWidth
     })
 
     getTableHead.set(this, () => {
