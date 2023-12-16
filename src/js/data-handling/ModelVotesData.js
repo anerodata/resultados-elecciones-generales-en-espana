@@ -1,10 +1,12 @@
 class ModelVotesData {
-  constructor ({ partyName, votesNum, votesPreviousNum, color, diff }) {
+  constructor ({ partyName, initials, defaultName, votesNum, votesPreviousNum, color, diff }) {
     this.nombre = partyName
-    this.votesNum = votesNum
-    this.votesPreviousNum = votesPreviousNum
-    this.color = color
-    this.diff = diff
+    this.initials = initials || partyName
+    this.defaultName = defaultName || partyName
+    this.votesNum = votesNum ? Number(votesNum) : undefined
+    this.votesPreviousNum = votesPreviousNum ? Number(votesPreviousNum) : undefined
+    this.color = color || 'grey'
+    this.diff = Number(diff) || 0
   }
 }
 export default ModelVotesData

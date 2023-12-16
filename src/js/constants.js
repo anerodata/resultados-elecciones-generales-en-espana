@@ -72,20 +72,20 @@ const colors = {
   17: { initials: '¡Teruel Existe!', fill: '#0D7251' },
   defaultColor: '#C6A15B'
 }
-const parties = [
+const partiesStore = [
   {
     initials: ['PSOE'],
-    name: 'Partido Socialista Obrero Español',
+    defaultName: 'Partido Socialista Obrero Español',
     color: '#E43D32'
   },
   {
     initials: ['PP'],
-    name: 'Partido Popular',
+    defaultName: 'Partido Popular',
     color: '#0157A4'
   },
   {
     initials: ['Cs'],
-    name: 'Ciudadanos',
+    defaultName: 'Ciudadanos',
     color: '#FF4700'
   },
   {
@@ -94,63 +94,63 @@ const parties = [
       'PODEMOS-EU-MAREAS EN COMÚN-EQUO',
       'ECP-GUANYEM EL CANVI'
     ],
-    name: 'Unidas Podemos',
+    defaultName: 'Unidas Podemos',
     color: '#612760'
   },
   {
     initials: ['VOX'],
-    name: 'Vox',
+    defaultName: 'Vox',
     color: '#5AC035'
   },
   {
     initials: ['ERC-SOBIRANISTES'],
-    name: 'Esquerra Republicana',
+    defaultName: 'Esquerra Republicana',
     color: '#F7B93F'
   },
   {
     initials: ['JxCAT-JUNTS'],
-    name: 'Junts per Catalunya',
+    defaultName: 'Junts per Catalunya',
     color: '#EE5976'
   },
   {
     initials: ['EAJ-PNV'],
-    name: 'Partido Nacionalista Vasco',
+    defaultName: 'Partido Nacionalista Vasco',
     color: '#008336'
   },
   {
     initials: ['EH Bildu'],
-    name: 'Euskal Herria Bildu',
+    defaultName: 'Euskal Herria Bildu',
     color: '#B0D136'
   },
   {
     initials: ['CCa-PNC'],
-    name: 'Coalición Canaria - Partido Nacionalista Canario',
+    defaultName: 'Coalición Canaria - Partido Nacionalista Canario',
     color: '#F7D04D'
   },
   {
     initials: ['NA+'],
-    name: 'Navarra Suma',
+    defaultName: 'Navarra Suma',
     color: '#DC1717'
   },
   {
     initials: ['COMPROMÍS'],
-    name: 'Compromís',
+    defaultName: 'Compromís',
     color: '#D35427'
   },
   {
     initials: ['PRC'],
-    name: 'Partido Reginonalista de Cantabria',
+    defaultName: 'Partido Reginonalista de Cantabria',
     color: '#B9C714'
   },
   {
     initials: ['BNG'],
-    name: 'Bloque Nacionalista Galego',
+    defaultName: 'Bloque Nacionalista Galego',
     color: '#94CCF7'
   },
   {
     initials: '¡Teruel Existe!',
-    name: '¡Teruel Existe!',
+    defaultName: '¡Teruel Existe!',
     color: '#0D7251'
   }
 ]
-export { provinces, colors, parties }
+export { provinces, colors, partiesStore }

@@ -1,12 +1,15 @@
+import { partiesStore } from '../constants.js'
 import ModelVotesData from './ModelVotesData.js'
+
 const multiple = 100
 const votesData = []
 
 const storeVotes = new WeakMap()
 const getPartiesCurrentVotes = new WeakMap()
 const getInitials = new WeakMap()
-const getPastVotes = new WeakMap()
-const checkIfPartyIsInPastVotesArr = new WeakMap()
+const getPastVotesFromIPastVotesArr = new WeakMap()
+const getExpandedPartyInfo = new WeakMap()
+const getPartyMetaInfo = new WeakMap()
 
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
@@ -14,9 +17,13 @@ class BuilderSelProvVotesData {
 
     storeVotes.set(this, () => {
       const partiesVotes = getPartiesCurrentVotes.get(this)()
-      for (const key in partiesVotes) {
-        const initials = getInitials.get(this)(key)
-        getPastVotes.get(this)(initials)
+      for (const fullPartyName in partiesVotes) {
+        const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
+        const votesData = new ModelVotesData({
+          votesNum: partiesVotes[fullPartyName],
+          ...expandedPartyInfo
+        })
+        console.log(votesData)
       }
     })
     getPartiesCurrentVotes.set(this, () => {
@@ -25,18 +32,39 @@ class BuilderSelProvVotesData {
         .filter(([key]) => key.includes('_'))
       return Object.fromEntries(arrOfArrs)
     })
-    getInitials.set(this, (partyName) => {
-      return partyName.split('_')[1]
+    getExpandedPartyInfo.set(this, (fullPartyName) => {
+      const expandedPartyInfo = {}
+      const partyInitials = getInitials.get(this)(fullPartyName)
+      const partyMetaInfo = getPartyMetaInfo.get(this)(partyInitials)
+      const pastVotes = getPastVotesFromIPastVotesArr.get(this)(partyInitials)
+      expandedPartyInfo.partyName = fullPartyName
+      expandedPartyInfo.initials = partyInitials
+      expandedPartyInfo.votesPreviousNum = pastVotes
+      // if (pastVotes === undefined || partyMetaInfo !== null) {
+      //   console.log(pastVotes, fullPartyName)
+      // }
+      if (partyMetaInfo !== null) {
+        expandedPartyInfo.defaultName = partyMetaInfo.defaultName
+        expandedPartyInfo.color = partyMetaInfo.color
+      }
+      return expandedPartyInfo
     })
-    getPastVotes.set(this, (partyName) => {
-      const isPartyInPastVotesArr = checkIfPartyIsInPastVotesArr.get(this)(partyName)
-      // Otro camino: mirar en el array de colores y sacar el indice
+    getPartyMetaInfo.set(this, (partyInitials) => {
+      for (const i in partiesStore) {
+        if (partiesStore[i].initials.indexOf(partyInitials) > -1) {
+          return partiesStore[i]
+        }
+      }
+      return null
     })
-    checkIfPartyIsInPastVotesArr.set(this, (partyName) => {
+    getInitials.set(this, (fullPartyName) => {
+      return fullPartyName.split('_')[1]
+    })
+    getPastVotesFromIPastVotesArr.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
-        if (getInitials.get(this)(key) === partyName) {
-          console.log(key, partyName)
+        if (getInitials.get(this)(key) === partyInitials) {
+          return previousVotes[key]
         }
       }
     })
