@@ -153,4 +153,4 @@ const partiesStore = [
     color: '#0D7251'
   }
 ]
-export { provinces, colors, partiesStore }
+export { provinces, partiesStore }
