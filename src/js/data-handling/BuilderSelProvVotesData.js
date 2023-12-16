@@ -1,18 +1,18 @@
-import ModelPartyData from './ModelPartyData.js'
+import ModelVotesData from './ModelVotesData.js'
 const multiple = 100
 const votesData = []
 
 const storeCurrentVotes = new WeakMap()
 const storePreviousVotes = new WeakMap()
 
-class VotesDataBuilder {
+class BuilderSelProvVotesData {
   constructor (votesDataProv) {
     this.votesDataProv = votesDataProv
 
     storeCurrentVotes.set(this, () => {
       const currentVotes = this.votesDataProv.current
       for (const key in currentVotes) {
-        const partyData = new ModelPartyData(key, currentVotes[key])
+        const partyData = new ModelVotesData(key, currentVotes[key])
         console.log(partyData)
         console.log(key, currentVotes[key])
       }
@@ -82,4 +82,4 @@ class VotesDataBuilder {
     ]
   }
 }
-export default VotesDataBuilder
+export default BuilderSelProvVotesData

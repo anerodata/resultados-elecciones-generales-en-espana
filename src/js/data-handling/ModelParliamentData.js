@@ -1,13 +1,13 @@
 class ModelParliamentData {
-  constructor (previousData, currentData) {
+  constructor ({ previousVotes, previousDeputies, currentVotes, currentDeputies }) {
     this.data = {
       votes: {
-        previous: previousData.votes,
-        current: currentData.votes
+        previous: previousVotes,
+        current: currentVotes
       },
       deputies: {
-        previous: previousData.deputies,
-        current: currentData.deputies
+        previous: previousDeputies,
+        current: currentDeputies
       }
     }
   }

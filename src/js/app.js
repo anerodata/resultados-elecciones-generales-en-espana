@@ -1,16 +1,16 @@
 import { provinces } from './constants.js'
-import ParliamentCSVFetcher from './fetch/ParliamentCSVFetcher.js'
-import ModelParliamentData from './data-handling/ModelParliamentData.js'
-import ProvinceSelect from './components/ProvincesSelect.js'
-import VotesDataBuilder from './data-handling/VotesDataBuilder.js'
+import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
+import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
+import ProvinceSelect from './components/ProvincesSelect.js'
 
 let votesData = {}
 let votesDataProv = {}
 
 async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   try {
-    const parliamentData = await getParliamentData(currentCSVName, previousCSVName)
+    const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
+    const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
     votesDataProv = filterVotesDataByProv(selectedProvId)
     setupProvinceTable(selectedProvId)
@@ -21,20 +21,7 @@ async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   }
 }
 
-async function getParliamentData (proccessId, csvFileName) {
-  try {
-    const parliamentCSVFetcherPrevious = new ParliamentCSVFetcher(proccessId)
-    const parliamentCSVFetcherCurrent = new ParliamentCSVFetcher(csvFileName)
-    const previousParlData = await parliamentCSVFetcherPrevious.getParliamentJSON()
-    const currentParlData = await parliamentCSVFetcherCurrent.getParliamentJSON()
-    const modelParlData = new ModelParliamentData(previousParlData, currentParlData)
-    return modelParlData.data
-  } catch (err) {
-    throw new Error(err.message)
-  }
-}
-
-function filterVotesDataByProv(provinceCode) {
+function filterVotesDataByProv (provinceCode) {
   const votesDataProv = {}
   for (const time in votesData) {
     const filteredDataByProv = votesData[time].find(d => d['Código de Provincia'] === provinceCode)
@@ -43,13 +30,13 @@ function filterVotesDataByProv(provinceCode) {
   return votesDataProv
 }
 
-function setupProvinceTable (provinceCode) {
+function setupProvinceTable () {
   const idDivMain = 'main'
   const idTable = 'provinces-table'
-  const votesDataBuilder = new VotesDataBuilder(votesDataProv)
-  const votesData = votesDataBuilder.getVotesData()
+  const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
+  const selProvVotesData = selProvVotesDataBuilder.getVotesData()
   const votesVisTable = new VotesVisTable({
-    dataset: votesData,
+    dataset: selProvVotesData,
     idDivMain,
     idTable,
     headData: [

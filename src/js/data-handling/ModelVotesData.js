@@ -1,4 +1,4 @@
-class ModelPartyData {
+class ModelVotesData {
   constructor ({ partyName, votesNum, votesPreviousNum, color, diff }) {
     this.nombre = partyName
     this.votesNum = votesNum
@@ -7,4 +7,4 @@ class ModelPartyData {
     this.diff = diff
   }
 }
-export default ModelPartyData
+export default ModelVotesData
