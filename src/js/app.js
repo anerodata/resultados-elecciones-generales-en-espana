@@ -5,14 +5,12 @@ import VotesVisTable from './components/VotesVisTable.js'
 import ProvinceSelect from './components/ProvincesSelect.js'
 
 let votesData = {}
-let votesDataProv = {}
 
 async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   try {
     const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
     const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
-    votesDataProv = filterVotesDataByProv(selectedProvId)
     setupProvinceTable(selectedProvId)
   } catch (err) {
     console.log(err)
@@ -30,9 +28,10 @@ function filterVotesDataByProv (provinceCode) {
   return votesDataProv
 }
 
-function setupProvinceTable () {
+function setupProvinceTable (selectedProvId) {
   const idDivMain = 'main'
   const idTable = 'provinces-table'
+  const votesDataProv = filterVotesDataByProv(selectedProvId)
   const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
   const selProvVotesData = selProvVotesDataBuilder.getVotesData()
   const votesVisTable = new VotesVisTable({
@@ -68,9 +67,8 @@ function setupProvinceTable () {
 function setupProvinceSelect () {
   const provinceSelect = new ProvinceSelect('select')
   provinceSelect.setupSelect()
-  provinceSelect.onChange(function (value) {
-    votesDataProv = filterVotesDataByProv(value)
-    setupProvinceTable(value)
+  provinceSelect.onChange(function (selectedProvId) {
+    setupProvinceTable(selectedProvId)
   })
 }
 
