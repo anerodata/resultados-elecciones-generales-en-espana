@@ -56,7 +56,7 @@ function setupProvinceTable (selectedProvId) {
         type: 'chart'
       },
       {
-        name: 'dif',
+        name: 'diff',
         value: 'Variación',
         type: 'variation'
       }

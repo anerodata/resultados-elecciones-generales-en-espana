@@ -9,6 +9,7 @@ const getInitials = new WeakMap()
 const getPastVotesFromIPastVotesArr = new WeakMap()
 const getExpandedPartyInfo = new WeakMap()
 const getPartyMetaInfo = new WeakMap()
+const getPorcentualDiff = new WeakMap()
 
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
@@ -19,8 +20,10 @@ class BuilderSelProvVotesData {
       const partiesVotes = getPartiesCurrentVotes.get(this)()
       for (const fullPartyName in partiesVotes) {
         const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
+        const porcentualDiff = getPorcentualDiff.get(this)(expandedPartyInfo.votesPreviousNum, partiesVotes[fullPartyName])
         const partyData = new ModelVotesData({
           votesNum: partiesVotes[fullPartyName],
+          diff: porcentualDiff,
           ...expandedPartyInfo
         })
         const privateVotesData = votesData.get(this)()
@@ -52,6 +55,12 @@ class BuilderSelProvVotesData {
         expandedPartyInfo.color = partyMetaInfo.color
       }
       return expandedPartyInfo
+    })
+    getPorcentualDiff.set(this, (oldNum, newNum) => {
+      if (oldNum === undefined) {
+        return 100
+      }
+      return (newNum - oldNum) / oldNum * 100
     })
     getPartyMetaInfo.set(this, (partyInitials) => {
       for (const i in partiesStore) {
