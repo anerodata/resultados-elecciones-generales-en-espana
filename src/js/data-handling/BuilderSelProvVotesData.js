@@ -1,9 +1,6 @@
 import { partiesStore } from '../constants.js'
 import ModelVotesData from './ModelVotesData.js'
 
-const votesData = new WeakMap()
-
-const storeVotes = new WeakMap()
 const getPartiesCurrentVotes = new WeakMap()
 const getInitials = new WeakMap()
 const getPastVotesFromIPastVotesArr = new WeakMap()
@@ -14,23 +11,7 @@ const getPorcentualDiff = new WeakMap()
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
     this.votesDataProv = votesDataProv
-    votesData.set(this, () => [])
 
-    storeVotes.set(this, () => {
-      const partiesVotes = getPartiesCurrentVotes.get(this)()
-      for (const fullPartyName in partiesVotes) {
-        const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
-        const porcentualDiff = getPorcentualDiff.get(this)(expandedPartyInfo.votesPreviousNum, partiesVotes[fullPartyName])
-        const partyData = new ModelVotesData({
-          votesNum: partiesVotes[fullPartyName],
-          diff: porcentualDiff,
-          ...expandedPartyInfo
-        })
-        const privateVotesData = votesData.get(this)()
-        privateVotesData.push(partyData)
-        votesData.set(this, () => privateVotesData)
-      }
-    })
     getPartiesCurrentVotes.set(this, () => {
       const arrOfArrs = Object
         .entries(this.votesDataProv.current)
@@ -84,8 +65,19 @@ class BuilderSelProvVotesData {
   }
 
   getVotesData () {
-    storeVotes.get(this)()
-    return votesData.get(this)()
+    const partiesVotes = getPartiesCurrentVotes.get(this)()
+    const votesData = []
+    for (const fullPartyName in partiesVotes) {
+      const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
+      const porcentualDiff = getPorcentualDiff.get(this)(expandedPartyInfo.votesPreviousNum, partiesVotes[fullPartyName])
+      const partyData = new ModelVotesData({
+        votesNum: partiesVotes[fullPartyName],
+        diff: porcentualDiff,
+        ...expandedPartyInfo
+      })
+      votesData.push(partyData)
+    }
+    return votesData
   }
 }
 export default BuilderSelProvVotesData
