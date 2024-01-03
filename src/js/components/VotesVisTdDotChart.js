@@ -1,3 +1,4 @@
+import VotesVisTd from './VotesVisTd.js'
 import VotesVisTdDotChartPositionBuilder from './VotesVisTdDotChartPositionBuilder.js'
 let height = 0
 const setupCustomBase = new WeakMap()
@@ -5,11 +6,10 @@ const setupVisualization = new WeakMap()
 const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
-const setupCanvasContainer = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
-class VotesVisTdDotChart {
+class VotesVisTdDotChart extends VotesVisTd {
   constructor (config) {
-    this.value = config.value
+    super(config.value)
     this.color = config.color
     this.width = config.width
     this.dotWidth = config.width < 300 ? 2 : 3
@@ -41,9 +41,7 @@ class VotesVisTdDotChart {
       dots.forEach((dot) => {
         setupContextAttr.get(this)(context, dot)
       })
-      const canvasContainer = setupCanvasContainer.get(this)()
-      canvasContainer.appendChild(canvas)
-      return canvasContainer
+      return canvas
     })
 
     setupCanvas.set(this, () => {
@@ -69,12 +67,6 @@ class VotesVisTdDotChart {
       )
     })
 
-    setupCanvasContainer.set(this, () => {
-      const canvasContainer = document.createElement('div')
-      canvasContainer.style.height = `${height}px`
-      return canvasContainer
-    })
-
     setupVisualizationEvent.set(this, (visualization) => {
       visualization.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
@@ -97,8 +89,10 @@ class VotesVisTdDotChart {
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
     const visualization = setupVisualization.get(this)(customBase)
-    setupVisualizationEvent.get(this)(visualization)
-    return visualization
+    const tdContent = super.getTdContent(visualization)
+    tdContent.style.height = `${height}px`
+    setupVisualizationEvent.get(this)(tdContent)
+    return tdContent
   }
 }
 export default VotesVisTdDotChart

@@ -7,10 +7,10 @@ class VotesVisTdParty extends VotesVisTd {
 
   getTdNode () {
     const textNode = document.createTextNode(this.value)
-    const partyContent = super.getTdContent(textNode)
-    partyContent.style.fontWeight = 'bold'
-    partyContent.style.color = `${this.color}`
-    return partyContent
+    const tdContent = super.getTdContent(textNode)
+    tdContent.style.fontWeight = 'bold'
+    tdContent.style.color = `${this.color}`
+    return tdContent
   }
 }
 export default VotesVisTdParty

@@ -1,14 +1,15 @@
+import VotesVisTd from './VotesVisTd.js'
 import up from '../../assets/img/up.png'
 import down from '../../assets/img/down.png'
 import equal from '../../assets/img/equal.png'
+
 const setupImg = new WeakMap()
-const setupContainerNode = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
-class VotesVisTdVariation {
+class VotesVisTdVariation extends VotesVisTd {
   constructor ({ value, tooltipEventSubscriber }) {
-    this.value = value
+    super(value)
     this.tooltipEventSubscriber = tooltipEventSubscriber
     setupImg.set(this, () => {
       const imgNode = document.createElement('img')
@@ -35,11 +36,6 @@ class VotesVisTdVariation {
         return 'black'
       }
     })
-    setupContainerNode.set(this, (imgNode) => {
-      const containerNode = document.createElement('div')
-      containerNode.appendChild(imgNode)
-      return containerNode
-    })
     setupVisualizationEvent.set(this, (imgNode) => {
       imgNode.addEventListener('mouseenter', () => {
         this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseEnter', {
@@ -61,9 +57,9 @@ class VotesVisTdVariation {
 
   getTdNode () {
     const imgNode = setupImg.get(this)()
-    const containerNode = setupContainerNode.get(this)(imgNode)
-    setupVisualizationEvent.get(this)(containerNode)
-    return containerNode
+    const tdContent = super.getTdContent(imgNode)
+    setupVisualizationEvent.get(this)(tdContent)
+    return tdContent
   }
 }
 export default VotesVisTdVariation
