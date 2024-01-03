@@ -1,16 +1,16 @@
-class VotesVisTdParty {
+import VotesVisTd from './VotesVisTd.js'
+class VotesVisTdParty extends VotesVisTd {
   constructor (config) {
-    this.value = config.value.length > 5 ? config.value.slice(0, 5) + '.' : config.value
+    super(config.value)
     this.color = config.color
   }
 
   getTdNode () {
-    const partySpan = document.createElement('span')
     const textNode = document.createTextNode(this.value)
-    partySpan.appendChild(textNode)
-    partySpan.style.fontWeight = 'bold'
-    partySpan.style.color = `${this.color}`
-    return partySpan
+    const partyContent = super.getTdContent(textNode)
+    partyContent.style.fontWeight = 'bold'
+    partyContent.style.color = `${this.color}`
+    return partyContent
   }
 }
 export default VotesVisTdParty
