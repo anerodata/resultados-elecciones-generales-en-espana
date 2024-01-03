@@ -92,7 +92,9 @@ const partiesStore = [
     initials: [
       'PODEMOS-IU-EQUO',
       'PODEMOS-EU-MAREAS EN COMÚN-EQUO',
-      'ECP-GUANYEM EL CANVI'
+      'ECP-GUANYEM EL CANVI',
+      'PODEMOS-IU',
+      'PODEMOS-EU'
     ],
     defaultName: 'Unidas Podemos',
     color: '#612760'
@@ -133,7 +135,7 @@ const partiesStore = [
     color: '#DC1717'
   },
   {
-    initials: ['COMPROMÍS'],
+    initials: ['COMPROMÍS', 'MÉS COMPROMÍS'],
     defaultName: 'Compromís',
     color: '#D35427'
   },
@@ -148,9 +150,24 @@ const partiesStore = [
     color: '#94CCF7'
   },
   {
-    initials: '¡Teruel Existe!',
+    initials: ['¡Teruel Existe!'],
     defaultName: '¡Teruel Existe!',
     color: '#0D7251'
+  },
+  {
+    initials: ['CUP-PR'],
+    defaultName: 'CUP',
+    color: '#efd700'
+  },
+  {
+    initials: ['MÁS PAÍS-EQUO', 'MÁS PAÍS'],
+    defaultName: 'Más País',
+    color: '#27e1c3'
+  },
+  {
+    initials: ['PACMA'],
+    defaultName: 'PACMA',
+    color: '#00f54c'
   }
 ]
 export { provinces, partiesStore }
