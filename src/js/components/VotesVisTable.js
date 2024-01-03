@@ -1,7 +1,6 @@
 import VotesVisTdFactory from './VotesVisTdFactory.js'
 import { createNodeWithText } from '../utils.js'
 
-const getChartDimensions = new WeakMap()
 const getTableHead = new WeakMap()
 const getTableBody = new WeakMap()
 const getTableTr = new WeakMap()
