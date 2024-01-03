@@ -20,8 +20,8 @@ class ProvincesSelect {
   }
 
   onChange (callback) {
-    this.selectNode.onchange = (el) => {
-      this.value = el.value
+    this.selectNode.onchange = (evt) => {
+      this.value = evt.target.value
       callback(this.value)
     }
   }
