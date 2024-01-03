@@ -20,7 +20,7 @@ class VotesVisTdFactory {
         return new VotesVisDotChart({
           value: tdProps.value,
           color: tdProps.color,
-          chartDimensions: tdProps.chartDimensions,
+          width: tdProps.width,
           tooltipEventSubscriber
         })
     }

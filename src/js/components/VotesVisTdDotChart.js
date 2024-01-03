@@ -11,9 +11,9 @@ class VotesVisTdDotChart {
   constructor (config) {
     this.value = config.value
     this.color = config.color
-    this.width = config.chartDimensions.chartWidth
-    this.dotWidth = config.chartDimensions.dotWidth
-    this.posData = new VotesVisTdDotChartPositionBuilder(this.width, this.dotWidth)
+    this.width = config.width
+    this.dotWidth = config.width < 300 ? 2 : 3
+    this.posData = new VotesVisTdDotChartPositionBuilder(config.width, this.dotWidth)
     this.tooltipEventSubscriber = config.tooltipEventSubscriber
 
     setupCustomBase.set(this, () => {
