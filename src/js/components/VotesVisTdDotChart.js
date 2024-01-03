@@ -1,6 +1,7 @@
 import VotesVisTd from './VotesVisTd.js'
 import VotesVisTdDotChartPositionBuilder from './VotesVisTdDotChartPositionBuilder.js'
 let height = 0
+const votesPerDot = 100
 const setupCustomBase = new WeakMap()
 const setupVisualization = new WeakMap()
 const setupCanvas = new WeakMap()
@@ -10,6 +11,7 @@ const setupVisualizationEvent = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
   constructor (value, color, width, tooltipEventSubscriber) {
     super(value)
+    this.dotsNum = Math.round(Number(value / votesPerDot))
     this.color = color
     this.width = width
     this.dotWidth = width < 300 ? 2 : 3
@@ -18,7 +20,7 @@ class VotesVisTdDotChart extends VotesVisTd {
 
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
-      for (let i = 0; i < this.value; i++) {
+      for (let i = 0; i < this.dotsNum; i++) {
         const customDot = document.createElement('custom')
         this.posData.setCurrentPosition(i)
         const currentCoord = this.posData.getCurrentPosition(i)

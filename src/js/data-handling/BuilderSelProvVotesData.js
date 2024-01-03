@@ -41,7 +41,8 @@ class BuilderSelProvVotesData {
       if (oldNum === undefined) {
         return 100
       }
-      return (newNum - oldNum) / oldNum * 100
+      const calc = (newNum - oldNum) / oldNum * 100
+      return calc
     })
     getPartyMetaInfo.set(this, (partyInitials) => {
       for (const i in partiesStore) {
