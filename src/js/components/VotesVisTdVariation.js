@@ -8,7 +8,7 @@ const getDiffSymbolSrc = new WeakMap()
 const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
 class VotesVisTdVariation extends VotesVisTd {
-  constructor ({ value, tooltipEventSubscriber }) {
+  constructor (value, tooltipEventSubscriber) {
     super(value)
     this.tooltipEventSubscriber = tooltipEventSubscriber
     setupImg.set(this, () => {

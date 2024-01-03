@@ -1,8 +1,8 @@
 import VotesVisTd from './VotesVisTd.js'
 class VotesVisTdParty extends VotesVisTd {
-  constructor (config) {
-    super(config.value)
-    this.color = config.color
+  constructor (value, color) {
+    super(value)
+    this.color = color
   }
 
   getTdNode () {

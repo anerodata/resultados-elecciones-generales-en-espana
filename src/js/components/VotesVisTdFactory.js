@@ -7,22 +7,22 @@ class VotesVisTdFactory {
     const { tdType, ...tdProps } = options
     switch (tdType) {
       case 'party':
-        return new VotesVisTdParty({
-          value: tdProps.value,
-          color: tdProps.color
-        })
+        return new VotesVisTdParty(
+          tdProps.value,
+          tdProps.color
+        )
       case 'variation':
-        return new VotesVisTdVariation({
-          value: tdProps.value,
+        return new VotesVisTdVariation(
+          tdProps.value,
           tooltipEventSubscriber
-        })
+        )
       case 'chart':
-        return new VotesVisDotChart({
-          value: tdProps.value,
-          color: tdProps.color,
-          width: tdProps.width,
+        return new VotesVisDotChart(
+          tdProps.value,
+          tdProps.color,
+          tdProps.width,
           tooltipEventSubscriber
-        })
+        )
     }
     throw new Error(`Unknown tdType: ${tdType}`)
   }

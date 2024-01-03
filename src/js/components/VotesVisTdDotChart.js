@@ -8,13 +8,13 @@ const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor (config) {
-    super(config.value)
-    this.color = config.color
-    this.width = config.width
-    this.dotWidth = config.width < 300 ? 2 : 3
-    this.posData = new VotesVisTdDotChartPositionBuilder(config.width, this.dotWidth)
-    this.tooltipEventSubscriber = config.tooltipEventSubscriber
+  constructor (value, color, width, tooltipEventSubscriber) {
+    super(value)
+    this.color = color
+    this.width = width
+    this.dotWidth = width < 300 ? 2 : 3
+    this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
+    this.tooltipEventSubscriber = tooltipEventSubscriber
 
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
