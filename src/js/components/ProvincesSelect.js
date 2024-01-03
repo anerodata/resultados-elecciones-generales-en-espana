@@ -8,15 +8,16 @@ function buildHTML () {
   return html
 }
 class ProvincesSelect {
-  constructor (id) {
+  constructor (id, value) {
     this.selectHTML = ''
     this.selectNode = document.querySelector(`#${id}`)
-    this.value = '28'
+    this.value = value
   }
 
   setupSelect () {
     this.selectHTML = buildHTML()
     this.selectNode.innerHTML = this.selectHTML
+    this.selectNode.value = this.value
   }
 
   onChange (callback) {

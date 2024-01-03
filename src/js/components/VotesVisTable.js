@@ -101,6 +101,7 @@ class VotesVisTable {
   }
 
   setupTable () {
+    this.dataset = this.dataset.sort((a, b) => b.votesNum - a.votesNum)
     const table = document.createElement('table')
     const tHead = getTableHead.get(this)()
     const tableBody = getTableBody.get(this)()

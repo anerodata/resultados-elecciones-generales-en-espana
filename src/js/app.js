@@ -1,4 +1,3 @@
-import { provinces } from './constants.js'
 import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
@@ -12,7 +11,7 @@ async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
     const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
     const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
-    setupProvinceSelect()
+    setupProvinceSelect(selectedProvId)
     setupProvinceTable(provinceSelect.value)
   } catch (err) {
     console.log(err)
@@ -34,15 +33,15 @@ function setupProvinceTable (selectedProvId) {
   const votesDataProv = filterVotesDataByProv(selectedProvId)
   const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
   const selProvVotesData = selProvVotesDataBuilder.getVotesData()
-  console.log(selProvVotesData)
+  const selProvVotesDataFiltered = selProvVotesData.filter(d => d.votesNum > 0)
   const votesVisTable = new VotesVisTable({
-    dataset: selProvVotesData,
+    dataset: selProvVotesDataFiltered,
     idDivMain,
     idTable,
     headData: [
       {
         name: 'initials',
-        value: provinces[0].name,
+        value: votesDataProv.current['Nombre de Provincia'],
         type: 'party'
       },
       {
@@ -64,9 +63,8 @@ function setupProvinceTable (selectedProvId) {
   })
   votesVisTable.setupTable()
 }
-
-function setupProvinceSelect () {
-  provinceSelect = new ProvinceSelect('select')
+function setupProvinceSelect (selectedProvId) {
+  provinceSelect = new ProvinceSelect('select', selectedProvId)
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (selectedProvId) {
     setupProvinceTable(selectedProvId)
@@ -75,7 +73,6 @@ function setupProvinceSelect () {
 
 window.onresize = function () {
   const selectedProvId = provinceSelect.value
-  console.log(provinceSelect)
   setupProvinceTable(selectedProvId)
 }
 
