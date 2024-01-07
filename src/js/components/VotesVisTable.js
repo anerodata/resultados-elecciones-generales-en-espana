@@ -7,10 +7,13 @@ const getTableTr = new WeakMap()
 const getTableTd = new WeakMap()
 const getTdContentNoChart = new WeakMap()
 const getTdContentChart = new WeakMap()
-const setTableParagraph = new WeakMap()
+
 const feedNoChartTd = new WeakMap()
 const feedChartTd = new WeakMap()
 const provinceVisTdFactory = new VotesVisTdFactory()
+
+const setTableParagraph = new WeakMap()
+const getCipherTableParagraph = new WeakMap()
 
 class VotesVisTable {
   constructor ({ nombre, dataset, idDivMain, idTable, headData, votesPerDot }) {
@@ -103,11 +106,16 @@ class VotesVisTable {
     })
     setTableParagraph.set(this, () => {
       const pElement = document.createElement('p')
-      const text = `Cada punto representa ${this.votesPerDot} electores y cada cuadrado grande, ${this.votesPerDot * 100} electores.`
+      const cipher = getCipherTableParagraph.get(this)(this.votesPerDot)
+      const text = `Cada punto representa ${this.votesPerDot} electores y cada cuadrado grande, ${cipher} electores.`
       const textNode = document.createTextNode(text)
       const firstElement = this.tableContainer.firstElementChild
       pElement.appendChild(textNode)
       this.tableContainer.insertBefore(pElement, firstElement)
+    })
+    getCipherTableParagraph.set(this, (num) => {
+      const calc = num * 100
+      return calc.toLocaleString('es-ES')
     })
   }
 
