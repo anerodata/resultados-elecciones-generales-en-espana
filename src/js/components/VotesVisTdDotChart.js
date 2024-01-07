@@ -14,7 +14,7 @@ class VotesVisTdDotChart extends VotesVisTd {
     this.dotsNum = Math.round(Number(value / votesPerDot))
     this.color = color
     this.width = width
-    this.dotWidth = width < 300 ? 2 : 3
+    this.dotWidth = 2
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
     this.tooltipEventSubscriber = tooltipEventSubscriber
 
