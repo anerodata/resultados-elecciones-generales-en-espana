@@ -7,12 +7,13 @@ const getTableTr = new WeakMap()
 const getTableTd = new WeakMap()
 const getTdContentNoChart = new WeakMap()
 const getTdContentChart = new WeakMap()
+const setTableParagraph = new WeakMap()
 const feedNoChartTd = new WeakMap()
 const feedChartTd = new WeakMap()
 const provinceVisTdFactory = new VotesVisTdFactory()
 
 class VotesVisTable {
-  constructor ({ nombre, dataset, idDivMain, idTable, headData }) {
+  constructor ({ nombre, dataset, idDivMain, idTable, headData, votesPerDot }) {
     this.maxTableWidth = 480
     this.noVizRowsWidth = 112
     this.divMain = document.getElementById(idDivMain)
@@ -21,6 +22,7 @@ class VotesVisTable {
     this.dataset = dataset
     this.idTable = idTable
     this.headData = headData
+    this.votesPerDot = votesPerDot
 
     getTableHead.set(this, () => {
       const tHead = document.createElement('thead')
@@ -94,9 +96,18 @@ class VotesVisTable {
         tdType: headField.type,
         value: row[headField.name],
         color: row.color,
-        width: tdWidth
+        width: tdWidth,
+        votesPerDot: this.votesPerDot
       })
       return tDContent.getTdNode()
+    })
+    setTableParagraph.set(this, () => {
+      const pElement = document.createElement('p')
+      const text = `Cada punto representa ${this.votesPerDot} electores y cada cuadrado grande, ${this.votesPerDot * 100} electores.`
+      const textNode = document.createTextNode(text)
+      const firstElement = this.tableContainer.firstElementChild
+      pElement.appendChild(textNode)
+      this.tableContainer.insertBefore(pElement, firstElement)
     })
   }
 
@@ -112,6 +123,7 @@ class VotesVisTable {
     const trs = tableBody.querySelectorAll('tr')
     feedNoChartTd.get(this)(trs)
     feedChartTd.get(this)(trs)
+    setTableParagraph.get(this)()
   }
 }
 export default VotesVisTable

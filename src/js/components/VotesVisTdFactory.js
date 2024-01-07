@@ -21,6 +21,7 @@ class VotesVisTdFactory {
           tdProps.value,
           tdProps.color,
           tdProps.width,
+          tdProps.votesPerDot,
           tooltipEventSubscriber
         )
     }

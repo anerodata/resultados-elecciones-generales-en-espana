@@ -38,6 +38,7 @@ function setupProvinceTable (selectedProvId) {
     dataset: selProvVotesDataFiltered,
     idDivMain,
     idTable,
+    votesPerDot: 100,
     headData: [
       {
         name: 'initials',
