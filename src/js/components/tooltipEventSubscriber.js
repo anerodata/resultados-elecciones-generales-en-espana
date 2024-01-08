@@ -38,7 +38,7 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
   tooltip.setTooltipYPosition(data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
-  const roundedValue = Math.round(data.value)
+  const roundedValue = Math.round(data.value * 10) / 10
   const cipher = getCipherInSpanishFormat(roundedValue)
   const cipherSign = data.value > 0 ? '+' : ''
   const htmlContent = `${cipherSign + cipher} %`
