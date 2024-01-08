@@ -1,4 +1,5 @@
 import Tooltip from './Tooltip.js'
+import { getCipherInSpanishFormat } from '../utils.js'
 const tooltipEventSubscriber = (function () {
   const types = {}
   const hOP = types.hasOwnProperty
@@ -26,7 +27,9 @@ const tooltipEventSubscriber = (function () {
 })()
 const tooltip = new Tooltip('tooltip')
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
-  const htmlContent = `${data.value} <span style="font-weight:normal;">votantes</span>`
+  const roundedValue = Math.round(data.value)
+  const cipher = getCipherInSpanishFormat(roundedValue)
+  const htmlContent = `${cipher} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
 })
@@ -35,8 +38,10 @@ tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
   tooltip.setTooltipYPosition(data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
-  const value = data.value > 0 ? '+' + data.value : data.value
-  const htmlContent = `${value} %`
+  const roundedValue = Math.round(data.value)
+  const cipher = getCipherInSpanishFormat(roundedValue)
+  const cipherSign = data.value > 0 ? '+' : ''
+  const htmlContent = `${cipherSign + cipher} %`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
 })
