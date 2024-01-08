@@ -4,4 +4,7 @@ function createNodeWithText (element, text) {
   node.appendChild(textNode)
   return node
 }
-export { createNodeWithText }
+function getCipherInSpanishFormat (num) {
+  return num.toLocaleString('es-ES')
+}
+export { createNodeWithText, getCipherInSpanishFormat }

@@ -1,5 +1,5 @@
 import VotesVisTdFactory from './VotesVisTdFactory.js'
-import { createNodeWithText } from '../utils.js'
+import { createNodeWithText, getCipherInSpanishFormat } from '../utils.js'
 
 const getTableHead = new WeakMap()
 const getTableBody = new WeakMap()
@@ -105,17 +105,15 @@ class VotesVisTable {
       return tDContent.getTdNode()
     })
     setTableParagraph.set(this, () => {
-      const pElement = document.createElement('p')
-      const cipher = getCipherTableParagraph.get(this)(this.votesPerDot)
-      const text = `Cada punto representa ${this.votesPerDot} electores y cada cuadrado grande, ${cipher} electores.`
-      const textNode = document.createTextNode(text)
       const firstElement = this.tableContainer.firstElementChild
-      pElement.appendChild(textNode)
+      const cipher = getCipherTableParagraph.get(this)()
+      const text = `Cada punto representa ${this.votesPerDot} electores y cada cuadrado grande, ${cipher} electores.`
+      const pElement = createNodeWithText('p', text)
       this.tableContainer.insertBefore(pElement, firstElement)
     })
-    getCipherTableParagraph.set(this, (num) => {
-      const calc = num * 100
-      return calc.toLocaleString('es-ES')
+    getCipherTableParagraph.set(this, () => {
+      const votesPerSquare = this.votesPerDot * 100
+      return getCipherInSpanishFormat(votesPerSquare)
     })
   }
 
