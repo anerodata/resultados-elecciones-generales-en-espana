@@ -27,8 +27,7 @@ const tooltipEventSubscriber = (function () {
 })()
 const tooltip = new Tooltip('tooltip')
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
-  const roundedValue = Math.round(data.value)
-  const cipher = getCipherInSpanishFormat(roundedValue)
+  const cipher = getCipherInSpanishFormat(data.value)
   const htmlContent = `${cipher} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltip(data.color)
