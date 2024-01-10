@@ -3,7 +3,8 @@ import ModelVotesData from './ModelVotesData.js'
 
 const getPartiesCurrentVotes = new WeakMap()
 const getInitials = new WeakMap()
-const getPastVotesFromIPastVotesArr = new WeakMap()
+const getPastVotesFromPastVotesArr = new WeakMap()
+const getPastVotesFromMetaInfo = new WeakMap()
 const getExpandedPartyInfo = new WeakMap()
 const getPartyMetaInfo = new WeakMap()
 const getPorcentualDiff = new WeakMap()
@@ -23,18 +24,18 @@ class BuilderSelProvVotesData {
       const fullPartyNameSplitted = fullPartyName.split('_')
       const partyInitials = fullPartyNameSplitted[1]
       const partyName = fullPartyNameSplitted[0]
-      const partyMetaInfo = getPartyMetaInfo.get(this)(partyInitials)
-      const pastVotes = getPastVotesFromIPastVotesArr.get(this)(partyInitials)
       expandedPartyInfo.partyName = partyName
       expandedPartyInfo.initials = partyInitials
-      expandedPartyInfo.votesPreviousNum = pastVotes
-      // if (pastVotes === undefined || partyMetaInfo !== null) {
-      //   console.log(pastVotes, fullPartyName)
-      // }
-      if (partyMetaInfo !== null) {
+      const partyMetaInfo = getPartyMetaInfo.get(this)(partyInitials)
+      if (partyMetaInfo !== undefined) {
         expandedPartyInfo.defaultName = partyMetaInfo.defaultName
         expandedPartyInfo.color = partyMetaInfo.color
       }
+      let pastVotes = getPastVotesFromPastVotesArr.get(this)(partyInitials)
+      if (pastVotes === undefined && partyMetaInfo !== undefined) {
+        pastVotes = getPastVotesFromMetaInfo.get(this)(partyMetaInfo.initials)
+      }
+      expandedPartyInfo.votesPreviousNum = pastVotes
       return expandedPartyInfo
     })
     getPorcentualDiff.set(this, (oldNum, newNum) => {
@@ -50,12 +51,20 @@ class BuilderSelProvVotesData {
           return partiesStore[i]
         }
       }
-      return null
     })
-    getPastVotesFromIPastVotesArr.set(this, (partyInitials) => {
+    getPastVotesFromPastVotesArr.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
         if (getInitials.get(this)(key) === partyInitials) {
+          return previousVotes[key]
+        }
+      }
+    })
+    getPastVotesFromMetaInfo.set(this, (partyInitials) => {
+      const previousVotes = this.votesDataProv.previous
+      for (const key in previousVotes) {
+        const initial = partyInitials.find(initial => initial === getInitials.get(this)(key))
+        if (initial !== undefined) {
           return previousVotes[key]
         }
       }
