@@ -2,10 +2,10 @@ import Tooltip from './Tooltip.js'
 import { getCipherInSpanishFormat } from '../utils.js'
 const tooltipEventSubscriber = (function () {
   const types = {}
-  const hOP = types.hasOwnProperty
+  const hasOwnProperty = types.hasOwnProperty
   return {
     subscribe: (type, handler) => {
-      if (!hOP.call(types, type)) {
+      if (!hasOwnProperty.call(types, type)) {
         types[type] = []
       }
       const index = types[type].push(handler) - 1
@@ -16,7 +16,7 @@ const tooltipEventSubscriber = (function () {
       }
     },
     publish: (type, data) => {
-      if (!hOP.call(types, type)) {
+      if (!hasOwnProperty.call(types, type)) {
         return
       }
       types[type].forEach(handler => {
