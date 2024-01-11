@@ -48,7 +48,7 @@ class BuilderSelProvVotesData {
     })
     getPartyPastVotes.set(this, (partyInitials, partyExtraInfoInitials) => {
       let pastVotes = getPastVotesFromPastVotesArr.get(this)(partyInitials)
-      if (pastVotes === undefined && partyExtraInfoInitials !== undefined) {
+      if (pastVotes === 0 && partyExtraInfoInitials !== undefined) {
         pastVotes = getPastVotesFromMetaInfo.get(this)(partyExtraInfoInitials)
       }
       return pastVotes
@@ -60,7 +60,7 @@ class BuilderSelProvVotesData {
           return previousVotes[key]
         }
       }
-      return undefined
+      return 0
     })
     getPastVotesFromMetaInfo.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
@@ -70,7 +70,7 @@ class BuilderSelProvVotesData {
           return previousVotes[key]
         }
       }
-      return undefined
+      return 0
     })
     getInitials.set(this, (fullPartyName) => {
       return fullPartyName.split('_')[1]
