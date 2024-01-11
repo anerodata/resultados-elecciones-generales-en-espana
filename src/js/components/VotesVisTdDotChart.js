@@ -69,10 +69,12 @@ class VotesVisTdDotChart extends VotesVisTd {
     })
 
     setupVisualizationEvent.set(this, (visualization) => {
-      visualization.addEventListener('mouseenter', () => {
+      visualization.addEventListener('mouseenter', (evt) => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
           value: this.value,
-          color: this.color
+          color: this.color,
+          x: evt.pageX,
+          y: evt.pageY
         })
       })
       visualization.addEventListener('mousemove', (evt) => {

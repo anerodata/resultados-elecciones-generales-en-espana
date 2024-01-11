@@ -37,10 +37,12 @@ class VotesVisTdVariation extends VotesVisTd {
       }
     })
     setupVisualizationEvent.set(this, (imgNode) => {
-      imgNode.addEventListener('mouseenter', () => {
+      imgNode.addEventListener('mouseenter', (evt) => {
         this.tooltipEventSubscriber.publish('tdVariationSubscriberMouseEnter', {
           value: this.value,
-          color: getDiffSymbolColor.get(this)()
+          color: getDiffSymbolColor.get(this)(),
+          x: evt.pageX,
+          y: evt.pageY
         })
       })
       imgNode.addEventListener('mousemove', (evt) => {

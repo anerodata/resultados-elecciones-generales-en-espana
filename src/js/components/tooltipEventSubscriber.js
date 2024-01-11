@@ -26,15 +26,19 @@ const tooltipEventSubscriber = (function () {
   }
 })()
 const tooltip = new Tooltip('tooltip')
+const setTooltipPosition = (x, y) => {
+  tooltip.setTooltipXPositionLeft(x)
+  tooltip.setTooltipYPosition(y)
+}
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
   const cipher = getCipherInSpanishFormat(data.value)
   const htmlContent = `${cipher} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
-  tooltip.showTooltip(data.color)
+  tooltip.showTooltipWithColor(data.color)
+  setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdDotChartMouseMove', data => {
-  tooltip.setTooltipXPositionRight(data.x)
-  tooltip.setTooltipYPosition(data.y)
+  setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
   const roundedValue = Math.round(data.value * 10) / 10
@@ -42,11 +46,11 @@ tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseEnter', data => {
   const cipherSign = data.value > 0 ? '+' : ''
   const htmlContent = `${cipherSign + cipher} %`
   tooltip.setTooltipContent(htmlContent)
-  tooltip.showTooltip(data.color)
+  tooltip.showTooltipWithColor(data.color)
+  setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdVariationSubscriberMouseMove', data => {
-  tooltip.setTooltipXPositionLeft(data.x)
-  tooltip.setTooltipYPosition(data.y)
+  setTooltipPosition(data.x, data.y)
 })
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
   tooltip.hideTooltip()

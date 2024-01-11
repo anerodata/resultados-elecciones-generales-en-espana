@@ -21,7 +21,7 @@ class Tooltip {
     this.tooltipContainer.innerHTML = htmlContent
   }
 
-  showTooltip (color) {
+  showTooltipWithColor (color) {
     this.tooltipContainer.classList.remove('displayNone')
     this.tooltipContainer.style.color = color
     this.tooltipContainer.style.fontWeight = 'bold'
