@@ -2,14 +2,14 @@ import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
-import { provinces } from './constants.js'
+import { provinces, elections } from './constants.js'
 
 let provinceSelect = {}
 let votesData = {}
-let elections = {}
+let ele = {}
 
 function app () {
-  elections = {
+  ele = {
     past: {
       fileName: '201911',
       date: '2019-11-10'
@@ -19,15 +19,16 @@ function app () {
       date: '2019-04-28'
     }
   }
-  updateApp(elections.past.fileName, elections.current.fileName, '28')
+  setupProvinceSelect('28')
+  setupElectionsSelect()
+  updateApp(ele.past.fileName, ele.current.fileName)
 }
 
-async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
+async function updateApp (currentCSVName, previousCSVName) {
   try {
     const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
     const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
-    setupProvinceSelect(selectedProvId)
     setupProvinceTable(provinceSelect.value)
   } catch (err) {
     console.log(err)
@@ -63,12 +64,12 @@ function setupProvinceTable (selectedProvId) {
       },
       {
         name: 'votesPreviousNum',
-        value: elections.past.date,
+        value: ele.past.date,
         type: 'chart'
       },
       {
         name: 'votesNum',
-        value: elections.current.date,
+        value: ele.current.date,
         type: 'chart'
       },
       {
@@ -81,11 +82,27 @@ function setupProvinceTable (selectedProvId) {
   votesVisTable.setupTable()
 }
 function setupProvinceSelect (selectedProvId) {
-  provinceSelect = new Select({ id: 'select', value: selectedProvId, data: provinces })
+  provinceSelect = new Select({
+    id: 'select',
+    value: selectedProvId,
+    keyValue: 'code',
+    keyName: 'name',
+    data: provinces
+  })
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (selectedProvinceObj) {
     setupProvinceTable(selectedProvinceObj.code)
   })
+}
+
+function setupElectionsSelect () {
+  const electionsSelect = new Select({
+    id: 'select-elections',
+    keyValue: 'fileNames',
+    keyName: 'date',
+    data: elections
+  })
+  electionsSelect.setupSelect()
 }
 
 window.onresize = function () {

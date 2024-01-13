@@ -1,28 +1,40 @@
 const buildHTML = new WeakMap()
+const setSelectHTML = new WeakMap()
+const setSelectDefaultValue = new WeakMap()
 const getSelectedProvinceObj = new WeakMap()
 
 class Select {
-  constructor ({ id, value, data }) {
+  constructor ({ id, value, keyValue, keyName, data }) {
     this.selectHTML = ''
     this.selectNode = document.querySelector(`#${id}`)
     this.value = value
+    this.keyValue = keyValue || 'value'
+    this.keyName = keyName || 'value'
     this.data = data
     buildHTML.set(this, () => {
       let html = ''
       this.data.forEach(d => {
-        html += '<option value="' + d.code + '" >' + d.name + '</option>'
+        html += '<option value="' + d[this.keyValue] + '" >' + d[this.keyName] + '</option>'
       })
       return html
     })
+    setSelectHTML.set(this, () => {
+      this.selectHTML = buildHTML.get(this)()
+      this.selectNode.innerHTML = this.selectHTML
+    })
+    setSelectDefaultValue.set(this, (value) => {
+      if (value !== undefined) {
+        this.selectNode.value = value
+      }
+    })
     getSelectedProvinceObj.set(this, () => {
-      return this.data.find(d => d.code === this.value)
+      return this.data.find(d => d[this.keyValue] === this.value)
     })
   }
 
   setupSelect () {
-    this.selectHTML = buildHTML.get(this)()
-    this.selectNode.innerHTML = this.selectHTML
-    this.selectNode.value = this.value
+    setSelectHTML.get(this)()
+    setSelectDefaultValue.get(this)(this.value)
   }
 
   onChange (callback) {
