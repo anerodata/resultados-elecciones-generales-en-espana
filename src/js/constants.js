@@ -167,6 +167,16 @@ const partiesStore = [
     initials: ['¡TERUEL EXISTE!'],
     defaultName: '¡Teruel Existe!',
     color: '#0D7251'
+  },
+  {
+    initials: ['Votos en blanco'],
+    defaultName: 'Votos en Blanco',
+    color: '#3f3f3f'
+  },
+  {
+    initials: ['Votos nulos'],
+    defaultName: 'Votos nulos',
+    color: '#3f3f3f'
   }
 ]
 export { provinces, elections, partiesStore }

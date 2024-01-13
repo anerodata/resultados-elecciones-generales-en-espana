@@ -13,6 +13,7 @@ const getPartyMetaInfo = new WeakMap()
 const getPartyPastVotes = new WeakMap()
 const getPorcentualDiff = new WeakMap()
 const getAbstData = new WeakMap()
+const getExportedData = new WeakMap()
 
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
@@ -104,8 +105,23 @@ class BuilderSelProvVotesData {
       const calc = (newNum - oldNum) / oldNum * 100
       return calc
     })
-    getAbstData.set(this, (totalVotantes, totalCenso) => {
-      console.log(totalVotantes, totalCenso)
+    getAbstData.set(this, (votesData) => {
+      const totalVotantes = votesData.find(row => isKeyInChartTotalVotantes.get(this)(row.nombre))
+      const totalCenso = votesData.find(row => isKeyInChartTotalCenso.get(this)(row.nombre))
+      const votesNum = totalCenso.votesNum - totalVotantes.votesNum
+      const votesPreviousNum = totalCenso.votesPreviousNum - totalVotantes.votesPreviousNum
+      return new ModelVotesData({
+        partyName: 'Abstencion',
+        votesNum,
+        votesPreviousNum,
+        diff: getPorcentualDiff.get(this)(votesPreviousNum, votesNum)
+      })
+    })
+    getExportedData.set(this, (votesData) => {
+      return votesData.filter(row =>
+        !isKeyInChartTotalCenso.get(this)(row.nombre) &&
+        !isKeyInChartTotalVotantes.get(this)(row.nombre)
+      )
     })
   }
 
@@ -122,10 +138,9 @@ class BuilderSelProvVotesData {
       })
       votesData.push(partyData)
     }
-    const totalVotantes = votesData.filter(row => isKeyInChartTotalVotantes.get(this)(row.nombre))
-    const totalCenso = votesData.filter(row => isKeyInChartTotalCenso.get(this)(row.nombre))
-    getAbstData.get(this)(totalVotantes, totalCenso)
-    return votesData
+    const abstData = getAbstData.get(this)(votesData)
+    votesData.push(abstData)
+    return getExportedData.get(this)(votesData)
   }
 }
 export default BuilderSelProvVotesData
