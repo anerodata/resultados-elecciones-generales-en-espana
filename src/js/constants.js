@@ -54,8 +54,14 @@ const provinces = [
 ]
 const elections = [
   {
+    fileNames: '202307-201911',
+    currentDate: '2023-07-23',
+    pastDate: '2019-11-10'
+  },
+  {
     fileNames: '201911-201904',
-    date: '2019-11-10'
+    currentDate: '2019-11-10',
+    pastDate: '2019-04-28'
   }
 ]
 const oldColors = {
