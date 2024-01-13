@@ -2,7 +2,9 @@ import { partiesStore } from '../constants.js'
 import ModelVotesData from './ModelVotesData.js'
 
 const getPartiesCurrentVotes = new WeakMap()
-const getInitials = new WeakMap()
+const isKeyInChart = new WeakMap()
+const isKeyInChartTotalCenso = new WeakMap()
+const isKeyInChartTotalVotantes = new WeakMap()
 const getPastVotesFromPastVotesArr = new WeakMap()
 const getPastVotesFromMetaInfo = new WeakMap()
 const getExpandedPartyInfo = new WeakMap()
@@ -10,16 +12,30 @@ const getPartyNameAndInitials = new WeakMap()
 const getPartyMetaInfo = new WeakMap()
 const getPartyPastVotes = new WeakMap()
 const getPorcentualDiff = new WeakMap()
+const getAbstData = new WeakMap()
 
 class BuilderSelProvVotesData {
   constructor (votesDataProv) {
     this.votesDataProv = votesDataProv
 
     getPartiesCurrentVotes.set(this, () => {
-      const arrOfArrs = Object
+      const partiesCurrentVotes = Object
         .entries(this.votesDataProv.current)
-        .filter(([key]) => key.includes('_'))
-      return Object.fromEntries(arrOfArrs)
+        .filter(([key]) => isKeyInChart.get(this)(key))
+      return Object.fromEntries(partiesCurrentVotes)
+    })
+    isKeyInChart.set(this, (key) => {
+      return key.includes('_') ||
+        key === 'Votos en blanco' ||
+        key === 'Votos nulos' ||
+        isKeyInChartTotalCenso.get(this)(key) ||
+        isKeyInChartTotalVotantes.get(this)(key)
+    })
+    isKeyInChartTotalCenso.set(this, (key) => {
+      return key === 'Total censo electoral'
+    })
+    isKeyInChartTotalVotantes.set(this, (key) => {
+      return key === 'Total votantes'
     })
     getExpandedPartyInfo.set(this, (fullPartyName) => {
       const expandedInfo = {}
@@ -35,7 +51,12 @@ class BuilderSelProvVotesData {
     })
     getPartyNameAndInitials.set(this, (fullPartyName) => {
       const fullPartyNameSplitted = fullPartyName.split('_')
-      return { partyName: fullPartyNameSplitted[0], initials: fullPartyNameSplitted[1] }
+      const partyName = fullPartyNameSplitted[0]
+      let initials = fullPartyNameSplitted[1]
+      if (initials === undefined) {
+        initials = partyName
+      }
+      return { partyName, initials }
     })
     getPartyMetaInfo.set(this, (partyInitials) => {
       let extraInfo = {}
@@ -56,7 +77,8 @@ class BuilderSelProvVotesData {
     getPastVotesFromPastVotesArr.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
-        if (getInitials.get(this)(key) === partyInitials) {
+        const previousPartyNameAndInitials = getPartyNameAndInitials.get(this)(key)
+        if (previousPartyNameAndInitials.initials === partyInitials) {
           return previousVotes[key]
         }
       }
@@ -65,15 +87,15 @@ class BuilderSelProvVotesData {
     getPastVotesFromMetaInfo.set(this, (partyInitials) => {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
-        const initial = partyInitials.find(initial => initial === getInitials.get(this)(key))
+        const previousPartyNameAndInitials = getPartyNameAndInitials.get(this)(key)
+        const initial = partyInitials.find(initial =>
+          initial === previousPartyNameAndInitials.initials
+        )
         if (initial !== undefined) {
           return previousVotes[key]
         }
       }
       return 0
-    })
-    getInitials.set(this, (fullPartyName) => {
-      return fullPartyName.split('_')[1]
     })
     getPorcentualDiff.set(this, (oldNum, newNum) => {
       if (oldNum === undefined) {
@@ -81,6 +103,9 @@ class BuilderSelProvVotesData {
       }
       const calc = (newNum - oldNum) / oldNum * 100
       return calc
+    })
+    getAbstData.set(this, (totalVotantes, totalCenso) => {
+      console.log(totalVotantes, totalCenso)
     })
   }
 
@@ -97,6 +122,9 @@ class BuilderSelProvVotesData {
       })
       votesData.push(partyData)
     }
+    const totalVotantes = votesData.filter(row => isKeyInChartTotalVotantes.get(this)(row.nombre))
+    const totalCenso = votesData.filter(row => isKeyInChartTotalCenso.get(this)(row.nombre))
+    getAbstData.get(this)(totalVotantes, totalCenso)
     return votesData
   }
 }
