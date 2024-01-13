@@ -5,6 +5,21 @@ import ProvinceSelect from './components/ProvincesSelect.js'
 
 let provinceSelect = {}
 let votesData = {}
+let elections = {}
+
+function app () {
+  elections = {
+    past: {
+      fileName: '201911',
+      date: '2019-11-10'
+    },
+    current: {
+      fileName: '201904',
+      date: '2019-04-28'
+    }
+  }
+  updateApp(elections.past.fileName, elections.current.fileName, '28')
+}
 
 async function updateApp (currentCSVName, previousCSVName, selectedProvId) {
   try {
@@ -47,12 +62,12 @@ function setupProvinceTable (selectedProvId) {
       },
       {
         name: 'votesPreviousNum',
-        value: '28-A',
+        value: elections.past.date,
         type: 'chart'
       },
       {
         name: 'votesNum',
-        value: '10-N',
+        value: elections.current.date,
         type: 'chart'
       },
       {
@@ -77,4 +92,4 @@ window.onresize = function () {
   setupProvinceTable(selectedProvId)
 }
 
-export default updateApp
+export default app
