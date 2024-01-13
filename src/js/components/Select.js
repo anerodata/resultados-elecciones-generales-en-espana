@@ -1,4 +1,5 @@
 const buildHTML = new WeakMap()
+const getSelectedProvinceObj = new WeakMap()
 
 class Select {
   constructor ({ id, value, data }) {
@@ -13,6 +14,9 @@ class Select {
       })
       return html
     })
+    getSelectedProvinceObj.set(this, () => {
+      return this.data.find(d => d.code === this.value)
+    })
   }
 
   setupSelect () {
@@ -24,7 +28,8 @@ class Select {
   onChange (callback) {
     this.selectNode.onchange = (evt) => {
       this.value = evt.target.value
-      callback(this.value)
+      const selectedProvinceObj = getSelectedProvinceObj.get(this)()
+      callback(selectedProvinceObj)
     }
   }
 }

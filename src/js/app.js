@@ -83,8 +83,8 @@ function setupProvinceTable (selectedProvId) {
 function setupProvinceSelect (selectedProvId) {
   provinceSelect = new Select({ id: 'select', value: selectedProvId, data: provinces })
   provinceSelect.setupSelect()
-  provinceSelect.onChange(function (selectedProvId) {
-    setupProvinceTable(selectedProvId)
+  provinceSelect.onChange(function (selectedProvinceObj) {
+    setupProvinceTable(selectedProvinceObj.code)
   })
 }
 
