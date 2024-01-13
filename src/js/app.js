@@ -5,43 +5,68 @@ import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
 
 let provinceSelect = {}
+let electionsSelect = {}
 let votesData = {}
-let ele = {}
+let selectedDatasets = {}
 
 function app () {
-  ele = {
-    past: {
-      fileName: '201911',
-      date: '2019-11-10'
-    },
-    current: {
-      fileName: '201904',
-      date: '2019-04-28'
-    }
-  }
   setupProvinceSelect('28')
   setupElectionsSelect()
-  updateApp(ele.past.fileName, ele.current.fileName)
+  selectedDatasets = getSelectedDatasets(elections[0])
+  updateTable()
 }
 
-async function updateApp (currentCSVName, previousCSVName) {
+function setupProvinceSelect (selectedProvId) {
+  provinceSelect = new Select({
+    id: 'select',
+    value: selectedProvId,
+    keyValue: 'code',
+    keyName: 'name',
+    data: provinces
+  })
+  provinceSelect.setupSelect()
+  provinceSelect.onChange(function (selectedProvinceObj) {
+    setupProvinceTable(selectedProvinceObj.code)
+  })
+}
+
+function setupElectionsSelect () {
+  electionsSelect = new Select({
+    id: 'select-elections',
+    keyValue: 'fileNames',
+    keyName: 'currentDate',
+    data: elections
+  })
+  electionsSelect.setupSelect()
+  electionsSelect.onChange(function (selectedValue) {
+    selectedDatasets = getSelectedDatasets(selectedValue)
+    updateTable()
+  })
+}
+
+function getSelectedDatasets (elections) {
+  const electionValues = elections.fileNames.split('-')
+  return {
+    past: {
+      fileName: electionValues[1],
+      date: elections.pastDate
+    },
+    current: {
+      fileName: electionValues[0],
+      date: elections.currentDate
+    }
+  }
+}
+
+async function updateTable () {
   try {
-    const builderParlData = new BuilderParliamentData(previousCSVName, currentCSVName)
+    const builderParlData = new BuilderParliamentData(selectedDatasets.past.fileName, selectedDatasets.current.fileName)
     const parliamentData = await builderParlData.getParliamentData()
     votesData = parliamentData.votes
     setupProvinceTable(provinceSelect.value)
   } catch (err) {
     console.log(err)
   }
-}
-
-function filterVotesDataByProv (provinceCode) {
-  const votesDataProv = {}
-  for (const time in votesData) {
-    const filteredDataByProv = votesData[time].find(d => d['Código de Provincia'] === provinceCode)
-    votesDataProv[time] = filteredDataByProv
-  }
-  return votesDataProv
 }
 
 function setupProvinceTable (selectedProvId) {
@@ -64,12 +89,12 @@ function setupProvinceTable (selectedProvId) {
       },
       {
         name: 'votesPreviousNum',
-        value: ele.past.date,
+        value: selectedDatasets.past.date,
         type: 'chart'
       },
       {
         name: 'votesNum',
-        value: ele.current.date,
+        value: selectedDatasets.current.date,
         type: 'chart'
       },
       {
@@ -81,28 +106,14 @@ function setupProvinceTable (selectedProvId) {
   })
   votesVisTable.setupTable()
 }
-function setupProvinceSelect (selectedProvId) {
-  provinceSelect = new Select({
-    id: 'select',
-    value: selectedProvId,
-    keyValue: 'code',
-    keyName: 'name',
-    data: provinces
-  })
-  provinceSelect.setupSelect()
-  provinceSelect.onChange(function (selectedProvinceObj) {
-    setupProvinceTable(selectedProvinceObj.code)
-  })
-}
 
-function setupElectionsSelect () {
-  const electionsSelect = new Select({
-    id: 'select-elections',
-    keyValue: 'fileNames',
-    keyName: 'date',
-    data: elections
-  })
-  electionsSelect.setupSelect()
+function filterVotesDataByProv (provinceCode) {
+  const votesDataProv = {}
+  for (const time in votesData) {
+    const filteredDataByProv = votesData[time].find(d => d['Código de Provincia'] === provinceCode)
+    votesDataProv[time] = filteredDataByProv
+  }
+  return votesDataProv
 }
 
 window.onresize = function () {
