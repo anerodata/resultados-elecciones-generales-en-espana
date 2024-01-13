@@ -1,7 +1,8 @@
 import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
-import ProvinceSelect from './components/ProvincesSelect.js'
+import Select from './components/Select.js'
+import { provinces } from './constants.js'
 
 let provinceSelect = {}
 let votesData = {}
@@ -80,7 +81,7 @@ function setupProvinceTable (selectedProvId) {
   votesVisTable.setupTable()
 }
 function setupProvinceSelect (selectedProvId) {
-  provinceSelect = new ProvinceSelect('select', selectedProvId)
+  provinceSelect = new Select({ id: 'select', value: selectedProvId, data: provinces })
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (selectedProvId) {
     setupProvinceTable(selectedProvId)
