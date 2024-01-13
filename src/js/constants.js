@@ -124,7 +124,7 @@ const partiesStore = [
     color: '#DC1717'
   },
   {
-    initials: ['COMPROMÍS', 'MÉS COMPROMÍS'],
+    initials: ['COMPROMÍS 2019', 'MÉS COMPROMÍS'],
     defaultName: 'Compromís',
     color: '#D35427'
   },
