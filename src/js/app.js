@@ -18,7 +18,6 @@ async function app () {
   votesData = parliamentData.votes
   setupProvinceSelect(defaultProvinceValue)
   setupElectionsSelect()
-  console.log(provinceSelect)
   setupProvinceTable(provinceSelect.value.code)
 }
 
@@ -51,8 +50,8 @@ function getElectionsSelect (defaultValue) {
 
 function setupElectionsSelect () {
   electionsSelect.setupSelect()
-  electionsSelect.onChange(async function (selectedValue) {
-    selectedDatasets = getSelectedDatasets(selectedValue)
+  electionsSelect.onChange(async function () {
+    selectedDatasets = getSelectedDatasets(electionsSelect.value)
     parliamentData = await getParliamentData()
     votesData = parliamentData.votes
     setupProvinceTable(provinceSelect.value.code)
