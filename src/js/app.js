@@ -101,7 +101,7 @@ function setupProvinceTable (selectedProvId) {
       },
       {
         name: 'votesPreviousNum',
-        value: selectedDatasets.past.date,
+        value: `${selectedDatasets.past.date} (elecciones anteriores)`,
         type: 'chart'
       },
       {
