@@ -137,7 +137,7 @@ class BuilderSelProvVotesData {
       const expandedPartyInfo = getExpandedPartyInfo.get(this)(fullPartyName)
       const porcentualDiff = getPorcentualDiff.get(this)(expandedPartyInfo.votesPreviousNum, partiesVotes[fullPartyName])
       const partyData = new ModelVotesData({
-        votesNum: partiesVotes[fullPartyName],
+        votesNum: Number(partiesVotes[fullPartyName]),
         diff: porcentualDiff,
         ...expandedPartyInfo
       })
