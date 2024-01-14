@@ -4,43 +4,57 @@ import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
 
-let provinceSelect = {}
-let electionsSelect = {}
-let votesData = {}
-let selectedDatasets = {}
+const defaultSelectedElectionsVal = elections[1]
+let selectedDatasets = getSelectedDatasets(defaultSelectedElectionsVal)
+const electionsSelect = getElectionsSelect(defaultSelectedElectionsVal)
+const defaultProvinceValue = '28'
+const provinceSelect = getProvinceSelect(defaultProvinceValue)
 
-function app () {
-  setupProvinceSelect('28')
+let parliamentData
+let votesData
+
+async function app () {
+  parliamentData = await getParliamentData()
+  votesData = parliamentData.votes
+  setupProvinceSelect(defaultProvinceValue)
   setupElectionsSelect()
-  selectedDatasets = getSelectedDatasets(elections[0])
-  updateTable()
+  setupProvinceTable(provinceSelect.value)
 }
 
-function setupProvinceSelect (selectedProvId) {
-  provinceSelect = new Select({
+function getProvinceSelect (selectedProvId) {
+  return new Select({
     id: 'select',
     value: selectedProvId,
     keyValue: 'code',
     keyName: 'name',
     data: provinces
   })
+}
+
+function setupProvinceSelect () {
   provinceSelect.setupSelect()
   provinceSelect.onChange(function (selectedProvinceObj) {
     setupProvinceTable(selectedProvinceObj.code)
   })
 }
 
-function setupElectionsSelect () {
-  electionsSelect = new Select({
+function getElectionsSelect (defaultValue) {
+  return new Select({
     id: 'select-elections',
+    value: defaultValue,
     keyValue: 'fileNames',
     keyName: 'currentDate',
     data: elections
   })
+}
+
+function setupElectionsSelect () {
   electionsSelect.setupSelect()
-  electionsSelect.onChange(function (selectedValue) {
+  electionsSelect.onChange(async function (selectedValue) {
     selectedDatasets = getSelectedDatasets(selectedValue)
-    updateTable()
+    parliamentData = await getParliamentData()
+    votesData = parliamentData.votes
+    setupProvinceTable(provinceSelect.value)
   })
 }
 
@@ -58,12 +72,10 @@ function getSelectedDatasets (elections) {
   }
 }
 
-async function updateTable () {
+async function getParliamentData () {
   try {
     const builderParlData = new BuilderParliamentData(selectedDatasets.past.fileName, selectedDatasets.current.fileName)
-    const parliamentData = await builderParlData.getParliamentData()
-    votesData = parliamentData.votes
-    setupProvinceTable(provinceSelect.value)
+    return await builderParlData.getParliamentData()
   } catch (err) {
     console.log(err)
   }
