@@ -108,7 +108,7 @@ const partiesStore = [
     color: '#5AC035'
   },
   {
-    initials: ['ERC-SOBIRANISTES', 'ERC'],
+    initials: ['ERC-SOBIRANISTES', 'ERC', 'ERC-CATSÍ'],
     defaultName: 'Esquerra Republicana',
     color: '#F7B93F'
   },
