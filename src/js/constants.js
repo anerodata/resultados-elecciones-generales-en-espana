@@ -97,7 +97,11 @@ const partiesStore = [
       'PODEMOS-EU',
       'PODEMOS-EN MAREA-ANOVA-EU',
       'ECP',
-      'PODEMOS-COMPROMÍS-EUPV'
+      'PODEMOS-COMPROMÍS-EUPV',
+      'PODEMOS',
+      'PODEMOS-COM',
+      'PODEMOS-En',
+      'EN COMÚ'
     ],
     defaultName: 'Unidas Podemos',
     color: '#612760'
