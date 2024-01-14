@@ -62,6 +62,11 @@ const elections = [
     fileNames: '201911-201904',
     currentDate: '2019-11-10',
     pastDate: '2019-04-28'
+  },
+  {
+    fileNames: '201904-201606',
+    currentDate: '2019-04-28',
+    pastDate: '2016-06-26'
   }
 ]
 const oldColors = {
@@ -79,7 +84,7 @@ const partiesStore = [
     color: '#0157A4'
   },
   {
-    initials: ['Cs'],
+    initials: ['Cs', 'C\'s'],
     defaultName: 'Ciudadanos',
     color: '#FF4700'
   },
@@ -89,7 +94,10 @@ const partiesStore = [
       'PODEMOS-EU-MAREAS EN COMÚN-EQUO',
       'ECP-GUANYEM EL CANVI',
       'PODEMOS-IU',
-      'PODEMOS-EU'
+      'PODEMOS-EU',
+      'PODEMOS-EN MAREA-ANOVA-EU',
+      'ECP',
+      'PODEMOS-COMPROMÍS-EUPV'
     ],
     defaultName: 'Unidas Podemos',
     color: '#612760'
