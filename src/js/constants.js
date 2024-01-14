@@ -67,6 +67,11 @@ const elections = [
     fileNames: '201904-201606',
     currentDate: '2019-04-28',
     pastDate: '2016-06-26'
+  },
+  {
+    fileNames: '201606-201512',
+    currentDate: '2016-06-26',
+    pastDate: '2015-12-20'
   }
 ]
 const oldColors = {
