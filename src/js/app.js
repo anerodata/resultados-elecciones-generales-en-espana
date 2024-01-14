@@ -18,7 +18,8 @@ async function app () {
   votesData = parliamentData.votes
   setupProvinceSelect(defaultProvinceValue)
   setupElectionsSelect()
-  setupProvinceTable(provinceSelect.value)
+  console.log(provinceSelect)
+  setupProvinceTable(provinceSelect.value.code)
 }
 
 function getProvinceSelect (selectedProvId) {
@@ -33,8 +34,8 @@ function getProvinceSelect (selectedProvId) {
 
 function setupProvinceSelect () {
   provinceSelect.setupSelect()
-  provinceSelect.onChange(function (selectedProvinceObj) {
-    setupProvinceTable(selectedProvinceObj.code)
+  provinceSelect.onChange(function () {
+    setupProvinceTable(provinceSelect.value.code)
   })
 }
 
@@ -54,7 +55,7 @@ function setupElectionsSelect () {
     selectedDatasets = getSelectedDatasets(selectedValue)
     parliamentData = await getParliamentData()
     votesData = parliamentData.votes
-    setupProvinceTable(provinceSelect.value)
+    setupProvinceTable(provinceSelect.value.code)
   })
 }
 
@@ -129,7 +130,7 @@ function filterVotesDataByProv (provinceCode) {
 }
 
 window.onresize = function () {
-  const selectedProvId = provinceSelect.value
+  const selectedProvId = provinceSelect.value.code
   setupProvinceTable(selectedProvId)
 }
 
