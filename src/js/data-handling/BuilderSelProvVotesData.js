@@ -111,7 +111,7 @@ class BuilderSelProvVotesData {
       const votesNum = totalCenso.votesNum - totalVotantes.votesNum
       const votesPreviousNum = totalCenso.votesPreviousNum - totalVotantes.votesPreviousNum
       return new ModelVotesData({
-        partyName: 'Abstencion',
+        partyName: 'Abstención',
         votesNum,
         votesPreviousNum,
         diff: getPorcentualDiff.get(this)(votesPreviousNum, votesNum)

@@ -185,6 +185,11 @@ const partiesStore = [
     color: '#3f3f3f'
   },
   {
+    initials: ['Abstención'],
+    defaultName: 'Abstención',
+    color: '#3f3f3f'
+  },
+  {
     initials: ['SUMAR'],
     defaultName: 'Sumar',
     color: '#e51c55'
