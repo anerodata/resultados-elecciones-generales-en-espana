@@ -113,7 +113,7 @@ const partiesStore = [
     color: '#F7B93F'
   },
   {
-    initials: ['JxCAT-JUNTS', 'JxCAT - JUNTS'],
+    initials: ['JxCAT-JUNTS', 'JxCAT - JUNTS', 'CDC'],
     defaultName: 'Junts per Catalunya',
     color: '#EE5976'
   },
