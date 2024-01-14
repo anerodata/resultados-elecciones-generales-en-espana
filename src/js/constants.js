@@ -100,12 +100,12 @@ const partiesStore = [
     color: '#5AC035'
   },
   {
-    initials: ['ERC-SOBIRANISTES'],
+    initials: ['ERC-SOBIRANISTES', 'ERC'],
     defaultName: 'Esquerra Republicana',
     color: '#F7B93F'
   },
   {
-    initials: ['JxCAT-JUNTS'],
+    initials: ['JxCAT-JUNTS', 'JxCAT - JUNTS'],
     defaultName: 'Junts per Catalunya',
     color: '#EE5976'
   },
@@ -140,7 +140,7 @@ const partiesStore = [
     color: '#B9C714'
   },
   {
-    initials: ['BNG'],
+    initials: ['BNG', 'B.N.G.'],
     defaultName: 'Bloque Nacionalista Galego',
     color: '#94CCF7'
   },
@@ -183,6 +183,11 @@ const partiesStore = [
     initials: ['Votos nulos'],
     defaultName: 'Votos nulos',
     color: '#3f3f3f'
+  },
+  {
+    initials: ['SUMAR'],
+    defaultName: 'Sumar',
+    color: '#e51c55'
   }
 ]
 export { provinces, elections, partiesStore }
