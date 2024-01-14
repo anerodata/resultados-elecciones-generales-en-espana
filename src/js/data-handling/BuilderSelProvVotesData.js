@@ -111,8 +111,12 @@ class BuilderSelProvVotesData {
       const totalCenso = votesData.find(row => isKeyInChartTotalCenso.get(this)(row.nombre))
       const votesNum = totalCenso.votesNum - totalVotantes.votesNum
       const votesPreviousNum = totalCenso.votesPreviousNum - totalVotantes.votesPreviousNum
+      const abstName = 'Abstención'
+      const extraInfo = getPartyMetaInfo.get(this)(abstName)
       return new ModelVotesData({
-        partyName: 'Abstención',
+        partyName: abstName,
+        defaultName: extraInfo.defaultName,
+        color: extraInfo.color,
         votesNum,
         votesPreviousNum,
         diff: getPorcentualDiff.get(this)(votesPreviousNum, votesNum)
