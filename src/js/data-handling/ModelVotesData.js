@@ -5,8 +5,8 @@ class ModelVotesData {
     this.defaultName = defaultName || partyName
     this.color = color || 'grey'
     this.diff = diff || 0
-    this.votesNum = Number(votesNum)
-    this.votesPreviousNum = Number(votesPreviousNum)
+    this.votesNum = votesNum
+    this.votesPreviousNum = votesPreviousNum
   }
 }
 export default ModelVotesData

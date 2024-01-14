@@ -80,7 +80,7 @@ class BuilderSelProvVotesData {
       for (const key in previousVotes) {
         const previousPartyNameAndInitials = getPartyNameAndInitials.get(this)(key)
         if (previousPartyNameAndInitials.initials === partyInitials) {
-          return previousVotes[key]
+          return Number(previousVotes[key])
         }
       }
       return 0
@@ -89,11 +89,12 @@ class BuilderSelProvVotesData {
       const previousVotes = this.votesDataProv.previous
       for (const key in previousVotes) {
         const previousPartyNameAndInitials = getPartyNameAndInitials.get(this)(key)
+        const previousVotesValue = Number(previousVotes[key])
         const initial = partyInitials.find(initial =>
-          initial === previousPartyNameAndInitials.initials
+          initial === previousPartyNameAndInitials.initials && previousVotesValue > 0
         )
         if (initial !== undefined) {
-          return previousVotes[key]
+          return previousVotesValue
         }
       }
       return 0
