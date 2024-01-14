@@ -4,9 +4,9 @@ import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
 
-const defaultSelectedElectionsVal = elections[1]
-let selectedDatasets = getSelectedDatasets(defaultSelectedElectionsVal)
-const electionsSelect = getElectionsSelect(defaultSelectedElectionsVal)
+const defaultSelectedElections = elections[0]
+let selectedDatasets = getSelectedDatasets(defaultSelectedElections)
+const electionsSelect = getElectionsSelect(defaultSelectedElections.fileNames)
 const defaultProvinceValue = '28'
 const provinceSelect = getProvinceSelect(defaultProvinceValue)
 
