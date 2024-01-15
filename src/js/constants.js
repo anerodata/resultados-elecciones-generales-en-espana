@@ -77,19 +77,32 @@ const elections = [
     fileNames: '201512-201111',
     currentDate: '2015-12-20',
     pastDate: '2011-11-20'
+  },
+  {
+    fileNames: '201111-200803',
+    currentDate: '2011-11-20',
+    pastDate: '2008-03-09'
+  },
+  {
+    fileNames: '200803-200403',
+    currentDate: '2008-03-09',
+    pastDate: '2004-03-14'
+  },
+  {
+    fileNames: '200403-200003',
+    currentDate: '2004-03-14',
+    pastDate: '2000-03-12'
   }
+
 ]
-const oldColors = {
-  13: { initials: 'Nueva Canarias', fill: '#80C03B' }
-}
 const partiesStore = [
   {
-    initials: ['PSOE'],
+    initials: ['PSOE', 'P.S.O.E.', 'PSOE-PROGR.'],
     defaultName: 'Partido Socialista Obrero Español',
     color: '#E43D32'
   },
   {
-    initials: ['PP'],
+    initials: ['PP', 'P.P.'],
     defaultName: 'Partido Popular',
     color: '#0157A4'
   },
@@ -167,7 +180,7 @@ const partiesStore = [
     color: '#DC1717'
   },
   {
-    initials: ['COMPROMÍS 2019', 'MÉS COMPROMÍS'],
+    initials: ['COMPROMÍS 2019', 'MÉS COMPROMÍS', 'COMPROMÍS-Q'],
     defaultName: 'Compromís',
     color: '#D35427'
   },
@@ -232,7 +245,7 @@ const partiesStore = [
     color: '#e51c55'
   },
   {
-    initials: ['IU-UPeC', 'IU-LV'],
+    initials: ['IU-UPeC', 'IU-LV', 'I.U.', 'IU'],
     defaultName: 'Izquierda Unida',
     color: '#cf2e2e'
   },
@@ -240,6 +253,21 @@ const partiesStore = [
     initials: ['UPYD', 'UPyD'],
     defaultName: 'Izquierda Unida',
     color: '#d51c76'
+  },
+  {
+    initials: ['EQUO'],
+    defaultName: 'EQUO',
+    color: '#419d3d'
+  },
+  {
+    initials: ['EA'],
+    defaultName: 'Eusko Alkartasuna',
+    color: '#B50B12'
+  },
+  {
+    initials: ['aralar'],
+    defaultName: 'aralar',
+    color: '#C20D0A'
   }
 ]
 export { provinces, elections, partiesStore }
