@@ -72,6 +72,11 @@ const elections = [
     fileNames: '201606-201512',
     currentDate: '2016-06-26',
     pastDate: '2015-12-20'
+  },
+  {
+    fileNames: '201512-201111',
+    currentDate: '2015-12-20',
+    pastDate: '2011-11-20'
   }
 ]
 const oldColors = {
@@ -117,7 +122,7 @@ const partiesStore = [
     color: '#5AC035'
   },
   {
-    initials: ['ERC-SOBIRANISTES', 'ERC', 'ERC-CATSÍ'],
+    initials: ['ERC-SOBIRANISTES', 'ERC', 'ERC-CATSÍ', 'ERC-CATSI', 'ESQUERRA'],
     defaultName: 'Esquerra Republicana',
     color: '#F7B93F'
   },
@@ -125,6 +130,11 @@ const partiesStore = [
     initials: ['JxCAT-JUNTS', 'JxCAT - JUNTS', 'CDC'],
     defaultName: 'Junts per Catalunya',
     color: '#EE5976'
+  },
+  {
+    initials: ['CDC', 'DL', 'CiU'],
+    defaultName: 'Convergencia / Convergencia i Unió',
+    color: '#282968'
   },
   {
     initials: ['EAJ-PNV'],
@@ -210,6 +220,16 @@ const partiesStore = [
     initials: ['SUMAR'],
     defaultName: 'Sumar',
     color: '#e51c55'
+  },
+  {
+    initials: ['IU-UPeC', 'IU-LV'],
+    defaultName: 'Izquierda Unida',
+    color: '#cf2e2e'
+  },
+  {
+    initials: ['UPYD', 'UPyD'],
+    defaultName: 'Izquierda Unida',
+    color: '#d51c76'
   }
 ]
 export { provinces, elections, partiesStore }
