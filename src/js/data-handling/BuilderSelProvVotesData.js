@@ -100,7 +100,7 @@ class BuilderSelProvVotesData {
       return 0
     })
     getPorcentualDiff.set(this, (oldNum, newNum) => {
-      if (oldNum === undefined) {
+      if (oldNum === 0) {
         return 100
       }
       const calc = (newNum - oldNum) / oldNum * 100
