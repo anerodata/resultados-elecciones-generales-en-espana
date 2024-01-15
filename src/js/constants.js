@@ -137,6 +137,16 @@ const partiesStore = [
     color: '#282968'
   },
   {
+    initials: ['CiU'],
+    defaultName: 'Convergencia i Unió',
+    color: '#282968'
+  },
+  {
+    initials: ['unio.cat'],
+    defaultName: 'Unió',
+    color: '#0053A1'
+  },
+  {
     initials: ['EAJ-PNV'],
     defaultName: 'Partido Nacionalista Vasco',
     color: '#008336'
