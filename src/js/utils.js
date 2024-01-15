@@ -7,4 +7,7 @@ function createNodeWithText (element, text) {
 function getCipherInSpanishFormat (num) {
   return num.toLocaleString('es-ES')
 }
-export { createNodeWithText, getCipherInSpanishFormat }
+function getDateInSpanishFormat (date) {
+  return new Date(date).toLocaleDateString('es-ES')
+}
+export { createNodeWithText, getCipherInSpanishFormat, getDateInSpanishFormat }

@@ -3,6 +3,7 @@ import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
+import { getDateInSpanishFormat } from './utils.js'
 
 const defaultSelectedElections = elections[0]
 let selectedDatasets = getSelectedDatasets(defaultSelectedElections)
@@ -43,9 +44,18 @@ function getElectionsSelect (defaultValue) {
     id: 'select-elections',
     value: defaultValue,
     keyValue: 'fileNames',
-    keyName: 'currentDate',
-    data: elections
+    keyName: 'currentDateFormatted',
+    data: formatDateElections()
   })
+}
+
+function formatDateElections () {
+  const electionsFormatted = elections
+  electionsFormatted.forEach(election => {
+    election.currentDateFormatted = getDateInSpanishFormat(election.currentDate)
+    election.pastDateFormatted = getDateInSpanishFormat(election.pastDate)
+  })
+  return electionsFormatted
 }
 
 function setupElectionsSelect () {
@@ -101,12 +111,12 @@ function setupProvinceTable (selectedProvId) {
       },
       {
         name: 'votesPreviousNum',
-        value: `Elecciones anteriores (${selectedDatasets.past.date})`,
+        value: `Elecciones anteriores (${getDateInSpanishFormat(selectedDatasets.past.date)})`,
         type: 'chart'
       },
       {
         name: 'votesNum',
-        value: selectedDatasets.current.date,
+        value: getDateInSpanishFormat(selectedDatasets.current.date),
         type: 'chart'
       },
       {
