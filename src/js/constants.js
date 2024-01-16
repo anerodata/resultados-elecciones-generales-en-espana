@@ -107,9 +107,12 @@ const elections = [
     fileNames: '199306-198910',
     currentDate: '1993-06-06',
     pastDate: '1989-10-29'
+  },
+  {
+    fileNames: '198910-198606',
+    currentDate: '1989-10-29',
+    pastDate: '1986-06-22'
   }
-
-
 ]
 const partiesStore = [
   {
@@ -118,7 +121,7 @@ const partiesStore = [
     color: '#E43D32'
   },
   {
-    initials: ['PP', 'P.P.'],
+    initials: ['PP', 'P.P.', 'AP-PDP-PL'],
     defaultName: 'Partido Popular',
     color: '#0157A4'
   },
