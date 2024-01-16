@@ -92,7 +92,23 @@ const elections = [
     fileNames: '200403-200003',
     currentDate: '2004-03-14',
     pastDate: '2000-03-12'
+  },
+  {
+    fileNames: '200003-199603',
+    currentDate: '2000-03-12',
+    pastDate: '1996-03-03'
+  },
+  {
+    fileNames: '199603-199306',
+    currentDate: '1996-03-03',
+    pastDate: '1993-06-06'
+  },
+  {
+    fileNames: '199306-198910',
+    currentDate: '1993-06-06',
+    pastDate: '1989-10-29'
   }
+
 
 ]
 const partiesStore = [
@@ -145,7 +161,7 @@ const partiesStore = [
     color: '#EE5976'
   },
   {
-    initials: ['CDC', 'DL', 'CiU'],
+    initials: ['CDC', 'DL', 'CiU', 'CIU'],
     defaultName: 'Convergencia / Convergencia i Unió',
     color: '#282968'
   },
@@ -268,6 +284,16 @@ const partiesStore = [
     initials: ['aralar'],
     defaultName: 'aralar',
     color: '#C20D0A'
+  },
+  {
+    initials: ['IC-V'],
+    defaultName: 'Iniciativa per Catalunya Verds',
+    color: '#0A8F80'
+  },
+  {
+    initials: ['HB'],
+    defaultName: 'Herri Batasuna',
+    color: '#FFA500'
   }
 ]
 export { provinces, elections, partiesStore }
