@@ -86,17 +86,27 @@ class VotesVisTable {
     feedChartTd.set(this, (trs) => {
       trs.forEach((tr, i) => {
         const tdsNotVis = tr.querySelectorAll('td.vis-table_cell--chart')
-        const headNoChart = this.headData.filter(headField => headField.type === 'chart')
+        const headChart = this.headData.filter(headField => headField.type === 'chart')
         tdsNotVis.forEach((td, j) => {
-          const tdContent = getTdContentChart.get(this)(this.dataset[i], headNoChart[j], td.clientWidth)
+          const tdContent = getTdContentChart.get(this)(this.dataset[i], headChart[j], td.clientWidth)
           td.appendChild(tdContent)
         })
       })
     })
 
     getTdContentChart.set(this, (row, headField, tdWidth) => {
+      if (row[headField.name] > 0) {
+        const tDContent = provinceVisTdFactory.createTd({
+          tdType: headField.type,
+          value: row[headField.name],
+          color: row.color,
+          width: tdWidth,
+          votesPerDot: this.votesPerDot
+        })
+        return tDContent.getTdNode()
+      }
       const tDContent = provinceVisTdFactory.createTd({
-        tdType: headField.type,
+        tdType: 'party',
         value: row[headField.name],
         color: row.color,
         width: tdWidth,
