@@ -1,7 +1,7 @@
 import VotesVisTd from './VotesVisTd.js'
 class VotesVisTdParty extends VotesVisTd {
   constructor (value, color) {
-    super(value)
+    super(value, 'party')
     this.color = color
   }
 

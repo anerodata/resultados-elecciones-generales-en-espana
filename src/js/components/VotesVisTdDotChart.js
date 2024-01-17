@@ -9,7 +9,7 @@ const setupContextAttr = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
   constructor (value, color, width, votesPerDot, tooltipEventSubscriber) {
-    super(value)
+    super(value, 'chart')
     this.dotsNum = Math.round(Number(value / votesPerDot))
     this.color = color
     this.width = width
