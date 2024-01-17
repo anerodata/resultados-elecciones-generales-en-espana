@@ -112,6 +112,21 @@ const elections = [
     fileNames: '198910-198606',
     currentDate: '1989-10-29',
     pastDate: '1986-06-22'
+  },
+  {
+    fileNames: '198606-198210',
+    currentDate: '1986-06-22',
+    pastDate: '1982-10-28'
+  },
+  {
+    fileNames: '198210-197903',
+    currentDate: '1982-10-28',
+    pastDate: '1979-03-01'
+  },
+  {
+    fileNames: '197903-197706',
+    currentDate: '1979-03-01',
+    pastDate: '1977-06-15'
   }
 ]
 const partiesStore = [
@@ -121,7 +136,7 @@ const partiesStore = [
     color: '#E43D32'
   },
   {
-    initials: ['PP', 'P.P.', 'AP-PDP-PL'],
+    initials: ['PP', 'P.P.', 'AP-PDP-PL', 'AP-PDP'],
     defaultName: 'Partido Popular',
     color: '#0157A4'
   },
@@ -264,7 +279,7 @@ const partiesStore = [
     color: '#e51c55'
   },
   {
-    initials: ['IU-UPeC', 'IU-LV', 'I.U.', 'IU'],
+    initials: ['IU-UPeC', 'IU-LV', 'I.U.', 'IU', 'PCE'],
     defaultName: 'Izquierda Unida',
     color: '#cf2e2e'
   },
@@ -297,6 +312,21 @@ const partiesStore = [
     initials: ['HB'],
     defaultName: 'Herri Batasuna',
     color: '#FFA500'
+  },
+  {
+    initials: ['CDS'],
+    defaultName: 'Centro Democrático Social',
+    color: '#FFA500'
+  },
+  {
+    initials: ['UCD'],
+    defaultName: 'Unión de Centro Democrático',
+    color: '#FF6914'
+  },
+  {
+    initials: ['CD'],
+    defaultName: 'Coalición Democrática',
+    color: '#949A2C'
   }
 ]
 export { provinces, elections, partiesStore }
