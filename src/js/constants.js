@@ -299,6 +299,11 @@ const partiesStore = [
     color: '#B50B12'
   },
   {
+    initials: ['EE', 'EA-EUE'],
+    defaultName: 'Euskadiko Ezkerra',
+    color: '#B50B12'
+  },
+  {
     initials: ['aralar'],
     defaultName: 'aralar',
     color: '#C20D0A'
