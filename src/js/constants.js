@@ -388,7 +388,7 @@ const partiesStore = [
     color: 'red'
   },
   {
-    initials: ['F.Ast.**'],
+    initials: ['F.Ast.'],
     defaultName: 'Falange Asturiana',
     color: 'red'
   },
@@ -438,7 +438,7 @@ const partiesStore = [
     color: 'red'
   },
   {
-    initials: ['P.Cant.**'],
+    initials: ['P.Cant.'],
     defaultName: 'Partido Cantonalista',
     color: 'red'
   },
