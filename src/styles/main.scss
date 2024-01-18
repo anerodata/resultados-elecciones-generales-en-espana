@@ -79,8 +79,8 @@ td canvas{
   top: 4px;
   left: 4px;
 }
-td:nth-child(2), th:nth-child(2), td:nth-child(3), th:nth-child(3){
-  width: 45%;
+.vis-table_cell--party, .vis-table_cell--variation {
+  width: 5%;
 }
 button{
   display: block; 
