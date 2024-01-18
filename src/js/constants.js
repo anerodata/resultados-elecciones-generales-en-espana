@@ -314,7 +314,7 @@ const partiesStore = [
     color: '#FFA500'
   },
   {
-    initials: ['CDS'],
+    initials: ['CDS', 'C.D.S.'],
     defaultName: 'Centro Democrático Social',
     color: '#FFA500'
   },
@@ -327,6 +327,186 @@ const partiesStore = [
     initials: ['CD'],
     defaultName: 'Coalición Democrática',
     color: '#949A2C'
+  },
+  {
+    initials: ['FEI', 'FE-I', 'FE (I)'],
+    defaultName: 'FALANGE ESPAÑOLA INDEPENDIENTE',
+    color: 'red'
+  },
+  {
+    initials: ['FEI', 'FE-I', 'FE (I)'],
+    defaultName: 'FALANGE ESPAÑOLA INDEPENDIENTE',
+    color: 'red'
+  },
+  {
+    initials: ['Ud Ca', 'Ud. Ca.', 'Ud.Ca'],
+    defaultName: 'Unidad Castellana',
+    color: 'red'
+  },
+  {
+    initials: [
+      'L.I. (LIT-CI)',
+      'LI (LIT-CI)',
+      'LI-LITCI'
+    ],
+    defaultName: 'Lucha Internacionalista',
+    color: 'red'
+  },
+  {
+    initials: ['PLIB'],
+    defaultName: 'Partido Liberal',
+    color: 'red'
+  },
+  {
+    initials: ['P-LIB'],
+    defaultName: 'Partido Libertario',
+    color: 'red'
+  },
+  {
+    initials: ['I.Fem', 'IFem'],
+    defaultName: 'Iniciativa Feminista',
+    color: 'red'
+  },
+  {
+    initials: ['D.N.', 'DN'],
+    defaultName: 'Democracia Naciona',
+    color: 'red'
+  },
+  {
+    initials: ['EU', 'E U'],
+    defaultName: 'Extremadura Unida',
+    color: 'red'
+  },
+  {
+    initials: ['EB', 'Eb'],
+    defaultName: 'Escaños en Blanco',
+    color: 'red'
+  },
+  {
+    initials: ['FA', 'F.A.'],
+    defaultName: 'Falange Auténtica',
+    color: 'red'
+  },
+  {
+    initials: ['F.Ast.**'],
+    defaultName: 'Falange Asturiana',
+    color: 'red'
+  },
+  {
+    initials: ['CEX', 'CEx'],
+    defaultName: 'Coalición Extremeña',
+    color: 'red'
+  },
+  {
+    initials: ['AxSI', 'AxSÍ'],
+    defaultName: 'ANDALUCÍA POR SÍ',
+    color: 'red'
+  },
+  {
+    initials: ['EV-AV', 'E.V.-A.V'],
+    defaultName: 'ELS VERDS-ALTERNATIVA VERDA',
+    color: 'red'
+  },
+  {
+    initials: ['U.P.N.', 'UPN'],
+    defaultName: 'Unión del Pueblo Navarro',
+    color: 'red'
+  },
+  {
+    initials: ['FIA', 'F.I.A.'],
+    defaultName: 'FEDERACION DE LOS INDEPENDIENTES DE ARAGON',
+    color: 'red'
+  },
+  {
+    initials: ['I.M.C.', 'IMC'],
+    defaultName: 'INICIATIVA MERINDADES DE CASTILLA',
+    color: 'red'
+  },
+  {
+    initials: ['UPL', 'U.P.L.'],
+    defaultName: 'Unión del Pueblo Leonés',
+    color: 'red'
+  },
+  {
+    initials: ['AUN', 'A.u.N.'],
+    defaultName: 'ALIANZA POR LA UNIDAD NACIONAL',
+    color: 'red'
+  },
+  {
+    initials: ['PC', 'PCARL'],
+    defaultName: 'Partido Carlista',
+    color: 'red'
+  },
+  {
+    initials: ['P.Cant.**'],
+    defaultName: 'Partido Cantonalista',
+    color: 'red'
+  },
+  {
+    initials: ['LV-CM', 'LVCM'],
+    defaultName: 'LOS VERDES-COMUNIDAD DE MADRID',
+    color: 'red'
+  },
+  {
+    initials: ['PCE (M-L)', 'PCE (M.L.)'],
+    defaultName: 'PARTIDO COMUNISTA DE ESPAÑA (MARXISTA-LENINISTA)',
+    color: 'red'
+  },
+  {
+    initials: ['NA-BAI', 'Na-Bai'],
+    defaultName: 'NAFARROA BAI',
+    color: 'red'
+  },
+  {
+    initials: ['PCPE', 'P.C.P.E.'],
+    defaultName: 'PARTIDO COMUNISTA DE LOS PUEBLOS DE ESPAÑA',
+    color: 'red'
+  },
+  {
+    initials: ['FEA', 'FE (A)'],
+    defaultName: 'FALANGE ESPAÑOLA AUTÉNTICA',
+    color: 'red'
+  },
+  {
+    initials: ['M.F.E.', 'MFE'],
+    defaultName: 'MOVIMIENTO FALANGISTA DE ESPAÑA',
+    color: 'red'
+  },
+  {
+    initials: ['+MAS+ ', '+MAS+'],
+    defaultName: 'MUERTE AL SISTEMA',
+    color: 'red'
+  },
+  {
+    initials: ['P.RIOJANO', 'P. RIOJANO'],
+    defaultName: 'Partido Riojano',
+    color: 'red'
+  },
+  {
+    initials: ['PPCr', 'PPCR'],
+    defaultName: 'PARTIDO POSITIVISTA CRISTIANO',
+    color: 'red'
+  },
+  {
+    initials: ['U.R.C.L.', 'URCL'],
+    defaultName: 'UNIDAD REGIONALISTA DE CASTILLA Y LEON',
+    color: 'red'
+  },
+  {
+    initials: ['P.R.C.', 'PRC'],
+    defaultName: 'PARTIDO REGIONALISTA DE CANTABRIA',
+    color: 'red'
+  },
+  {
+    initials: ['P.O.S.I.', 'POSI'],
+    defaultName: 'PARTIDO OBRERO SOCIALISTA INTERNACIONALISTA',
+    color: 'red'
+  },
+  {
+    initials: ['P.R.GU.', 'PRGU'],
+    defaultName: 'PARTIDO REGIONALISTA DE GUADALAJARA',
+    color: 'red'
   }
 ]
+
 export { provinces, elections, partiesStore }
