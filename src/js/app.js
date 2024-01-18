@@ -70,7 +70,7 @@ function setupElectionsSelect () {
 
 function getSelectedDatasets (elections) {
   const electionValues = elections.fileNames.split('-')
-  return {
+  const selectedDatasets = {
     past: {
       fileName: electionValues[1],
       date: elections.pastDate
@@ -80,6 +80,7 @@ function getSelectedDatasets (elections) {
       date: elections.currentDate
     }
   }
+  return selectedDatasets
 }
 
 async function getParliamentData () {
@@ -98,7 +99,7 @@ function setupProvinceTable (selectedProvId) {
   const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
   const selProvVotesData = selProvVotesDataBuilder.getVotesData()
   const selProvVotesDataFiltered = selProvVotesData.filter(d => d.votesNum > 0)
-  const votesVisTable = new VotesVisTable({
+  let obj = {
     dataset: selProvVotesDataFiltered,
     idDivMain,
     idTable,
@@ -125,7 +126,34 @@ function setupProvinceTable (selectedProvId) {
         type: 'variation'
       }
     ]
-  })
+  }
+  if (!selectedDatasets.past.fileName) {
+    obj = {
+      dataset: selProvVotesDataFiltered,
+      idDivMain,
+      idTable,
+      votesPerDot: 100,
+      headData: [
+        {
+          name: 'initials',
+          value: votesDataProv.current['Nombre de Provincia'],
+          type: 'party'
+        },
+        {
+          name: 'votesNum',
+          value: getDateInSpanishFormat(selectedDatasets.current.date),
+          type: 'chart'
+        },
+        {
+          name: 'diff',
+          value: 'Variación',
+          type: 'variation'
+        }
+      ]
+    }
+  }
+  console.log(selectedDatasets)
+  const votesVisTable = new VotesVisTable(obj)
   votesVisTable.setupTable()
 }
 
@@ -133,7 +161,7 @@ function filterVotesDataByProv (provinceCode) {
   const votesDataProv = {}
   for (const time in votesData) {
     const filteredDataByProv = votesData[time].find(d => d['Código de Provincia'] === provinceCode)
-    votesDataProv[time] = filteredDataByProv
+    votesDataProv[time] = filteredDataByProv || {}
   }
   return votesDataProv
 }

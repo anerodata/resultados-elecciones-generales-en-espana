@@ -127,6 +127,10 @@ const elections = [
     fileNames: '197903-197706',
     currentDate: '1979-03-01',
     pastDate: '1977-06-15'
+  },
+  {
+    fileNames: '197706',
+    currentDate: '1977-06-15'
   }
 ]
 const partiesStore = [
@@ -136,7 +140,7 @@ const partiesStore = [
     color: '#E43D32'
   },
   {
-    initials: ['PP', 'P.P.', 'AP-PDP-PL', 'AP-PDP'],
+    initials: ['PP', 'P.P.', 'AP-PDP-PL', 'AP-PDP', 'AP'],
     defaultName: 'Partido Popular',
     color: '#0157A4'
   },
@@ -194,7 +198,7 @@ const partiesStore = [
     color: '#0053A1'
   },
   {
-    initials: ['EAJ-PNV'],
+    initials: ['EAJ-PNV', 'PNV'],
     defaultName: 'Partido Nacionalista Vasco',
     color: '#008336'
   },
