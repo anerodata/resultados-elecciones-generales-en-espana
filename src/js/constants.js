@@ -506,7 +506,12 @@ const partiesStore = [
     initials: ['P.R.GU.', 'PRGU'],
     defaultName: 'PARTIDO REGIONALISTA DE GUADALAJARA',
     color: 'red'
-  }
+  },
+  {
+    initials: ['RECORTES CERO', 'RECORTES CE', 'RECORTES CERO-GRUPO VERDE', 'RECORTES CERO-GV'],
+    defaultName: 'Recortes Cero',
+    color: 'red'
+  },
 ]
 
 export { provinces, elections, partiesStore }
