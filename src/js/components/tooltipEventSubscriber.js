@@ -32,7 +32,7 @@ const setTooltipPosition = (x, y) => {
 }
 tooltipEventSubscriber.subscribe('tdDotChartMouseEnter', data => {
   const cipher = getCipherInSpanishFormat(data.value)
-  const htmlContent = `${cipher} <span style="font-weight:normal;">votantes</span>`
+  const htmlContent = `<h3>${data.title}</h3> ${cipher} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(htmlContent)
   tooltip.showTooltipWithColor(data.color)
   setTooltipPosition(data.x, data.y)

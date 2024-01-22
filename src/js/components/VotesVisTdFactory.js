@@ -19,6 +19,7 @@ class VotesVisTdFactory {
       case 'chart':
         return new VotesVisDotChart(
           tdProps.value,
+          tdProps.title,
           tdProps.color,
           tdProps.width,
           tdProps.votesPerDot,

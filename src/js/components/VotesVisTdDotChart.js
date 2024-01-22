@@ -8,9 +8,10 @@ const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor (value, color, width, votesPerDot, tooltipEventSubscriber) {
+  constructor (value, title, color, width, votesPerDot, tooltipEventSubscriber) {
     super(value, 'chart')
     this.dotsNum = Math.round(Number(value / votesPerDot))
+    this.title = title
     this.color = color
     this.width = width
     this.dotWidth = 2
@@ -72,6 +73,7 @@ class VotesVisTdDotChart extends VotesVisTd {
       visualization.addEventListener('mouseenter', (evt) => {
         this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
           value: this.value,
+          title: this.title,
           color: this.color,
           x: evt.pageX,
           y: evt.pageY
