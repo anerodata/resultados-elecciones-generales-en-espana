@@ -3,7 +3,7 @@ import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
-import { getDateInSpanishFormat } from './utils.js'
+import { getDateInSpanishFormat, getCipherInSpanishFormat } from './utils.js'
 
 const defaultSelectedElections = elections[0]
 let selectedDatasets = getSelectedDatasets(defaultSelectedElections)
@@ -113,17 +113,29 @@ function setupProvinceTable (selectedProvId) {
       {
         name: 'votesPreviousNum',
         value: `Elecciones anteriores (${getDateInSpanishFormat(selectedDatasets.past.date)})`,
-        type: 'chart'
+        type: 'chart',
+        getTooltipContent: (row) => {
+          return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesPreviousNum)} votos`
+        }
       },
       {
         name: 'votesNum',
         value: getDateInSpanishFormat(selectedDatasets.current.date),
-        type: 'chart'
+        type: 'chart',
+        getTooltipContent: (row) => {
+          return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesNum)} votos`
+        }
       },
       {
         name: 'diff',
         value: 'Variación',
-        type: 'variation'
+        type: 'variation',
+        getTooltipContent: (row) => {
+          const roundedValue = Math.round(row.diff * 10) / 10
+          const cipher = getCipherInSpanishFormat(roundedValue)
+          const cipherPlusSign = row.diff > 0 ? '+' : ''
+          return `${cipherPlusSign + cipher} %`
+        }
       }
     ]
   }

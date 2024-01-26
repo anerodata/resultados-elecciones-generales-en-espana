@@ -6,17 +6,15 @@ const setupVisualization = new WeakMap()
 const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
-const setupVisualizationEvent = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor (value, title, color, width, votesPerDot, tooltipEventSubscriber) {
-    super(value, 'chart')
+  constructor (value, title, color, width, votesPerDot, getTooltipContent, row) {
+    super(value, 'chart', row, getTooltipContent)
     this.dotsNum = Math.round(Number(value / votesPerDot))
     this.title = title
     this.color = color
     this.width = width
     this.dotWidth = 2
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
-    this.tooltipEventSubscriber = tooltipEventSubscriber
 
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
@@ -68,35 +66,14 @@ class VotesVisTdDotChart extends VotesVisTd {
         el.getAttribute('height')
       )
     })
-
-    setupVisualizationEvent.set(this, (visualization) => {
-      visualization.addEventListener('mouseenter', (evt) => {
-        this.tooltipEventSubscriber.publish('tdDotChartMouseEnter', {
-          value: this.value,
-          title: this.title,
-          color: this.color,
-          x: evt.pageX,
-          y: evt.pageY
-        })
-      })
-      visualization.addEventListener('mousemove', (evt) => {
-        this.tooltipEventSubscriber.publish('tdDotChartMouseMove', {
-          x: evt.pageX,
-          y: evt.pageY
-        })
-      })
-      visualization.addEventListener('mouseleave', () => {
-        this.tooltipEventSubscriber.publish('tdMouseLeave')
-      })
-    })
   }
 
   getTdNode () {
     const customBase = setupCustomBase.get(this)()
     const visualization = setupVisualization.get(this)(customBase)
     const tdContent = super.getTdContent(visualization)
+    super.setTooltipEvents(tdContent)
     tdContent.style.height = `${height}px`
-    setupVisualizationEvent.get(this)(tdContent)
     return tdContent
   }
 }

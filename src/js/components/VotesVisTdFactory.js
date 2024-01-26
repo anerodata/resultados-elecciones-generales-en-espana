@@ -1,4 +1,4 @@
-import VotesVisTdParty from './VotesVisTdParty.js'
+import VotesVisTdText from './VotesVisTdText.js'
 import VotesVisTdVariation from './VotesVisTdVariation.js'
 import VotesVisDotChart from './VotesVisTdDotChart.js'
 import tooltipEventSubscriber from './tooltipEventSubscriber.js'
@@ -7,14 +7,17 @@ class VotesVisTdFactory {
     const { tdType, ...tdProps } = options
     switch (tdType) {
       case 'party':
-        return new VotesVisTdParty(
+        return new VotesVisTdText(
           tdProps.value,
-          tdProps.color
+          tdProps.color,
+          tdProps.tooltipValue,
+          tooltipEventSubscriber
         )
       case 'variation':
         return new VotesVisTdVariation(
           tdProps.value,
-          tooltipEventSubscriber
+          tdProps.getTooltipContent,
+          tdProps.row
         )
       case 'chart':
         return new VotesVisDotChart(
@@ -23,7 +26,8 @@ class VotesVisTdFactory {
           tdProps.color,
           tdProps.width,
           tdProps.votesPerDot,
-          tooltipEventSubscriber
+          tdProps.getTooltipContent,
+          tdProps.row
         )
     }
     throw new Error(`Unknown tdType: ${tdType}`)

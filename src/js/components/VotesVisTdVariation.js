@@ -7,10 +7,10 @@ const setupImg = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 const getDiffSymbolColor = new WeakMap()
 const setupVisualizationEvent = new WeakMap()
+
 class VotesVisTdVariation extends VotesVisTd {
-  constructor (value, tooltipEventSubscriber) {
-    super(value, 'variation')
-    this.tooltipEventSubscriber = tooltipEventSubscriber
+  constructor (value, getTooltipContent, row) {
+    super(value, 'variation', row, getTooltipContent)
     setupImg.set(this, () => {
       const imgNode = document.createElement('img')
       imgNode.src = getDiffSymbolSrc.get(this)()
@@ -60,7 +60,7 @@ class VotesVisTdVariation extends VotesVisTd {
   getTdNode () {
     const imgNode = setupImg.get(this)()
     const tdContent = super.getTdContent(imgNode)
-    setupVisualizationEvent.get(this)(tdContent)
+    super.setTooltipEvents(tdContent)
     return tdContent
   }
 }
