@@ -1,5 +1,6 @@
 import BuilderParliamentData from './data-handling/BuilderParliamentData.js'
 import BuilderSelProvVotesData from './data-handling/BuilderSelProvVotesData.js'
+import ModelTableData from './data-handling/ModelTableData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
@@ -99,73 +100,17 @@ function setupProvinceTable (selectedProvId) {
   const selProvVotesDataBuilder = new BuilderSelProvVotesData(votesDataProv)
   const selProvVotesData = selProvVotesDataBuilder.getVotesData()
   const selProvVotesDataFiltered = selProvVotesData.filter(d => d.votesNum > 0)
-  let obj = {
-    dataset: selProvVotesDataFiltered,
+  const tableData = new ModelTableData({
+    selProvVotesData: selProvVotesDataFiltered,
     idDivMain,
     idTable,
-    votesPerDot: 100,
-    headData: [
-      {
-        name: 'initials',
-        value: votesDataProv.current['Nombre de Provincia'],
-        type: 'party'
-      },
-      {
-        name: 'votesPreviousNum',
-        value: `Elecciones anteriores (${getDateInSpanishFormat(selectedDatasets.past.date)})`,
-        type: 'chart',
-        getTooltipContent: (row) => {
-          return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesPreviousNum)} votos`
-        }
-      },
-      {
-        name: 'votesNum',
-        value: getDateInSpanishFormat(selectedDatasets.current.date),
-        type: 'chart',
-        getTooltipContent: (row) => {
-          return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesNum)} votos`
-        }
-      },
-      {
-        name: 'diff',
-        value: 'Variación',
-        type: 'variation',
-        getTooltipContent: (row) => {
-          const roundedValue = Math.round(row.diff * 10) / 10
-          const cipher = getCipherInSpanishFormat(roundedValue)
-          const cipherPlusSign = row.diff > 0 ? '+' : ''
-          return `${cipherPlusSign + cipher} %`
-        }
-      }
-    ]
+    nombreProv: votesDataProv.current['Nombre de Provincia'],
+    currentDate: selectedDatasets.current.date
+  })
+  if (selectedDatasets.past.fileName) {
+    tableData.setPreviousVotesColumn(selectedDatasets.past.date)
   }
-  if (!selectedDatasets.past.fileName) {
-    obj = {
-      dataset: selProvVotesDataFiltered,
-      idDivMain,
-      idTable,
-      votesPerDot: 100,
-      headData: [
-        {
-          name: 'initials',
-          value: votesDataProv.current['Nombre de Provincia'],
-          type: 'party'
-        },
-        {
-          name: 'votesNum',
-          value: getDateInSpanishFormat(selectedDatasets.current.date),
-          type: 'chart'
-        },
-        {
-          name: 'diff',
-          value: 'Variación',
-          type: 'variation'
-        }
-      ]
-    }
-  }
-  console.log(selectedDatasets)
-  const votesVisTable = new VotesVisTable(obj)
+  const votesVisTable = new VotesVisTable(tableData.data)
   votesVisTable.setupTable()
 }
 
