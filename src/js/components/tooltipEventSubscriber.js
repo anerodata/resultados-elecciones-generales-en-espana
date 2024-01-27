@@ -39,21 +39,8 @@ tooltipEventSubscriber.subscribe('tdMouseMove', data => {
 })
 
 const setTooltipPosition = (x, y) => {
-  setTooltipXPosition(x)
+  tooltip.setTooltipXPosition(x)
   tooltip.setTooltipYPosition(y)
-}
-
-const setTooltipXPosition = x => {
-  if (tooltipIsInLeftPartOfWindow(x)) {
-    tooltip.setTooltipXPositionRight(x)
-    return
-  }
-  tooltip.setTooltipXPositionLeft(x)
-}
-
-const tooltipIsInLeftPartOfWindow = x => {
-  const windowHalfWidth = window.innerWidth / 2
-  return x < windowHalfWidth
 }
 
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {

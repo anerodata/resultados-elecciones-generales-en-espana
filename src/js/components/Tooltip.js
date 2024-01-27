@@ -1,17 +1,34 @@
+const isTooltipInLeftPartOfWindow = new WeakMap()
+const setTooltipXPositionLeft = new WeakMap()
+const setTooltipXPositionRight = new WeakMap()
+
 class Tooltip {
   constructor (id) {
     this.tooltipContainer = document.getElementById(id)
     this.padBetCursorAndTooltip = 10
+
+    setTooltipXPositionLeft.set(this, x => {
+      this.tooltipContainer.style.right = `${window.innerWidth - x + this.padBetCursorAndTooltip}px`
+      this.tooltipContainer.style.left = ''
+    })
+
+    setTooltipXPositionRight.set(this, x => {
+      this.tooltipContainer.style.left = `${x + this.padBetCursorAndTooltip}px`
+      this.tooltipContainer.style.right = ''
+    })
+
+    isTooltipInLeftPartOfWindow.set(this, x => {
+      const windowHalfWidth = window.innerWidth / 2
+      return x < windowHalfWidth
+    })
   }
 
-  setTooltipXPositionLeft (x) {
-    this.tooltipContainer.style.right = `${window.innerWidth - x + this.padBetCursorAndTooltip}px`
-    this.tooltipContainer.style.left = ''
-  }
-
-  setTooltipXPositionRight (x) {
-    this.tooltipContainer.style.left = `${x + this.padBetCursorAndTooltip}px`
-    this.tooltipContainer.style.right = ''
+  setTooltipXPosition (x) {
+    if (isTooltipInLeftPartOfWindow.get(this)(x)) {
+      setTooltipXPositionRight.get(this)(x)
+      return
+    }
+    setTooltipXPositionLeft.get(this)(x)
   }
 
   setTooltipYPosition (y) {
