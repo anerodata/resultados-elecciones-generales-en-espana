@@ -33,19 +33,19 @@ class VoteVisTd {
   }
 
   getTdContent (contentNode) {
-    const container = document.createElement('div')
-    container.classList.add(this.className)
-    container.appendChild(contentNode)
+    const tdContent = document.createElement('div')
+    tdContent.classList.add(this.className)
+    tdContent.appendChild(contentNode)
     if (this.getTooltipContent) {
-      bindEvents.get(this)(container)
+      bindEvents.get(this)(tdContent)
     }
-    return container
+    return tdContent
   }
 
   getTdNode () {
     const contentNode = document.createTextNode(this.value)
-    const content = this.getTdContent(contentNode)
-    return content
+    const tdContent = this.getTdContent(contentNode)
+    return tdContent
   }
 }
 export default VoteVisTd
