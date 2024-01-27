@@ -7,27 +7,11 @@ class VotesVisTdFactory {
     const { tdType, ...tdProps } = options
     switch (tdType) {
       case 'text':
-        return new VotesVisTdText(
-          tdProps.value,
-          tdProps.color,
-          tdProps.getTooltipContent,
-          tdProps.row
-        )
+        return new VotesVisTdText(tdProps)
       case 'variation':
-        return new VotesVisTdVariation(
-          tdProps.value,
-          tdProps.getTooltipContent,
-          tdProps.row
-        )
+        return new VotesVisTdVariation(tdProps)
       case 'chart':
-        return new VotesVisDotChart(
-          tdProps.value,
-          tdProps.color,
-          tdProps.width,
-          tdProps.votesPerDot,
-          tdProps.getTooltipContent,
-          tdProps.row
-        )
+        return new VotesVisDotChart(tdProps)
     }
     throw new Error(`Unknown tdType: ${tdType}`)
   }

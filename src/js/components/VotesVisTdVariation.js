@@ -16,7 +16,7 @@ const setupImg = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 
 class VotesVisTdVariation extends VotesVisTd {
-  constructor (value, getTooltipContent, row) {
+  constructor ({ value, getTooltipContent, row }) {
     super({
       value,
       className: 'variation',
