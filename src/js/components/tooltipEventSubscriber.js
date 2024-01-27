@@ -28,6 +28,16 @@ const tooltipEventSubscriber = (function () {
 
 const tooltip = new Tooltip('tooltip')
 
+tooltipEventSubscriber.subscribe('tdMouseEnter', data => {
+  tooltip.setTooltipContent(data.htmlContent)
+  tooltip.showTooltipWithColor(data.color)
+  setTooltipPosition(data.x, data.y)
+})
+
+tooltipEventSubscriber.subscribe('tdMouseMove', data => {
+  setTooltipPosition(data.x, data.y)
+})
+
 const setTooltipPosition = (x, y) => {
   setTooltipXPosition(x)
   tooltip.setTooltipYPosition(y)
@@ -45,16 +55,6 @@ const tooltipIsInLeftPartOfWindow = x => {
   const windowHalfWidth = window.innerWidth / 2
   return x < windowHalfWidth
 }
-
-tooltipEventSubscriber.subscribe('tdMouseEnter', data => {
-  tooltip.setTooltipContent(data.htmlContent)
-  tooltip.showTooltipWithColor(data.color)
-  setTooltipPosition(data.x, data.y)
-})
-
-tooltipEventSubscriber.subscribe('tdMouseMove', data => {
-  setTooltipPosition(data.x, data.y)
-})
 
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
   tooltip.hideTooltip()
