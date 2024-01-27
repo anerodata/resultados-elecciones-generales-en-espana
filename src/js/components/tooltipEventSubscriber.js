@@ -1,5 +1,5 @@
 import Tooltip from './Tooltip.js'
-import { getCipherInSpanishFormat } from '../utils.js'
+
 const tooltipEventSubscriber = (function () {
   const types = {}
   const hasOwnProperty = types.hasOwnProperty
@@ -25,21 +25,24 @@ const tooltipEventSubscriber = (function () {
     }
   }
 })()
+
 const tooltip = new Tooltip('tooltip')
+
 const setTooltipPosition = (x, y) => {
   tooltip.setTooltipXPositionLeft(x)
   tooltip.setTooltipYPosition(y)
 }
+
 tooltipEventSubscriber.subscribe('tdMouseEnter', data => {
-  // const cipher = getCipherInSpanishFormat(data.value)
-  // const htmlContent = `<h3>${data.title}</h3> ${cipher} <span style="font-weight:normal;">votantes</span>`
   tooltip.setTooltipContent(data.htmlContent)
   tooltip.showTooltipWithColor(data.color)
   setTooltipPosition(data.x, data.y)
 })
+
 tooltipEventSubscriber.subscribe('tdMouseMove', data => {
   setTooltipPosition(data.x, data.y)
 })
+
 tooltipEventSubscriber.subscribe('tdMouseLeave', () => {
   tooltip.hideTooltip()
 })
