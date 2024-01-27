@@ -4,7 +4,7 @@ import ModelTableData from './data-handling/ModelTableData.js'
 import VotesVisTable from './components/VotesVisTable.js'
 import Select from './components/Select.js'
 import { provinces, elections } from './constants.js'
-import { getDateInSpanishFormat, getCipherInSpanishFormat } from './utils.js'
+import { getDateInSpanishFormat } from './utils.js'
 
 const defaultSelectedElections = elections[0]
 let selectedDatasets = getSelectedDatasets(defaultSelectedElections)
