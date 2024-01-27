@@ -1,7 +1,7 @@
 import VotesVisTdText from './VotesVisTdText.js'
 import VotesVisTdVariation from './VotesVisTdVariation.js'
 import VotesVisDotChart from './VotesVisTdDotChart.js'
-import tooltipEventSubscriber from './tooltipEventSubscriber.js'
+
 class VotesVisTdFactory {
   createTd (options) {
     const { tdType, ...tdProps } = options
@@ -10,8 +10,7 @@ class VotesVisTdFactory {
         return new VotesVisTdText(
           tdProps.value,
           tdProps.color,
-          tdProps.tooltipValue,
-          tooltipEventSubscriber
+          tdProps.tooltipValue
         )
       case 'variation':
         return new VotesVisTdVariation(
@@ -22,7 +21,6 @@ class VotesVisTdFactory {
       case 'chart':
         return new VotesVisDotChart(
           tdProps.value,
-          tdProps.title,
           tdProps.color,
           tdProps.width,
           tdProps.votesPerDot,

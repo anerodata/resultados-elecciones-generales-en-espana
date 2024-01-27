@@ -4,10 +4,10 @@ const setupVisualizationEvent = new WeakMap()
 
 class VotesVisTdText extends VotesVisTd {
   constructor (value, color, tooltipValue, tooltipEventSubscriber) {
-    super(value, 'party')
-    this.color = color
+    super({ value, className: 'party', color })
     this.tooltipValue = tooltipValue
     this.tooltipEventSubscriber = tooltipEventSubscriber
+
     setupVisualizationEvent.set(this, (visualization) => {
       visualization.addEventListener('mouseenter', (evt) => {
         this.tooltipEventSubscriber.publish('tdTextMouseEnter', {

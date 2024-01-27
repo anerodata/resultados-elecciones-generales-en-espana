@@ -24,6 +24,7 @@ class VotesVisTdDotChartPositionData {
   constructor (width, dotWidth) {
     this.width = width
     this.dotWidth = dotWidth
+
     dotSeparator.set(this, () => dotWidth < 3 ? 1 : dotWidth / 3)
     blockSeparator.set(this, () => dotWidth < 3 ? 10 : dotWidth / 3 * 10)
     xDot = 0
