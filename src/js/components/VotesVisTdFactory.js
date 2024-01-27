@@ -6,7 +6,7 @@ class VotesVisTdFactory {
   createTd (options) {
     const { tdType, ...tdProps } = options
     switch (tdType) {
-      case 'party':
+      case 'text':
         return new VotesVisTdText(
           tdProps.value,
           tdProps.color,

@@ -11,7 +11,7 @@ class ModelTableData {
         {
           name: 'initials',
           value: nombreProv,
-          type: 'party',
+          type: 'text',
           getTooltipContent: (row) => {
             return row.nombre
           }
