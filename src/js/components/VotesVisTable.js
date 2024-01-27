@@ -113,7 +113,8 @@ class VotesVisTable {
       const tDContent = provinceVisTdFactory.createTd({
         tdType: 'party',
         value: `${row[headField.name]} votos`,
-        color: row.color
+        color: row.color,
+        row
       })
       return tDContent.getTdNode()
     })

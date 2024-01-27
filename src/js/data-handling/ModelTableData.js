@@ -11,14 +11,17 @@ class ModelTableData {
         {
           name: 'initials',
           value: nombreProv,
-          type: 'party'
+          type: 'party',
+          getTooltipContent: (row) => {
+            return row.nombre
+          }
         },
         {
           name: 'votesNum',
           value: getDateInSpanishFormat(currentDate),
           type: 'chart',
           getTooltipContent: (row) => {
-            return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesNum)} votos`
+            return `${getCipherInSpanishFormat(row.votesNum)} votos`
           }
         },
         {
@@ -42,7 +45,7 @@ class ModelTableData {
       value: `Elecciones anteriores (${getDateInSpanishFormat(pastDate)})`,
       type: 'chart',
       getTooltipContent: (row) => {
-        return `<h3>${row.nombre}</h3> ${getCipherInSpanishFormat(row.votesPreviousNum)} votos`
+        return `${getCipherInSpanishFormat(row.votesPreviousNum)} votos`
       }
     })
   }

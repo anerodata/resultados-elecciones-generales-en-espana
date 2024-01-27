@@ -10,7 +10,8 @@ class VotesVisTdFactory {
         return new VotesVisTdText(
           tdProps.value,
           tdProps.color,
-          tdProps.tooltipValue
+          tdProps.getTooltipContent,
+          tdProps.row
         )
       case 'variation':
         return new VotesVisTdVariation(
