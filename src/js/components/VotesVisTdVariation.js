@@ -45,7 +45,6 @@ class VotesVisTdVariation extends VotesVisTd {
   getTdNode () {
     const imgNode = setupImg.get(this)()
     const tdContent = super.getTdContent(imgNode)
-    super.setTooltipEvents(tdContent)
     return tdContent
   }
 }

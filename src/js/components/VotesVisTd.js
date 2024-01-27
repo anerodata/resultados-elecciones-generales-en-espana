@@ -36,6 +36,9 @@ class VoteVisTd {
     const container = document.createElement('div')
     container.classList.add(this.className)
     container.appendChild(contentNode)
+    if (this.getTooltipContent) {
+      bindEvents.get(this)(container)
+    }
     return container
   }
 
@@ -43,12 +46,6 @@ class VoteVisTd {
     const contentNode = document.createTextNode(this.value)
     const content = this.getTdContent(contentNode)
     return content
-  }
-
-  setTooltipEvents (tdContent) {
-    if (this.getTooltipContent) {
-      bindEvents.get(this)(tdContent)
-    }
   }
 }
 export default VoteVisTd

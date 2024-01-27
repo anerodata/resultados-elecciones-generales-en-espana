@@ -10,7 +10,6 @@ class VotesVisTdText extends VotesVisTd {
     const tdContent = super.getTdContent(textNode)
     tdContent.style.fontWeight = 'bold'
     tdContent.style.color = `${this.color}`
-    super.setTooltipEvents(tdContent)
     return tdContent
   }
 }

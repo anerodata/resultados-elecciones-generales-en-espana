@@ -70,7 +70,6 @@ class VotesVisTdDotChart extends VotesVisTd {
     const customBase = setupCustomBase.get(this)()
     const visualization = setupVisualization.get(this)(customBase)
     const tdContent = super.getTdContent(visualization)
-    super.setTooltipEvents(tdContent)
     tdContent.style.height = `${height}px`
     return tdContent
   }
