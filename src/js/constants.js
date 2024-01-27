@@ -523,4 +523,6 @@ const partiesStore = [
   }
 ]
 
-export { provinces, elections, partiesStore }
+const defaultColor = 'grey'
+
+export { provinces, elections, partiesStore, defaultColor }

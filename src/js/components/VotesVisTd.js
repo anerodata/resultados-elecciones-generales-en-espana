@@ -1,3 +1,4 @@
+import { defaultColor } from '../constants.js'
 import tooltipEventSubscriber from './tooltipEventSubscriber.js'
 
 const bindEvents = new WeakMap()
@@ -8,7 +9,7 @@ class VoteVisTd {
     this.className = className
     this.row = row
     this.getTooltipContent = getTooltipContent
-    this.color = color || 'black'
+    this.color = color || defaultColor
 
     bindEvents.set(this, (tdContent) => {
       tdContent.addEventListener('mouseenter', (evt) => {
