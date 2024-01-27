@@ -29,8 +29,20 @@ const tooltipEventSubscriber = (function () {
 const tooltip = new Tooltip('tooltip')
 
 const setTooltipPosition = (x, y) => {
-  tooltip.setTooltipXPositionLeft(x)
+  setTooltipXPosition(x)
   tooltip.setTooltipYPosition(y)
+}
+
+const setTooltipXPosition = x => {
+  if (tooltipIsInLeftPartOfWindow(x)) {
+    tooltip.setTooltipXPositionRight(x)
+    return
+  }
+  tooltip.setTooltipXPositionLeft(x)
+}
+
+const tooltipIsInLeftPartOfWindow = x => {
+  return x < window.innerWidth / 2
 }
 
 tooltipEventSubscriber.subscribe('tdMouseEnter', data => {

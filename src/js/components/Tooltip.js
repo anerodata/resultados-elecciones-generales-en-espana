@@ -1,15 +1,16 @@
 class Tooltip {
   constructor (id) {
     this.tooltipContainer = document.getElementById(id)
+    this.padBetCursorAndTooltip = 15
   }
 
   setTooltipXPositionLeft (x) {
-    this.tooltipContainer.style.right = window.innerWidth - x + 'px'
+    this.tooltipContainer.style.right = window.innerWidth - x + this.padBetCursorAndTooltip + 'px'
     this.tooltipContainer.style.left = ''
   }
 
   setTooltipXPositionRight (x) {
-    this.tooltipContainer.style.left = x + 'px'
+    this.tooltipContainer.style.left = x + this.padBetCursorAndTooltip + 'px'
     this.tooltipContainer.style.right = ''
   }
 
