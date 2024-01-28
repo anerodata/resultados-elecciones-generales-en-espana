@@ -14,4 +14,11 @@ function getDateInSpanishFormat (date) {
     year: 'numeric'
   })
 }
-export { createNodeWithText, getCipherInSpanishFormat, getDateInSpanishFormat }
+function setupTimeout () {
+  let timeout
+  return (callback, ms) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(callback, ms)
+  }
+}
+export { createNodeWithText, getCipherInSpanishFormat, getDateInSpanishFormat, setupTimeout }

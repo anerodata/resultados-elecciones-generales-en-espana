@@ -1,5 +1,5 @@
 import VotesVisTdFactory from './VotesVisTdFactory.js'
-import { createNodeWithText, getCipherInSpanishFormat } from '../utils.js'
+import { createNodeWithText, getCipherInSpanishFormat, setupTimeout } from '../utils.js'
 
 const getTableHead = new WeakMap()
 const getTableBody = new WeakMap()
@@ -11,6 +11,8 @@ const getTdContentChart = new WeakMap()
 const feedNoChartTd = new WeakMap()
 const feedChartTd = new WeakMap()
 const provinceVisTdFactory = new VotesVisTdFactory()
+const setupResizeEvent = new WeakMap()
+const clearTdCharts = new WeakMap()
 
 const setTableParagraph = new WeakMap()
 const getCipherTableParagraph = new WeakMap()
@@ -87,9 +89,9 @@ class VotesVisTable {
 
     feedChartTd.set(this, (trs) => {
       trs.forEach((tr, i) => {
-        const tdsNotVis = tr.querySelectorAll('td.vis-table_cell--chart')
+        const tdsVis = tr.querySelectorAll('td.vis-table_cell--chart')
         const headChart = this.headData.filter(headField => headField.type === 'chart')
-        tdsNotVis.forEach((td, j) => {
+        tdsVis.forEach((td, j) => {
           const tdContent = getTdContentChart.get(this)(this.dataset[i], headChart[j], td.clientWidth)
           td.appendChild(tdContent)
         })
@@ -117,6 +119,7 @@ class VotesVisTable {
       })
       return tDContent.getTdNode()
     })
+
     setTableParagraph.set(this, () => {
       const firstElement = this.tableContainer.firstElementChild
       const cipher = getCipherTableParagraph.get(this)()
@@ -124,9 +127,28 @@ class VotesVisTable {
       const pElement = createNodeWithText('p', text)
       this.tableContainer.insertBefore(pElement, firstElement)
     })
+
     getCipherTableParagraph.set(this, () => {
       const votesPerSquare = this.votesPerDot * 100
       return getCipherInSpanishFormat(votesPerSquare)
+    })
+
+    clearTdCharts.set(this, () => {
+      const tdCharts = this.tableContainer.querySelectorAll('.vis-table_cell--chart')
+      tdCharts.forEach(tdChart => {
+        tdChart.innerHTML = ''
+      })
+    })
+
+    setupResizeEvent.set(this, (trs) => {
+      const timeout = setupTimeout()
+      window.onresize = () => {
+        timeout(() => {
+          console.log('resize')
+          clearTdCharts.get(this)()
+          feedChartTd.get(this)(trs)
+        }, 500)
+      }
     })
   }
 
@@ -143,6 +165,7 @@ class VotesVisTable {
     feedNoChartTd.get(this)(trs)
     feedChartTd.get(this)(trs)
     setTableParagraph.get(this)()
+    setupResizeEvent.get(this)(trs)
   }
 }
 export default VotesVisTable

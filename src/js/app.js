@@ -123,9 +123,4 @@ function filterVotesDataByProv (provinceCode) {
   return votesDataProv
 }
 
-window.onresize = function () {
-  const selectedProvId = provinceSelect.value.code
-  setupProvinceTable(selectedProvId)
-}
-
 export default app
