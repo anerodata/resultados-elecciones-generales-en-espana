@@ -82,6 +82,9 @@ td canvas{
 .vis-table_cell--text, .vis-table_cell--variation {
   width: 1%;
 }
+.vis-table_cell--text, .vis-table_cell--chart .text {
+  padding: 0px 10px;
+}
 button{
   display: block; 
   margin: 10px auto; 

@@ -9,8 +9,9 @@ const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor ({ valueKey, row, color, getTooltipContent, className, width, votesPerDot }) {
-    super({ valueKey, row, color, getTooltipContent, className })
+  constructor ({ valueKey, row, color, getTooltipContent, tdType, width, votesPerDot }) {
+    console.log(tdType)
+    super({ valueKey, row, color, getTooltipContent, tdType })
     this.dotsNum = Math.round(Number(this.value / votesPerDot))
     this.width = width
     this.dotWidth = 2
