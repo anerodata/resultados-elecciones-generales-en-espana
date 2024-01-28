@@ -520,6 +520,11 @@ const partiesStore = [
     initials: ['RECORTES CERO', 'RECORTES CE', 'RECORTES CERO-GRUPO VERDE', 'RECORTES CERO-GV'],
     defaultName: 'Recortes Cero',
     color: undefined
+  },
+  {
+    initials: ['E-2000', 'ESPAÑA 2000'],
+    defaultName: 'España 2000',
+    color: undefined
   }
 ]
 
