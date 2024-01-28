@@ -7,9 +7,9 @@ const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor ({ value, row, color, getTooltipContent, className, width, votesPerDot }) {
-    super({ value, row, color, getTooltipContent, className })
-    this.dotsNum = Math.round(Number(value / votesPerDot))
+  constructor ({ valueKey, row, color, getTooltipContent, className, width, votesPerDot }) {
+    super({ valueKey, row, color, getTooltipContent, className })
+    this.dotsNum = Math.round(Number(this.value / votesPerDot))
     this.width = width
     this.dotWidth = 2
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)

@@ -16,11 +16,11 @@ const setupImg = new WeakMap()
 const getDiffSymbolSrc = new WeakMap()
 
 class VotesVisTdVariation extends VotesVisTd {
-  constructor ({ value, row, getTooltipContent, className }) {
+  constructor ({ valueKey, row, getTooltipContent, className }) {
     super({
-      value,
+      valueKey,
       row,
-      color: getDiffSymbolColor(value),
+      color: getDiffSymbolColor(row[valueKey]),
       getTooltipContent,
       className
     })

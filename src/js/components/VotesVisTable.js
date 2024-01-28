@@ -77,7 +77,7 @@ class VotesVisTable {
     getTdContentNoChart.set(this, (row, headField) => {
       const tDContent = provinceVisTdFactory.createTd({
         tdType: headField.type,
-        value: row[headField.name],
+        valueKey: headField.name,
         row,
         color: row.color,
         getTooltipContent: headField.getTooltipContent
@@ -100,7 +100,7 @@ class VotesVisTable {
       if (row[headField.name] > 0) {
         const tDContent = provinceVisTdFactory.createTd({
           tdType: headField.type,
-          value: row[headField.name],
+          valueKey: headField.name,
           row,
           color: row.color,
           getTooltipContent: headField.getTooltipContent,
@@ -111,7 +111,7 @@ class VotesVisTable {
       }
       const tDContent = provinceVisTdFactory.createTd({
         tdType: 'text',
-        value: `${row[headField.name]} votos`,
+        valueKey: headField.name,
         row,
         color: row.color
       })

@@ -4,8 +4,8 @@ import tooltipEventSubscriber from './tooltipEventSubscriber.js'
 const bindEvents = new WeakMap()
 
 class VoteVisTd {
-  constructor ({ value, row, color, getTooltipContent, className }) {
-    this.value = value
+  constructor ({ valueKey, row, color, getTooltipContent, className }) {
+    this.value = row[valueKey]
     this.className = className
     this.row = row
     this.getTooltipContent = getTooltipContent
