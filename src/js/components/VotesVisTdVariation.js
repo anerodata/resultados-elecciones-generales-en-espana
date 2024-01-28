@@ -24,6 +24,7 @@ class VotesVisTdVariation extends VotesVisTd {
       getTooltipContent,
       className
     })
+
     setupImg.set(this, () => {
       const imgNode = document.createElement('img')
       imgNode.src = getDiffSymbolSrc.get(this)()
@@ -31,6 +32,7 @@ class VotesVisTdVariation extends VotesVisTd {
       imgNode.setAttribute('data-num', this.value)
       return imgNode
     })
+
     getDiffSymbolSrc.set(this, () => {
       if (this.value > 0) {
         return up

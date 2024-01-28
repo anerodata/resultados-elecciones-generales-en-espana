@@ -1,11 +1,13 @@
 import VotesVisTd from './VotesVisTd.js'
 import VotesVisTdDotChartPositionBuilder from './VotesVisTdDotChartPositionBuilder.js'
+
 let height = 0
 const setupCustomBase = new WeakMap()
 const setupVisualization = new WeakMap()
 const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
+
 class VotesVisTdDotChart extends VotesVisTd {
   constructor ({ valueKey, row, color, getTooltipContent, className, width, votesPerDot }) {
     super({ valueKey, row, color, getTooltipContent, className })
