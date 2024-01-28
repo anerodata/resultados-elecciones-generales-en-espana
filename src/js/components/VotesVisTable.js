@@ -78,10 +78,9 @@ class VotesVisTable {
       const tDContent = provinceVisTdFactory.createTd({
         tdType: headField.type,
         value: row[headField.name],
-        getTooltipContent: headField.getTooltipContent,
         row,
-        tooltipValue: row[headField.tooltipValue],
-        color: row.color
+        color: row.color,
+        getTooltipContent: headField.getTooltipContent
       })
       return tDContent.getTdNode()
     })
@@ -102,9 +101,9 @@ class VotesVisTable {
         const tDContent = provinceVisTdFactory.createTd({
           tdType: headField.type,
           value: row[headField.name],
-          getTooltipContent: headField.getTooltipContent,
           row,
           color: row.color,
+          getTooltipContent: headField.getTooltipContent,
           width: tdWidth,
           votesPerDot: this.votesPerDot
         })
@@ -113,8 +112,8 @@ class VotesVisTable {
       const tDContent = provinceVisTdFactory.createTd({
         tdType: 'text',
         value: `${row[headField.name]} votos`,
-        color: row.color,
-        row
+        row,
+        color: row.color
       })
       return tDContent.getTdNode()
     })
