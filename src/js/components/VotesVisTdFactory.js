@@ -4,8 +4,7 @@ import VotesVisDotChart from './VotesVisTdDotChart.js'
 
 class VotesVisTdFactory {
   createTd (options) {
-    const { tdType, ...tdProps } = options
-    switch (tdType) {
+    switch (options.tdType) {
       case 'text':
         return new VotesVisTdText(options)
       case 'variation':
