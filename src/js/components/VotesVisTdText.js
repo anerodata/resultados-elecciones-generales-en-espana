@@ -1,8 +1,8 @@
 import VotesVisTd from './VotesVisTd.js'
 
 class VotesVisTdText extends VotesVisTd {
-  constructor ({ value, row, color, getTooltipContent }) {
-    super({ value, row, color, getTooltipContent, className: 'party' })
+  constructor ({ value, row, color, getTooltipContent, className }) {
+    super({ value, row, color, getTooltipContent, className })
   }
 
   getTdNode () {
