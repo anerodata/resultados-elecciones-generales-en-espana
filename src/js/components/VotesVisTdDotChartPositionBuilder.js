@@ -25,8 +25,8 @@ class VotesVisTdDotChartPositionData {
     this.width = width
     this.dotWidth = dotWidth
 
-    dotSeparator.set(this, () => dotWidth < 3 ? 1 : dotWidth / 3)
-    blockSeparator.set(this, () => dotWidth < 3 ? 10 : dotWidth / 3 * 10)
+    dotSeparator.set(this, () => 1)
+    blockSeparator.set(this, () => 10)
     xDot = 0
     yDot = 0
     xBlock = 0
@@ -69,9 +69,7 @@ class VotesVisTdDotChartPositionData {
     })
 
     isDotInNewBlockBehindCurrent.set(this, () => {
-      const blockSidePlusSep = getBlockSide.get(this)() + blockSeparator.get(this)()
-      const dotSidePlusSep = this.dotWidth * 10 + blockSeparator.get(this)()
-      return xBlock + blockSidePlusSep + dotSidePlusSep > this.width
+      return xBlock + getBlockSide.get(this)() * 2 > this.width
     })
 
     setDotPosInNewBlockBehindCurrent.set(this, () => {
@@ -88,7 +86,7 @@ class VotesVisTdDotChartPositionData {
     })
 
     getBlockSide.set(this, () => {
-      return this.dotWidth * 12 + blockSeparator.get(this)()
+      return this.dotWidth * 10 + dotSeparator.get(this)() * 10 + blockSeparator.get(this)()
     })
 
     setDotPosNextToCurrent.set(this, () => {

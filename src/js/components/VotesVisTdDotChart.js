@@ -10,11 +10,10 @@ const setupContextAttr = new WeakMap()
 
 class VotesVisTdDotChart extends VotesVisTd {
   constructor ({ valueKey, row, color, getTooltipContent, tdType, width, votesPerDot }) {
-    console.log(tdType)
     super({ valueKey, row, color, getTooltipContent, tdType })
     this.dotsNum = Math.round(Number(this.value / votesPerDot))
     this.width = width
-    this.dotWidth = 2
+    this.dotWidth = 10
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
 
     setupCustomBase.set(this, () => {
@@ -28,6 +27,7 @@ class VotesVisTdDotChart extends VotesVisTd {
         customDot.setAttribute('width', `${this.dotWidth}`)
         customDot.setAttribute('height', `${this.dotWidth}`)
         customDot.setAttribute('fillStyle', this.color)
+        customDot.setAttribute('opacity', 0.8)
         customDot.classList.add('square')
         customBase.appendChild(customDot)
       }
@@ -60,6 +60,7 @@ class VotesVisTdDotChart extends VotesVisTd {
 
     setupContextAttr.set(this, (context, el) => {
       context.fillStyle = el.getAttribute('fillStyle')
+      context.globalAlpha = el.getAttribute('opacity')
       context.fillRect(
         el.getAttribute('x'),
         el.getAttribute('y'),
