@@ -6,7 +6,7 @@ class ModelTableData {
       dataset: selProvVotesData,
       idDivMain,
       idTable,
-      votesPerDot: 100,
+      votesPerDot: 1000,
       headData: [
         {
           name: 'initials',

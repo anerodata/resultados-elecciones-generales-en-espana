@@ -99,7 +99,7 @@ class VotesVisTable {
     })
 
     getTdContentChart.set(this, (row, headField, tdWidth) => {
-      if (row[headField.name] > 0) {
+      if (row[headField.name] >= 1000) {
         const tDContent = provinceVisTdFactory.createTd({
           tdType: headField.type,
           valueKey: headField.name,
