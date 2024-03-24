@@ -9,11 +9,11 @@ const setupContext = new WeakMap()
 const setupContextAttr = new WeakMap()
 
 class VotesVisTdDotChart extends VotesVisTd {
-  constructor ({ valueKey, row, color, getTooltipContent, tdType, width, votesPerDot }) {
+  constructor ({ valueKey, row, color, getTooltipContent, tdType, width, votesPerDot, dotWidth }) {
     super({ valueKey, row, color, getTooltipContent, tdType })
     this.dotsNum = Math.round(Number(this.value / votesPerDot))
     this.width = width
-    this.dotWidth = 10
+    this.dotWidth = dotWidth
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
 
     setupCustomBase.set(this, () => {

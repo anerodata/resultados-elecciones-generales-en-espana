@@ -107,7 +107,8 @@ class VotesVisTable {
           color: row.color,
           getTooltipContent: headField.getTooltipContent,
           width: tdWidth,
-          votesPerDot: this.votesPerDot
+          votesPerDot: this.votesPerDot,
+          dotWidth: 9
         })
         return tDContent.getTdNode()
       }
