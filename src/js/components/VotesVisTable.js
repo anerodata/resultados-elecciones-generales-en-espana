@@ -99,24 +99,15 @@ class VotesVisTable {
     })
 
     getTdContentChart.set(this, (row, headField, tdWidth) => {
-      if (row[headField.name] >= 1000) {
-        const tDContent = provinceVisTdFactory.createTd({
-          tdType: headField.type,
-          valueKey: headField.name,
-          row,
-          color: row.color,
-          getTooltipContent: headField.getTooltipContent,
-          width: tdWidth,
-          votesPerDot: this.votesPerDot,
-          dotWidth: 9
-        })
-        return tDContent.getTdNode()
-      }
       const tDContent = provinceVisTdFactory.createTd({
-        tdType: 'text',
+        tdType: headField.type,
         valueKey: headField.name,
         row,
-        color: row.color
+        color: row.color,
+        getTooltipContent: headField.getTooltipContent,
+        width: tdWidth,
+        votesPerDot: this.votesPerDot,
+        dotWidth: 9
       })
       return tDContent.getTdNode()
     })
