@@ -3,6 +3,8 @@ import VotesVisTdDotChartPositionBuilder from './VotesVisTdDotChartPositionBuild
 
 let height = 0
 const setupCustomBase = new WeakMap()
+const getCustomDotElement = new WeakMap()
+const setCurrentPosition = new WeakMap()
 const setupVisualization = new WeakMap()
 const setupCanvas = new WeakMap()
 const setupContext = new WeakMap()
@@ -11,7 +13,8 @@ const setupContextAttr = new WeakMap()
 class VotesVisTdDotChart extends VotesVisTd {
   constructor ({ valueKey, row, color, getTooltipContent, tdType, width, votesPerDot, dotWidth }) {
     super({ valueKey, row, color, getTooltipContent, tdType })
-    this.dotsNum = Math.round(Number(this.value / votesPerDot))
+    this.dotsNum = Math.ceil(this.value / votesPerDot)
+    this.dotsNumDecimalPart = (this.value / votesPerDot) % 1
     this.width = width
     this.dotWidth = dotWidth
     this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
@@ -19,20 +22,33 @@ class VotesVisTdDotChart extends VotesVisTd {
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
       for (let i = 0; i < this.dotsNum; i++) {
-        const customDot = document.createElement('custom')
-        this.posData.setCurrentPosition(i)
-        const currentCoord = this.posData.getCurrentPosition(i)
-        customDot.setAttribute('x', currentCoord.x)
-        customDot.setAttribute('y', currentCoord.y)
-        customDot.setAttribute('width', `${this.dotWidth}`)
-        customDot.setAttribute('height', `${this.dotWidth}`)
-        customDot.setAttribute('fillStyle', this.color)
-        customDot.setAttribute('opacity', 0.8)
-        customDot.classList.add('square')
+        const customDot = getCustomDotElement.get(this)(i)
         customBase.appendChild(customDot)
       }
       height = this.posData.getChartHeight()
       return customBase
+    })
+
+    getCustomDotElement.set(this, (i) => {
+      setCurrentPosition.get(this)(i)
+      const customDot = document.createElement('custom')
+      const currentCoord = this.posData.getCurrentPosition(i)
+      customDot.setAttribute('x', currentCoord.x)
+      customDot.setAttribute('y', currentCoord.y)
+      customDot.setAttribute('width', `${currentCoord.width}`)
+      customDot.setAttribute('height', `${this.dotWidth}`)
+      customDot.setAttribute('fillStyle', this.color)
+      customDot.setAttribute('opacity', 0.8)
+      customDot.classList.add('square')
+      return customDot
+    })
+
+    setCurrentPosition.set(this, (i) => {
+      if (i === this.dotsNum - 1) {
+        this.posData.setCurrentPosition(this.dotsNumDecimalPart)
+        return
+      }
+      this.posData.setCurrentPosition(i)
     })
 
     setupVisualization.set(this, (customBase) => {

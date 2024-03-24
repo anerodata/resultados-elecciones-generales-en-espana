@@ -1,5 +1,6 @@
 let xDot
 let yDot
+const widthDot = new WeakMap()
 let xBlock
 let yBlock
 let countRow
@@ -95,6 +96,7 @@ class VotesVisTdDotChartPositionData {
   }
 
   setCurrentPosition (dotIndex) {
+    this.setDotWidth(dotIndex)
     if (dotIndex === 0) return
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
@@ -111,8 +113,17 @@ class VotesVisTdDotChartPositionData {
     setDotPosNextToCurrent.get(this)()
   }
 
+  setDotWidth (dotIndex) {
+    widthDot.set(this, () => {
+      if (dotIndex % 1 === 0) {
+        return this.dotWidth
+      }
+      return dotIndex * this.dotWidth
+    })
+  }
+
   getCurrentPosition () {
-    return { x: xDot, y: yDot }
+    return { x: xDot, y: yDot, width: widthDot.get(this)() }
   }
 
   getChartHeight () {
