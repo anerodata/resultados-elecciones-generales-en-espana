@@ -26,7 +26,7 @@ class VotesVisTdDotChartPositionData {
     this.dotWidth = dotWidth
 
     dotSeparator.set(this, () => 1)
-    blockSeparator.set(this, () => 10)
+    blockSeparator.set(this, () => dotWidth / 10 * 10)
     xDot = 0
     yDot = 0
     xBlock = 0
