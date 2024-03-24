@@ -8,6 +8,7 @@ let countBlock
 const dotSeparator = new WeakMap()
 const blockSeparator = new WeakMap()
 
+const isFirstDotOfChart = new WeakMap()
 const addOneToCountRowBlock = new WeakMap()
 const isDotInNewRow = new WeakMap()
 const restartCountRow = new WeakMap()
@@ -22,9 +23,10 @@ const setDotPosInNewBlockNextToCurrent = new WeakMap()
 const getBlockSide = new WeakMap()
 const setDotPosNextToCurrent = new WeakMap()
 class VotesVisTdDotChartPositionData {
-  constructor (width, dotWidth) {
+  constructor (width, dotWidth, dotsNum) {
     this.width = width
     this.dotWidth = dotWidth
+    this.dotsNum = dotsNum
 
     dotSeparator.set(this, () => 1)
     blockSeparator.set(this, () => dotWidth / 10 * 10)
@@ -34,6 +36,10 @@ class VotesVisTdDotChartPositionData {
     yBlock = 0
     countRow = 0
     countBlock = 0
+
+    isFirstDotOfChart.set(this, (dotIndex) => {
+      return dotIndex === 1 || this.dotsNum === 1
+    })
 
     addOneToCountRowBlock.set(this, () => {
       countRow += 1
@@ -97,7 +103,9 @@ class VotesVisTdDotChartPositionData {
 
   setCurrentPosition (dotIndex) {
     this.setDotWidth(dotIndex)
-    if (dotIndex === 0) return
+    if (isFirstDotOfChart.get(this)(dotIndex)) {
+      return
+    }
     addOneToCountRowBlock.get(this)()
     if (isDotInNewRow.get(this)()) {
       restartCountRow.get(this)()

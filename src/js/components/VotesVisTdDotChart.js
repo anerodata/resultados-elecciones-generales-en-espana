@@ -17,11 +17,12 @@ class VotesVisTdDotChart extends VotesVisTd {
     this.dotsNumDecimalPart = (this.value / votesPerDot) % 1
     this.width = width
     this.dotWidth = dotWidth
-    this.posData = new VotesVisTdDotChartPositionBuilder(width, this.dotWidth)
+    this.posData = new VotesVisTdDotChartPositionBuilder(this.width, this.dotWidth, this.dotsNum)
 
     setupCustomBase.set(this, () => {
       const customBase = document.createElement('custom')
-      for (let i = 0; i < this.dotsNum; i++) {
+      console.log(this.dotsNum, this.dotsNumDecimalPart)
+      for (let i = 1; i <= this.dotsNum; i++) {
         const customDot = getCustomDotElement.get(this)(i)
         customBase.appendChild(customDot)
       }
@@ -44,7 +45,7 @@ class VotesVisTdDotChart extends VotesVisTd {
     })
 
     setCurrentPosition.set(this, (i) => {
-      if (i === this.dotsNum - 1) {
+      if (i === this.dotsNum) {
         this.posData.setCurrentPosition(this.dotsNumDecimalPart)
         return
       }
