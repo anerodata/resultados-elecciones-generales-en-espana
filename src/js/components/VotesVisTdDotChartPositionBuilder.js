@@ -21,7 +21,7 @@ const isDotInNewBlockBehindCurrent = new WeakMap()
 const setDotPosInNewBlockBehindCurrent = new WeakMap()
 const setDotPosInNewBlockNextToCurrent = new WeakMap()
 const getBlockSide = new WeakMap()
-const setDotPosNextToCurrent = new WeakMap()
+const setDotPosDownCurrent = new WeakMap()
 class VotesVisTdDotChartPositionData {
   constructor (width, dotWidth, dotsNum) {
     this.width = width
@@ -55,8 +55,8 @@ class VotesVisTdDotChartPositionData {
     })
 
     setDotPosInNewRow.set(this, () => {
-      xDot = xBlock
-      yDot += this.dotWidth + dotSeparator.get(this)()
+      yDot = yBlock
+      xDot += this.dotWidth + dotSeparator.get(this)()
     })
 
     isDotInNewBlock.set(this, () => {
@@ -96,8 +96,8 @@ class VotesVisTdDotChartPositionData {
       return this.dotWidth * 10 + dotSeparator.get(this)() * 10 + blockSeparator.get(this)()
     })
 
-    setDotPosNextToCurrent.set(this, () => {
-      xDot += this.dotWidth + dotSeparator.get(this)()
+    setDotPosDownCurrent.set(this, () => {
+      yDot += this.dotWidth + dotSeparator.get(this)()
     })
   }
 
@@ -118,7 +118,7 @@ class VotesVisTdDotChartPositionData {
       setDotPosInNewBlock.get(this)()
       return
     }
-    setDotPosNextToCurrent.get(this)()
+    setDotPosDownCurrent.get(this)()
   }
 
   setDotWidth (dotIndex) {
